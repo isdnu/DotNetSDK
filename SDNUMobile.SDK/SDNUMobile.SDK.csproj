@@ -34,11 +34,36 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Entity\CampusType.cs" />
+    <Compile Include="Entity\Classroom\ClassroomAvailable.cs" />
+    <Compile Include="Entity\Library\LibraryArrearInfo.cs" />
+    <Compile Include="Entity\Library\LibraryBorrowInfo.cs" />
+    <Compile Include="Entity\Library\LibraryIllegalInfo.cs" />
+    <Compile Include="Entity\Poi\AreaType.cs" />
+    <Compile Include="Entity\Bathroom\BathroomUsageAmount.cs" />
+    <Compile Include="Entity\Bathroom\BathroomInfo.cs" />
+    <Compile Include="Entity\Bathroom\BathroomUsageAmounts.cs" />
+    <Compile Include="Entity\Bus\BusInfo.cs" />
+    <Compile Include="Entity\Card\CardInfo.cs" />
+    <Compile Include="Entity\Card\CardJournal.cs" />
+    <Compile Include="Entity\Classroom\ClassroomInfo.cs" />
+    <Compile Include="Entity\People\PeopleInfo.cs" />
+    <Compile Include="Entity\Poi\SchoolPosition.cs" />
+    <Compile Include="Entity\User\UserInfo.cs" />
+    <Compile Include="Entity\User\UserType.cs" />
+    <Compile Include="Entity\Weather\WeatherCityInfo.cs" />
+    <Compile Include="Entity\Weather\WeatherForcast.cs" />
+    <Compile Include="Entity\Weather\WeatherForcasts.cs" />
+    <Compile Include="Entity\Weather\WeatherIndex.cs" />
+    <Compile Include="Entity\Weather\WeatherRealtime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
