@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,12 +28,14 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AccessToken.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Entity\CampusType.cs" />
     <Compile Include="Entity\Classroom\ClassroomAvailable.cs" />
     <Compile Include="Entity\Library\LibraryArrearInfo.cs" />
@@ -56,14 +58,31 @@
     <Compile Include="Entity\Weather\WeatherForcasts.cs" />
     <Compile Include="Entity\Weather\WeatherIndex.cs" />
     <Compile Include="Entity\Weather\WeatherRealtime.cs" />
+    <Compile Include="ThirdParty\HashLib\Crypto\SHA0.cs" />
+    <Compile Include="ThirdParty\HashLib\Crypto\SHA1.cs" />
+    <Compile Include="ThirdParty\HashLib\Extensions\Converters.cs" />
+    <Compile Include="ThirdParty\HashLib\Hash.cs" />
+    <Compile Include="ThirdParty\HashLib\HashBuffer.cs" />
+    <Compile Include="ThirdParty\HashLib\HashCryptoNotBuildIn.cs" />
+    <Compile Include="ThirdParty\HashLib\HashFactory.cs" />
+    <Compile Include="ThirdParty\HashLib\HashResult.cs" />
+    <Compile Include="ThirdParty\HashLib\HMACNotBuildInAdapter.cs" />
+    <Compile Include="ThirdParty\HashLib\IHash.cs" />
+    <Compile Include="ThirdParty\HashLib\IHashInfo.cs" />
+    <Compile Include="Utilities\AuthorizationHeaderBuilder.cs" />
+    <Compile Include="Utilities\OAuthConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\HMACSHA1Signer.cs" />
+    <Compile Include="Utilities\KeyValuePairComparer.cs" />
+    <Compile Include="Utilities\SignatureBaseBuilder.cs" />
+    <Compile Include="Utilities\RFC3986Encoder.cs" />
+    <Compile Include="Utilities\UnixTimeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Release\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
