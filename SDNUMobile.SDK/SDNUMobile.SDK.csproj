@@ -37,6 +37,7 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entity\CampusType.cs" />
+    <Compile Include="Entity\Card\CommercialTenantType.cs" />
     <Compile Include="Entity\Classroom\ClassroomAvailable.cs" />
     <Compile Include="Entity\Library\LibraryArrearInfo.cs" />
     <Compile Include="Entity\Library\LibraryBorrowInfo.cs" />

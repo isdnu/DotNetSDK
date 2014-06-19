@@ -13,6 +13,7 @@ namespace SDNUMobile.SDK.Entity.Card
         private String _cardID;
         private String _journalType;
         private String _commercialTenantName;
+        private CommercialTenantType _commercialTenantType;
         private Double _tradingVolume;
         private Double _balance;
         private DateTime _tradingTime;
@@ -47,6 +48,16 @@ namespace SDNUMobile.SDK.Entity.Card
         {
             get { return this._commercialTenantName; }
             set { this._commercialTenantName = value; }
+        }
+
+        /// <summary>
+        /// 获取或设置商户类型
+        /// </summary>
+        [JsonProperty("commercialTenantType")]
+        public CommercialTenantType CommercialTenantType
+        {
+            get { return this._commercialTenantType; }
+            set { this._commercialTenantType = value; }
         }
 
         /// <summary>
