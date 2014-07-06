@@ -12,7 +12,7 @@ namespace SDNUMobile.SDK.Entity.People
         #region 字段
         private String _identityNumber;
         private String _name;
-        private String _idCardNumber;
+        private String _idCardNumberHash;
         private String _sex;
         private String _nation;
         private String _organizationID;
@@ -41,13 +41,13 @@ namespace SDNUMobile.SDK.Entity.People
         }
 
         /// <summary>
-        /// 获取或设置身份证号
+        /// 获取或设置身份证号哈希值
         /// </summary>
-        [JsonProperty("idCardNumber")]
-        public String IDCardNumber
+        [JsonProperty("idCardNumberHash")]
+        public String IDCardNumberHash
         {
-            get { return this._idCardNumber; }
-            set { this._idCardNumber = value; }
+            get { return this._idCardNumberHash; }
+            set { this._idCardNumberHash = value; }
         }
 
         /// <summary>
