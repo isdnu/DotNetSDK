@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SDNUMobile.SDK.Utilities
+namespace SDNUMobile.SDK
 {
     /// <summary>
     /// OAuth常量类

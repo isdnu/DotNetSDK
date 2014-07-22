@@ -18,35 +18,44 @@ namespace SDNUMobile.SDK.Utilities
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
-        /// <param name="queryStrings">GET请求参数列表</param>
-        /// <param name="forms">POST请求参数列表</param>
+        /// <param name="parameters">请求参数列表</param>
         /// <returns>Http请求认证头</returns>
         public static String CreateHttpAuthorizationHeader(
-            String httpMethod, Uri requestUrl, 
-            String consumerSecret, String tokenSecret,
-            IEnumerable<KeyValuePair<String, String>> headers, 
-            IEnumerable<KeyValuePair<String, String>> queryStrings, 
-            IEnumerable<KeyValuePair<String, String>> forms)
+            String httpMethod, Uri requestUrl,  String consumerSecret, String tokenSecret,
+            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters)
         {
-            List<KeyValuePair<String, String>> allHeaders = new List<KeyValuePair<String, String>>();
-            String signature = AuthorizationHeaderBuilder.CreateHttpAuthorizationSignature(httpMethod, requestUrl, consumerSecret, tokenSecret, headers, queryStrings, forms);
+            List<RequestParameter> allHeaders = new List<RequestParameter>();
+            String signature = AuthorizationHeaderBuilder.CreateHttpAuthorizationSignature(
+                httpMethod, requestUrl, consumerSecret, tokenSecret, headers, parameters);
 
-            foreach (KeyValuePair<String, String> pair in headers)
+            if (headers != null)
             {
-                allHeaders.Add(pair);
+                foreach (RequestParameter param in headers)
+                {
+                    allHeaders.Add(param);
+                }
             }
 
-            allHeaders.Add(new KeyValuePair<String, String>(OAuthConstants.SignatureParameter, signature));
-            allHeaders.Sort(KeyValuePairComparer<String, String>.Default);
+            allHeaders.Add(new RequestParameter(OAuthConstants.SignatureParameter, signature));
+            allHeaders.Sort(RequestParameterComparer.Default);
 
             StringBuilder sb = new StringBuilder();
             sb.Append(OAuthConstants.AuthorizationOAuthHeader);
 
             Int32 index = 0;
-            foreach (KeyValuePair<String, String> pair in allHeaders)
+            foreach (RequestParameter param in allHeaders)
             {
-                if (index++ > 0) sb.Append(',');
-                sb.Append(RFC3986Encoder.Encode(pair.Key)).Append("=\"").Append(RFC3986Encoder.Encode(pair.Value)).Append("\"");
+                if (param.ContentType != ParameterContentType.String)
+                {
+                    continue;
+                }
+
+                if (index++ > 0)
+                {
+                    sb.Append(',');
+                }
+
+                sb.Append(RFC3986Encoder.Encode(param.Name)).Append("=\"").Append(RFC3986Encoder.Encode(param.Value as String)).Append("\"");
             }
 
             return sb.ToString();
@@ -62,43 +71,34 @@ namespace SDNUMobile.SDK.Utilities
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
-        /// <param name="queryStrings">GET请求参数列表</param>
-        /// <param name="forms">POST请求参数列表</param>
+        /// <param name="parameters">请求参数列表</param>
         /// <returns>Http请求认证签名</returns>
         private static String CreateHttpAuthorizationSignature(
-            String httpMethod, Uri requestUrl, 
-            String consumerSecret, String tokenSecret,
-            IEnumerable<KeyValuePair<String, String>> headers, 
-            IEnumerable<KeyValuePair<String, String>> queryStrings, 
-            IEnumerable<KeyValuePair<String, String>> forms)
+            String httpMethod, Uri requestUrl, String consumerSecret, String tokenSecret,
+            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters)
         {
-            List<KeyValuePair<String, String>> allParams = new List<KeyValuePair<String, String>>();
+            List<RequestParameter> allParams = new List<RequestParameter>();
 
-            foreach (KeyValuePair<String, String> pair in headers)
+            if (headers != null)
             {
-                allParams.Add(pair);
-            }
-
-            if (queryStrings != null)
-            {
-                foreach (KeyValuePair<String, String> pair in queryStrings)
+                foreach (RequestParameter param in headers)
                 {
-                    allParams.Add(pair);
+                    allParams.Add(param);
                 }
             }
 
-            if (forms != null)
+            if (parameters != null)
             {
-                foreach (KeyValuePair<String, String> pair in forms)
+                foreach (RequestParameter param in parameters)
                 {
-                    allParams.Add(pair);
+                    allParams.Add(param);
                 }
             }
 
-            allParams.Sort(KeyValuePairComparer<String, String>.Default);
+            allParams.Sort(RequestParameterComparer.Default);
 
-            String signatureBase = SignatureBaseBuilder.CreateSignatureBaseString(httpMethod, requestUrl, allParams);
-            String signature = HMACSHA1Signer.CreateSignature(consumerSecret, tokenSecret, signatureBase);
+            String signatureBase = SignatureBuilder.CreateSignatureBaseString(httpMethod, requestUrl, allParams);
+            String signature = SignatureBuilder.CreateSignature(consumerSecret, tokenSecret, signatureBase);
 
             return signature;
         }
