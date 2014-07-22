@@ -23,6 +23,16 @@ namespace SDNUMobile.SDK.Utilities
         public const String NonceParameter = "oauth_nonce";
 
         /// <summary>
+        /// 获取回调地址参数名
+        /// </summary>
+        public const String CallbackParameter = "oauth_callback";
+
+        /// <summary>
+        /// 获取验证码参数名
+        /// </summary>
+        public const String VerifierParameter = "oauth_verifier";
+
+        /// <summary>
         /// 获取签名方法参数名
         /// </summary>
         public const String SignatureMethodParameter = "oauth_signature_method";
@@ -53,23 +63,23 @@ namespace SDNUMobile.SDK.Utilities
         public const String TokenSecretParameter = "oauth_token_secret";
 
         /// <summary>
-        /// 获取认证方式参数名
+        /// 获取XAuth认证方式参数名
         /// </summary>
         public const String AuthModeParameter = "x_auth_mode";
 
         /// <summary>
-        /// 获取认证用户密码参数名
+        /// 获取XAuth认证用户密码参数名
         /// </summary>
         public const String AuthPasswordParameter = "x_auth_password";
 
         /// <summary>
-        /// 获取认证用户名参数名
+        /// 获取XAuth认证用户名参数名
         /// </summary>
         public const String AuthUsernameParameter = "x_auth_username";
 
         /// <summary>
-        /// 获取支持的认证方式
+        /// 获取支持的XAuth认证方式
         /// </summary>
-        public const String SupportAuthMode = "client_auth";
+        public const String SupportXAuthMode = "client_auth";
     }
 }
