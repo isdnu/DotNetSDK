@@ -3,7 +3,7 @@ DotNetSDK
 
 DotNet SDK for i.sdnu.edu.cn 智慧山师
 
-示例代码
+服务接口调用示例代码
 
     using System;
     using System.Threading;
