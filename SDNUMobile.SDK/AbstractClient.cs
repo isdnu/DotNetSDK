@@ -92,19 +92,13 @@ namespace SDNUMobile.SDK
         /// 异步调用服务方法
         /// </summary>
         /// <param name="restMethod">服务方法</param>
-        /// <param name="callback">回调函数</param>
-        /// <exception cref="">Json反序列化器不能为空</exception>
+        /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync(AbstractRestMethod restMethod, Action<RestResult> callback)
+        public void RequestRestMethodAsync(AbstractRestMethod restMethod, Action<String> callback)
         {
             if (restMethod == null)
             {
                 throw new ArgumentNullException("restMethod");
-            }
-
-            if (this._jsonDeserializer == null)
-            {
-                throw new NullReferenceException();
             }
 
             String url = String.Format("{0}/{1}", Constants.RestRootUrl, restMethod.MethodPath);
@@ -117,8 +111,26 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.TokenParameter, (this._accessToken != null ? this._accessToken.TokenID : String.Empty)));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, (this._accessToken != null ? this._accessToken.TokenSecret : String.Empty),
-                headers, restMethod.Parameters, new Action<String>((String content) => 
+            OAuthHttpRequest.PostRemoteContentAsync(url, 
+                this._consumerSecret, (this._accessToken != null ? this._accessToken.TokenSecret : String.Empty),
+                headers, restMethod.Parameters, callback);
+        }
+
+        /// <summary>
+        /// 异步调用服务方法
+        /// </summary>
+        /// <param name="restMethod">服务方法</param>
+        /// <param name="callback">回调函数返回实体数据</param>
+        /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        public void RequestRestMethodAsync(AbstractRestMethod restMethod, Action<RestResult> callback)
+        {
+            if (this._jsonDeserializer == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            this.RequestRestMethodAsync(restMethod, new Action<String>((String content) => 
             {
                 if (callback != null)
                 {
