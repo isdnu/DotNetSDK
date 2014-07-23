@@ -2,7 +2,7 @@
 
 namespace HashLib
 {
-    public interface IHash
+    internal interface IHash
     {
         String Name { get; }
         Int32 BlockSize { get; }

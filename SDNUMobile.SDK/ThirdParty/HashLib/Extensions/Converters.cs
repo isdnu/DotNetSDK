@@ -2,9 +2,9 @@
 
 namespace HashLib
 {
-    public static class Converters
+    internal static class Converters
     {
-        public static void ConvertBytesToUIntsSwapOrder(Byte[]  a_in, Int32 a_index, Int32 a_length, UInt32[] a_result, Int32 a_index_out)
+        internal static void ConvertBytesToUIntsSwapOrder(Byte[] a_in, Int32 a_index, Int32 a_length, UInt32[] a_result, Int32 a_index_out)
         {
             for (Int32 i = a_index_out; a_length > 0; a_length -= 4)
             {
@@ -16,7 +16,7 @@ namespace HashLib
             }
         }
 
-        public static Byte[]  ConvertUIntsToBytesSwapOrder(UInt32[] a_in, Int32 a_index = 0, Int32 a_length = -1)
+        internal static Byte[] ConvertUIntsToBytesSwapOrder(UInt32[] a_in, Int32 a_index = 0, Int32 a_length = -1)
         {
             if (a_length == -1)
                 a_length = a_in.Length;
@@ -34,7 +34,7 @@ namespace HashLib
             return result;
         }
 
-        public static void ConvertULongToBytesSwapOrder(UInt64 a_in, Byte[]  a_out, Int32 a_index)
+        internal static void ConvertULongToBytesSwapOrder(UInt64 a_in, Byte[] a_out, Int32 a_index)
         {
             a_out[a_index++] = (Byte)(a_in >> 56);
             a_out[a_index++] = (Byte)(a_in >> 48);
@@ -46,7 +46,7 @@ namespace HashLib
             a_out[a_index++] = (Byte)a_in;
         }
 
-        public static String ConvertBytesToHexString(Byte[]  a_in, Boolean a_group = true)
+        internal static String ConvertBytesToHexString(Byte[] a_in, Boolean a_group = true)
         {
             String hex = BitConverter.ToString(a_in).ToUpper();
 

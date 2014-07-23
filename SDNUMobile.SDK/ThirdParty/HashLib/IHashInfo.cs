@@ -2,7 +2,7 @@
 
 namespace HashLib
 {
-    public interface IWithKey : IHash
+    internal interface IWithKey : IHash
     {
         Byte[] Key
         {
@@ -16,13 +16,13 @@ namespace HashLib
         }
     }
 
-    public interface ICrypto : IHash, IBlockHash { }
+    internal interface ICrypto : IHash, IBlockHash { }
 
-    public interface ICryptoNotBuildIn : ICrypto { }
+    internal interface ICryptoNotBuildIn : ICrypto { }
 
-    public interface IHMAC : IWithKey, ICrypto { }
+    internal interface IHMAC : IWithKey, ICrypto { }
 
-    public interface IHMACNotBuildIn : IHMAC, ICryptoNotBuildIn { }
+    internal interface IHMACNotBuildIn : IHMAC, ICryptoNotBuildIn { }
 
-    public interface IBlockHash { }
+    internal interface IBlockHash { }
 }

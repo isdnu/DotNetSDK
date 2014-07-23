@@ -4,7 +4,7 @@ using HashLib.Crypto;
 
 namespace HashLib
 {
-    public class HMACSHA1 : IHMAC
+    internal class HMACSHA1 : IHMAC
     {
         private SHA1 _sha1;
         private HMACNotBuildInAdapter _adapter;

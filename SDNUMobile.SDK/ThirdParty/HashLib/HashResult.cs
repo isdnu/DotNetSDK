@@ -2,7 +2,7 @@
 
 namespace HashLib
 {
-    public class HashResult
+    internal class HashResult
     {
         private Byte[]  m_hash;
 
