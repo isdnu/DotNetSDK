@@ -23,7 +23,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
         /// </summary>
         public override Type ResultEntityType
         {
-            get { return typeof(CardInfo); }
+            get { return typeof(CardInfo[]); }
         }
         #endregion
     }
