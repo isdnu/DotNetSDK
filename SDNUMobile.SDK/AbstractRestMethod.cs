@@ -237,18 +237,19 @@ namespace SDNUMobile.SDK
         /// 设置请求参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <param name="fileName">上传文件名</param>
         /// <param name="value">参数内容</param>
-        protected void SetParameter(String name, Byte[] value)
+        protected void SetParameter(String name, String fileName, Byte[] value)
         {
             RequestParameter param = null;
 
             if (this._parameters.TryGetValue(name, out param))
             {
-                param.SetParameterValue(value);
+                param.SetParameterValue(fileName, value);
             }
             else
             {
-                param = new RequestParameter(name, value);
+                param = new RequestParameter(name, fileName, value);
                 this._parameters[name] = param;
             }
         }

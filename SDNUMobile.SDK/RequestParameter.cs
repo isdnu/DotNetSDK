@@ -29,6 +29,7 @@ namespace SDNUMobile.SDK
 
         #region 字段
         private String _name;
+        private String _fileName;
         private Object _value;
         private ParameterContentType _type;
         #endregion
@@ -40,6 +41,14 @@ namespace SDNUMobile.SDK
         public String Name
         {
             get { return this._name; }
+        }
+
+        /// <summary>
+        /// 获取上传文件名
+        /// </summary>
+        internal String FileName
+        {
+            get { return this._fileName; }
         }
 
         /// <summary>
@@ -92,10 +101,12 @@ namespace SDNUMobile.SDK
         /// 初始化新的请求参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <param name="fileName">上传文件名</param>
         /// <param name="value">参数内容</param>
-        public RequestParameter(String name, Byte[] value)
+        public RequestParameter(String name, String fileName, Byte[] value)
         {
             this._name = name;
+            this._fileName = fileName;
             this._value = value;
             this._type = ParameterContentType.Binary;
         }
@@ -133,9 +144,11 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 设置参数内容
         /// </summary>
+        /// <param name="fileName">上传文件名</param>
         /// <param name="value">参数内容</param>
-        public void SetParameterValue(Byte[] value)
+        public void SetParameterValue(String fileName, Byte[] value)
         {
+            this._fileName = fileName;
             this._value = value;
             this._type = ParameterContentType.Binary;
         }

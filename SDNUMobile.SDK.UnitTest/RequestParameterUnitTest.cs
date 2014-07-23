@@ -31,7 +31,7 @@ namespace SDNUMobile.SDK.UnitTest
             Assert.AreEqual(expectedDateTime, parameter.Value);
 
             Byte[] expectedData = new Byte[] { 0, 2, 4, 6, 8 };
-            parameter.SetParameterValue(expectedData);
+            parameter.SetParameterValue("test.data", expectedData);
             Byte[] actualData = parameter.Value as Byte[];
 
             for (Int32 i = 0; i < expectedData.Length; i++)

@@ -97,10 +97,11 @@ namespace SDNUMobile.SDK.UnitTest
         /// 设置请求参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <param name="fileName">上传文件名</param>
         /// <param name="value">参数内容</param>
-        internal void InternalSetParameter(String name, Byte[] value)
+        internal void InternalSetParameter(String name, String fileName, Byte[] value)
         {
-            this.SetParameter(name, value);
+            this.SetParameter(name, fileName, value);
         }
         #endregion
     }
