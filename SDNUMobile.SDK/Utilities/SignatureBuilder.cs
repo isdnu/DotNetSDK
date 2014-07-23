@@ -38,8 +38,8 @@ namespace SDNUMobile.SDK.Utilities
                 requestUrl.AbsolutePath);
 
             sb.Append(httpMethod).Append("&");
-            sb.Append(RFC3986Encoder.Encode(baseUri)).Append("&");
-            sb.Append(RFC3986Encoder.Encode(SignatureBuilder.GetJoinedParameter(parameters)));
+            sb.Append(HttpUtility.RFC3986Encode(baseUri)).Append("&");
+            sb.Append(HttpUtility.RFC3986Encode(SignatureBuilder.GetJoinedParameter(parameters)));
 
             return sb.ToString();
         }
@@ -53,7 +53,7 @@ namespace SDNUMobile.SDK.Utilities
         /// <returns>签名字符串</returns>
         public static String CreateSignature(String consumerSecret, String tokenSecret, String signatureBase)
         {
-            String key = RFC3986Encoder.Encode(consumerSecret) + "&" + RFC3986Encoder.Encode(tokenSecret);
+            String key = HttpUtility.RFC3986Encode(consumerSecret) + "&" + HttpUtility.RFC3986Encode(tokenSecret);
 
             Byte[] data = null;
             String hash = String.Empty;

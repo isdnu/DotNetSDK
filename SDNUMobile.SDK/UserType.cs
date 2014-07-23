@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SDNUMobile.SDK.Entity.User
+namespace SDNUMobile.SDK
 {
     /// <summary>
     /// 用户类型
