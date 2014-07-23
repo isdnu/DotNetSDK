@@ -7,7 +7,14 @@ namespace SDNUMobile.SDK
     /// </summary>
     public enum ParameterContentType : byte
     {
+        /// <summary>
+        /// 字符串类型
+        /// </summary>
         String = 0,
+
+        /// <summary>
+        /// 二进制类型
+        /// </summary>
         Binary = 1
     }
 
@@ -16,6 +23,10 @@ namespace SDNUMobile.SDK
     /// </summary>
     public class RequestParameter
     {
+        #region 常量
+        private const String DateTimeStringFormat = "yyyy-MM-dd HH:mm:ss";
+        #endregion
+
         #region 字段
         private String _name;
         private Object _value;
@@ -24,21 +35,19 @@ namespace SDNUMobile.SDK
 
         #region 属性
         /// <summary>
-        /// 获取或设置参数名
+        /// 获取参数名
         /// </summary>
         public String Name
         {
             get { return this._name; }
-            set { this._name = value; }
         }
 
         /// <summary>
-        /// 获取或设置参数内容
+        /// 获取参数内容
         /// </summary>
         public Object Value
         {
             get { return this._value; }
-            set { this._value = value; }
         }
 
         /// <summary>
@@ -68,7 +77,7 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数内容</param>
-        public RequestParameter(String name, Int32 value)
+        public RequestParameter(String name, IFormattable value)
             : this(name, value.ToString()) { }
 
         /// <summary>
@@ -77,7 +86,7 @@ namespace SDNUMobile.SDK
         /// <param name="name">参数名</param>
         /// <param name="value">参数内容</param>
         public RequestParameter(String name, DateTime value)
-            : this(name, value.ToString("yyyy-MM-dd HH:mm:ss")) { }
+            : this(name, value.ToString(DateTimeStringFormat)) { }
 
         /// <summary>
         /// 初始化新的请求参数
@@ -87,6 +96,46 @@ namespace SDNUMobile.SDK
         public RequestParameter(String name, Byte[] value)
         {
             this._name = name;
+            this._value = value;
+            this._type = ParameterContentType.Binary;
+        }
+        #endregion
+
+        #region 方法
+        /// <summary>
+        /// 设置参数内容
+        /// </summary>
+        /// <param name="value">参数内容</param>
+        public void SetParameterValue(String value)
+        {
+            this._value = value;
+            this._type = ParameterContentType.String;
+        }
+
+        /// <summary>
+        /// 设置参数内容
+        /// </summary>
+        /// <param name="value">参数内容</param>
+        public void SetParameterValue<T>(T value) where T : IFormattable
+        {
+            this.SetParameterValue(value.ToString());
+        }
+
+        /// <summary>
+        /// 设置参数内容
+        /// </summary>
+        /// <param name="value">参数内容</param>
+        public void SetParameterValue(DateTime value)
+        {
+            this.SetParameterValue(value.ToString(DateTimeStringFormat));
+        }
+
+        /// <summary>
+        /// 设置参数内容
+        /// </summary>
+        /// <param name="value">参数内容</param>
+        public void SetParameterValue(Byte[] value)
+        {
             this._value = value;
             this._type = ParameterContentType.Binary;
         }

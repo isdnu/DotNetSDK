@@ -32,8 +32,16 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\Release\SDNUMobile.SDK.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SDNUMobile.SDK.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AbstractRestMethod.cs" />
     <Compile Include="AccessToken.cs" />
     <Compile Include="RequestParameter.cs" />
     <Compile Include="Constants.cs" />
@@ -61,6 +69,10 @@
     <Compile Include="Entity\Weather\WeatherIndex.cs" />
     <Compile Include="Entity\Weather\WeatherRealtime.cs" />
     <Compile Include="RequestParameterComparer.cs" />
+    <Compile Include="RestMethod\Card\Get.cs" />
+    <Compile Include="RestMethod\Card\GetJournalList.cs" />
+    <Compile Include="RestMethod\People\Get.cs" />
+    <Compile Include="RestMethod\User\Get.cs" />
     <Compile Include="ThirdParty\HashLib\Crypto\SHA0.cs" />
     <Compile Include="ThirdParty\HashLib\Crypto\SHA1.cs" />
     <Compile Include="ThirdParty\HashLib\Extensions\Converters.cs" />
@@ -83,6 +95,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Release\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SDNUMobile.SDK.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
