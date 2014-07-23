@@ -24,7 +24,7 @@ namespace SDNUMobile.SDK.RestMethod.Bus
         /// </summary>
         public override Type ResultEntityType
         {
-            get { return typeof(Dictionary<String, BusInfo>); }
+            get { return typeof(Dictionary<String, BusInfo[]>); }
         }
         #endregion
     }
