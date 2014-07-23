@@ -71,6 +71,9 @@
     <Compile Include="RequestParameterComparer.cs" />
     <Compile Include="RestMethod\Card\Get.cs" />
     <Compile Include="RestMethod\Card\GetJournalList.cs" />
+    <Compile Include="RestMethod\Library\GetArrearList.cs" />
+    <Compile Include="RestMethod\Library\GetBorrowList.cs" />
+    <Compile Include="RestMethod\Library\GetIllegalList.cs" />
     <Compile Include="RestMethod\People\Get.cs" />
     <Compile Include="RestMethod\User\Get.cs" />
     <Compile Include="ThirdParty\HashLib\Crypto\SHA0.cs" />
