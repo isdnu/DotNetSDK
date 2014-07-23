@@ -15,7 +15,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
         /// </summary>
         public override String MethodPath
         {
-            get { return "card/get"; }
+            get { return "card/getjournallist"; }
         }
 
         /// <summary>
