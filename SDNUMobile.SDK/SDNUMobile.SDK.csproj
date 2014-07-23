@@ -69,13 +69,21 @@
     <Compile Include="Entity\Weather\WeatherIndex.cs" />
     <Compile Include="Entity\Weather\WeatherRealtime.cs" />
     <Compile Include="RequestParameterComparer.cs" />
+    <Compile Include="RestMethod\Bathroom\GetStatus.cs" />
+    <Compile Include="RestMethod\Bus\GetList.cs" />
     <Compile Include="RestMethod\Card\Get.cs" />
     <Compile Include="RestMethod\Card\GetJournalList.cs" />
+    <Compile Include="RestMethod\Classroom\GetList.cs" />
     <Compile Include="RestMethod\Library\GetArrearList.cs" />
     <Compile Include="RestMethod\Library\GetBorrowList.cs" />
     <Compile Include="RestMethod\Library\GetIllegalList.cs" />
     <Compile Include="RestMethod\People\Get.cs" />
+    <Compile Include="RestMethod\Poi\GetList.cs" />
     <Compile Include="RestMethod\User\Get.cs" />
+    <Compile Include="RestMethod\Weather\GetForcast.cs" />
+    <Compile Include="RestMethod\Weather\GetIndexList.cs" />
+    <Compile Include="RestMethod\Weather\GetRealTime.cs" />
+    <Compile Include="RestMethod\Weather\WeatherAreaIDs.cs" />
     <Compile Include="ThirdParty\HashLib\Crypto\SHA0.cs" />
     <Compile Include="ThirdParty\HashLib\Crypto\SHA1.cs" />
     <Compile Include="ThirdParty\HashLib\Extensions\Converters.cs" />
@@ -97,6 +105,7 @@
   <ItemGroup>
     <None Include="SDNUMobile.SDK.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
