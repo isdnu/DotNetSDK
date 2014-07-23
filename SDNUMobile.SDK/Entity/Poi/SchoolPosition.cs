@@ -55,7 +55,7 @@ namespace SDNUMobile.SDK.Entity.Poi
         }
 
         /// <summary>
-        /// 获取或设置精度
+        /// 获取或设置经度
         /// </summary>
         public Double Longitude
         {
