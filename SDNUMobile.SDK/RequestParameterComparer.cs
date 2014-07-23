@@ -45,6 +45,12 @@ namespace SDNUMobile.SDK
         #endregion
 
         #region 方法
+        /// <summary>
+        /// 比较两个请求参数比较器
+        /// </summary>
+        /// <param name="x">请求参数比较器</param>
+        /// <param name="y">请求参数比较器</param>
+        /// <returns>比较结果</returns>
         public override Int32 Compare(RequestParameter x, RequestParameter y)
         {
             return this._baseComparer.Compare(x.Name, y.Name);
