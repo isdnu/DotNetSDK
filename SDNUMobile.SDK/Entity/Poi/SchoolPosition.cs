@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Poi
 {
     /// <summary>
@@ -23,7 +21,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置位置ID
         /// </summary>
-        [JsonProperty("positionID")]
         public Int32 PositionID
         {
             get { return this._positionID; }
@@ -33,7 +30,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置位置名称
         /// </summary>
-        [JsonProperty("positionName")]
         public String PositionName
         {
             get { return this._positionName; }
@@ -43,7 +39,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置校区类型
         /// </summary>
-        [JsonProperty("campusType")]
         public CampusType CampusType
         {
             get { return this._campusType; }
@@ -53,7 +48,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置建筑物类型
         /// </summary>
-        [JsonProperty("areaType")]
         public AreaType AreaType
         {
             get { return this._areaType; }
@@ -63,7 +57,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置精度
         /// </summary>
-        [JsonProperty("longitude")]
         public Double Longitude
         {
             get { return this._longitude; }
@@ -73,7 +66,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置纬度
         /// </summary>
-        [JsonProperty("latitude")]
         public Double Latitude
         {
             get { return this._latitude; }
@@ -83,7 +75,6 @@ namespace SDNUMobile.SDK.Entity.Poi
         /// <summary>
         /// 获取或设置是否隐藏
         /// </summary>
-        [JsonProperty("isHide")]
         public Boolean IsHide
         {
             get { return this._isHide; }

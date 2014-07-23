@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Bus
 {
     /// <summary>
@@ -22,7 +20,6 @@ namespace SDNUMobile.SDK.Entity.Bus
         /// <summary>
         /// 获取或设置显示顺序
         /// </summary>
-        [JsonProperty("routeOrder")]
         public Int32 RouteOrder
         {
             get { return this._routeOrder; }
@@ -32,7 +29,6 @@ namespace SDNUMobile.SDK.Entity.Bus
         /// <summary>
         /// 获取或设置路线名称
         /// </summary>
-        [JsonProperty("routeTitle")]
         public String RouteTitle
         {
             get { return this._routeTitle; }
@@ -42,7 +38,6 @@ namespace SDNUMobile.SDK.Entity.Bus
         /// <summary>
         /// 获取或设置路线发车地点
         /// </summary>
-        [JsonProperty("routeStart")]
         public String RouteStart
         {
             get { return this._routeStart; }
@@ -52,7 +47,6 @@ namespace SDNUMobile.SDK.Entity.Bus
         /// <summary>
         /// 获取或设置时间顺序
         /// </summary>
-        [JsonProperty("timeOrder")]
         public Int32 TimeOrder
         {
             get { return this._timeOrder; }
@@ -62,7 +56,6 @@ namespace SDNUMobile.SDK.Entity.Bus
         /// <summary>
         /// 获取或设置时间名称
         /// </summary>
-        [JsonProperty("timeTitle")]
         public String TimeTitle
         {
             get { return this._timeTitle; }
@@ -72,7 +65,6 @@ namespace SDNUMobile.SDK.Entity.Bus
         /// <summary>
         /// 获取或设置时间列表
         /// </summary>
-        [JsonProperty("timeList")]
         public String TimeList
         {
             get { return this._timeList; }

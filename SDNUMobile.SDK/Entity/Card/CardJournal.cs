@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Card
 {
     /// <summary>
@@ -23,7 +21,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置一卡通卡号
         /// </summary>
-        [JsonProperty("cardID")]
         public String CardID
         {
             get { return this._cardID; }
@@ -33,7 +30,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置交易类型
         /// </summary>
-        [JsonProperty("journalType")]
         public String JournalType
         {
             get { return this._journalType; }
@@ -43,7 +39,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置商户名称
         /// </summary>
-        [JsonProperty("commercialTenantName")]
         public String CommercialTenantName
         {
             get { return this._commercialTenantName; }
@@ -53,7 +48,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置商户类型
         /// </summary>
-        [JsonProperty("commercialTenantType")]
         public CommercialTenantType CommercialTenantType
         {
             get { return this._commercialTenantType; }
@@ -63,7 +57,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置交易额
         /// </summary>
-        [JsonProperty("tradingVolume")]
         public Double TradingVolume
         {
             get { return this._tradingVolume; }
@@ -73,7 +66,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置余额
         /// </summary>
-        [JsonProperty("balance")]
         public Double Balance
         {
             get { return this._balance; }
@@ -83,7 +75,6 @@ namespace SDNUMobile.SDK.Entity.Card
         /// <summary>
         /// 获取或设置交易时间
         /// </summary>
-        [JsonProperty("tradingTime")]
         public DateTime TradingTime
         {
             get { return this._tradingTime; }

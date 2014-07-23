@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Bathroom
 {
     /// <summary>
@@ -20,7 +18,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置浴室ID
         /// </summary>
-        [JsonProperty("bathroomID")]
         public Int32 BathroomID
         {
             get { return this._bathroomID; }
@@ -30,7 +27,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置浴室所属校区
         /// </summary>
-        [JsonProperty("bathroomCampusType")]
         public CampusType BathroomCampusType
         {
             get { return this._bathroomCampusType; }
@@ -40,7 +36,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置浴室名称
         /// </summary>
-        [JsonProperty("bathroomName")]
         public String BathroomName
         {
             get { return this._bathroomName; }
@@ -50,7 +45,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置浴室容量
         /// </summary>
-        [JsonProperty("bathroomSize")]
         public Int32 BathroomSize
         {
             get { return this._bathroomSize; }

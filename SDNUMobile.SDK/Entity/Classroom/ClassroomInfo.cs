@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Classroom
 {
     /// <summary>
@@ -26,7 +24,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置教室名称
         /// </summary>
-        [JsonProperty("classroomName")]
         public String ClassroomName
         {
             get { return this._classroomName; }
@@ -36,7 +33,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置教室教学楼
         /// </summary>
-        [JsonProperty("classRoomBuilding")]
         public String ClassRoomBuilding
         {
             get { return this._classRoomBuilding; }
@@ -46,7 +42,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置校区类型
         /// </summary>
-        [JsonProperty("campusType")]
         public CampusType CampusType
         {
             get { return this._campusType; }
@@ -56,7 +51,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周一课程
         /// </summary>
-        [JsonProperty("mondayCourse")]
         public String MondayCourse
         {
             get { return this._mondayCourse; }
@@ -66,7 +60,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周二课程
         /// </summary>
-        [JsonProperty("tuesdayCourse")]
         public String TuesdayCourse
         {
             get { return this._tuesdayCourse; }
@@ -76,7 +69,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周三课程
         /// </summary>
-        [JsonProperty("wednesdayCourse")]
         public String WednesdayCourse
         {
             get { return this._wednesdayCourse; }
@@ -86,7 +78,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周四课程
         /// </summary>
-        [JsonProperty("thursdayCourse")]
         public String ThursdayCourse
         {
             get { return this._thursdayCourse; }
@@ -96,7 +87,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周五课程
         /// </summary>
-        [JsonProperty("fridayCourse")]
         public String FridayCourse
         {
             get { return this._fridayCourse; }
@@ -106,7 +96,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周六课程
         /// </summary>
-        [JsonProperty("saturdayCourse")]
         public String SaturdayCourse
         {
             get { return this._saturdayCourse; }
@@ -116,7 +105,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置周日课程
         /// </summary>
-        [JsonProperty("sundayCourse")]
         public String SundayCourse
         {
             get { return this._sundayCourse; }

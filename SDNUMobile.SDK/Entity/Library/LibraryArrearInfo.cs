@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Library
 {
     /// <summary>
@@ -22,7 +20,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置身份认证号
         /// </summary>
-        [JsonProperty("identityNumber")]
         public String IdentityNumber
         {
             get { return this._identityNumber; }
@@ -32,7 +29,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置题名
         /// </summary>
-        [JsonProperty("bookName")]
         public String BookName
         {
             get { return this._bookName; }
@@ -42,7 +38,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置记录日期
         /// </summary>
-        [JsonProperty("recordDate")]
         public DateTime RecordDate
         {
             get { return this._recordDate; }
@@ -52,7 +47,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置应罚金额
         /// </summary>
-        [JsonProperty("fineAmount")]
         public Double FineAmount
         {
             get { return this._fineAmount; }
@@ -62,7 +56,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置处理日期
         /// </summary>
-        [JsonProperty("dealDate")]
         public DateTime? DealDate
         {
             get { return this._dealDate; }
@@ -72,7 +65,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置处理状态
         /// </summary>
-        [JsonProperty("dealState")]
         public Boolean DealState
         {
             get { return this._dealState; }

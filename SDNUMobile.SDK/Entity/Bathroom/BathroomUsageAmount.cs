@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Bathroom
 {
     /// <summary>
@@ -18,7 +16,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置记录时间
         /// </summary>
-        [JsonProperty("logTime")]
         public DateTime LogTime
         {
             get { return this._logTime; }
@@ -28,7 +25,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置使用数量
         /// </summary>
-        [JsonProperty("amount")]
         public Int32[] Amount
         {
             get { return this._amount; }

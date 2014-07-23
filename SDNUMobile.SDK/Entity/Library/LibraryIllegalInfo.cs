@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Library
 {
     /// <summary>
@@ -24,7 +22,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置身份认证号
         /// </summary>
-        [JsonProperty("identityNumber")]
         public String IdentityNumber
         {
             get { return this._identityNumber; }
@@ -34,7 +31,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置违章类型名称
         /// </summary>
-        [JsonProperty("illegalTypeName")]
         public String IllegalTypeName
         {
             get { return this._illegalTypeName; }
@@ -44,7 +40,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置违章停借截止日期
         /// </summary>
-        [JsonProperty("cannotBorrowEndDate")]
         public DateTime? CannotBorrowEndDate
         {
             get { return this._cannotBorrowEndDate; }
@@ -54,7 +49,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置实罚款额 
         /// </summary>
-        [JsonProperty("realFineAmount")]
         public Double RealFineAmount
         {
             get { return this._realFineAmount; }
@@ -64,7 +58,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置违章时间
         /// </summary>
-        [JsonProperty("illegalDate")]
         public DateTime IllegalDate
         {
             get { return this._illegalDate; }
@@ -74,7 +67,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置违章处理状态代码
         /// </summary>
-        [JsonProperty("dealStateCode")]
         public Byte DealStateCode
         {
             get { return this._dealStateCode; }
@@ -84,7 +76,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置违章处理状态
         /// </summary>
-        [JsonProperty("dealState")]
         public String DealState
         {
             get { return this._dealState; }
@@ -94,7 +85,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置违章说明
         /// </summary>
-        [JsonProperty("dealExplanation")]
         public String DealExplanation
         {
             get { return this._dealExplanation; }

@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Library
 {
     /// <summary>
@@ -21,7 +19,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置身份认证号
         /// </summary>
-        [JsonProperty("identityNumber")]
         public String IdentityNumber
         {
             get { return this._identityNumber; }
@@ -31,7 +28,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置图书题名
         /// </summary>
-        [JsonProperty("bookName")]
         public String BookName
         {
             get { return this._bookName; }
@@ -41,7 +37,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置借书日期
         /// </summary>
-        [JsonProperty("borrowDate")]
         public DateTime BorrowDate
         {
             get { return this._borrowDate; }
@@ -51,7 +46,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置应还日期
         /// </summary>
-        [JsonProperty("mustReturnDate")]
         public DateTime MustReturnDate
         {
             get { return this._mustReturnDate; }
@@ -61,7 +55,6 @@ namespace SDNUMobile.SDK.Entity.Library
         /// <summary>
         /// 获取或设置续借标志
         /// </summary>
-        [JsonProperty("isRenew")]
         public Boolean IsRenew
         {
             get { return this._isRenew; }

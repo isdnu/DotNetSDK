@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Classroom
 {
     /// <summary>
@@ -18,7 +16,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置连续空闲小节数
         /// </summary>
-        [JsonProperty("freetime")]
         public Int32 Freetime
         {
             get { return this._freetime; }
@@ -28,7 +25,6 @@ namespace SDNUMobile.SDK.Entity.Classroom
         /// <summary>
         /// 获取或设置教室信息数组
         /// </summary>
-        [JsonProperty("classrooms")]
         public ClassroomInfo[] Classrooms
         {
             get { return this._classrooms; }

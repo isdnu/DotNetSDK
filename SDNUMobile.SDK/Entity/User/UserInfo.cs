@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.User
 {
     /// <summary>
@@ -20,7 +18,6 @@ namespace SDNUMobile.SDK.Entity.User
         /// <summary>
         /// 获取或设置用户ID
         /// </summary>
-        [JsonProperty("userID")]
         public String UserID
         {
             get { return this._userID; }
@@ -30,7 +27,6 @@ namespace SDNUMobile.SDK.Entity.User
         /// <summary>
         /// 获取或设置用户类型
         /// </summary>
-        [JsonProperty("userType")]
         public UserType UserType
         {
             get { return this._userType; }
@@ -40,7 +36,6 @@ namespace SDNUMobile.SDK.Entity.User
         /// <summary>
         /// 获取或设置绑定手机号码
         /// </summary>
-        [JsonProperty("bindCellphone")]
         public String BindCellphone
         {
             get { return this._bindCellphone; }
@@ -50,7 +45,6 @@ namespace SDNUMobile.SDK.Entity.User
         /// <summary>
         /// 获取或设置绑定电子邮箱
         /// </summary>
-        [JsonProperty("bindEmail")]
         public String BindEmail
         {
             get { return this._bindEmail; }

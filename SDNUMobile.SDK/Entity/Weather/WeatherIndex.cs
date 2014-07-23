@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Weather
 {
     /// <summary>
@@ -21,7 +19,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置指数简称
         /// </summary>
-        [JsonProperty("shortName")]
         public String ShortName
         {
             get { return this._shortName; }
@@ -31,7 +28,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置指数中文名称
         /// </summary>
-        [JsonProperty("chineseName")]
         public String ChineseName
         {
             get { return this._chineseName; }
@@ -41,7 +37,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置指数中文别名
         /// </summary>
-        [JsonProperty("chineseAliasName")]
         public String ChineseAliasName
         {
             get { return this._chineseAliasName; }
@@ -51,7 +46,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置指数级别
         /// </summary>
-        [JsonProperty("level")]
         public String Level
         {
             get { return this._level; }
@@ -61,7 +55,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置指数内容
         /// </summary>
-        [JsonProperty("content")]
         public String Content
         {
             get { return this._content; }

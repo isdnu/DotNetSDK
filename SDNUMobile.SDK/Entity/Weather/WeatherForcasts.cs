@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Weather
 {
     /// <summary>
@@ -19,7 +17,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置城市信息
         /// </summary>
-        [JsonProperty("cityInfo")]
         public WeatherCityInfo CityInfo
         {
             get { return this._cityInfo; }
@@ -29,7 +26,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置预报信息
         /// </summary>
-        [JsonProperty("forcasts")]
         public WeatherForcast[] Forcasts
         {
             get { return this._forcasts; }
@@ -39,7 +35,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置预报发布时间
         /// </summary>
-        [JsonProperty("forcastPublishTime")]
         public DateTime ForcastPublishTime
         {
             get { return this._forcastPublishTime; }

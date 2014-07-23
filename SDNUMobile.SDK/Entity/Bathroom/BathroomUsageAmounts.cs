@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Bathroom
 {
     /// <summary>
@@ -18,7 +16,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置浴室信息
         /// </summary>
-        [JsonProperty("bathrooms")]
         public BathroomInfo[] Bathrooms
         {
             get { return this._bathrooms; }
@@ -28,7 +25,6 @@ namespace SDNUMobile.SDK.Entity.Bathroom
         /// <summary>
         /// 获取或设置浴室用量信息
         /// </summary>
-        [JsonProperty("usageAmounts")]
         public BathroomUsageAmount[] UsageAmounts
         {
             get { return this._usageAmounts; }

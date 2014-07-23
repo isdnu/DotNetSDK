@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Weather
 {
     /// <summary>
@@ -22,7 +20,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置当前温度（摄氏度）
         /// </summary>
-        [JsonProperty("currentTemperature")]
         public String CurrentTemperature
         {
             get { return this._currentTemperature; }
@@ -32,7 +29,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置当前湿度（%）
         /// </summary>
-        [JsonProperty("currentHumidity")]
         public String CurrentHumidity
         {
             get { return this._currentHumidity; }
@@ -42,7 +38,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置当前风力（级）
         /// </summary>
-        [JsonProperty("currentWindPower")]
         public String CurrentWindPower
         {
             get { return this._currentWindPower; }
@@ -52,7 +47,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置当前风向编号
         /// </summary>
-        [JsonProperty("currentWindDirectionID")]
         public String CurrentWindDirectionID
         {
             get { return this._currentWindDirectionID; }
@@ -62,7 +56,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置当前风向名称
         /// </summary>
-        [JsonProperty("currentWindDirectionName")]
         public String CurrentWindDirectionName
         {
             get { return this._currentWindDirectionName; }
@@ -72,7 +65,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置实时发布时间
         /// </summary>
-        [JsonProperty("publishTime")]
         public String PublishTime
         {
             get { return this._publishTime; }

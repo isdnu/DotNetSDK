@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Weather
 {
     /// <summary>
@@ -36,7 +34,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天天气现象编号
         /// </summary>
-        [JsonProperty("daytimeTypeID")]
         public String DaytimeTypeID
         {
             get { return this._daytimeTypeID; }
@@ -46,7 +43,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天天气现象名称
         /// </summary>
-        [JsonProperty("daytimeTypeName")]
         public String DaytimeTypeName
         {
             get { return this._daytimeTypeName; }
@@ -56,7 +52,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上天气现象编号
         /// </summary>
-        [JsonProperty("nighttimeTypeID")]
         public String NighttimeTypeID
         {
             get { return this._nighttimeTypeID; }
@@ -66,7 +61,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上天气现象名称
         /// </summary>
-        [JsonProperty("nighttimeTypeName")]
         public String NighttimeTypeName
         {
             get { return this._nighttimeTypeName; }
@@ -76,7 +70,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天天气温度（摄氏度）
         /// </summary>
-        [JsonProperty("daytimeTemperature")]
         public String DaytimeTemperature
         {
             get { return this._daytimeTemperature; }
@@ -86,7 +79,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上天气温度（摄氏度）
         /// </summary>
-        [JsonProperty("nighttimeTemperature")]
         public String NighttimeTemperature
         {
             get { return this._nighttimeTemperature; }
@@ -96,7 +88,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天风向编号
         /// </summary>
-        [JsonProperty("daytimeWindDirectionID")]
         public String DaytimeWindDirectionID
         {
             get { return this._daytimeWindDirectionID; }
@@ -106,7 +97,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天风向名称
         /// </summary>
-        [JsonProperty("daytimeWindDirectionName")]
         public String DaytimeWindDirectionName
         {
             get { return this._daytimeWindDirectionName; }
@@ -116,7 +106,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上风向编号
         /// </summary>
-        [JsonProperty("nighttimeWindDirectionID")]
         public String NighttimeWindDirectionID
         {
             get { return this._nighttimeWindDirectionID; }
@@ -126,7 +115,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上风向名称
         /// </summary>
-        [JsonProperty("nighttimeWindDirectionName")]
         public String NighttimeWindDirectionName
         {
             get { return this._nighttimeWindDirectionName; }
@@ -136,7 +124,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天风力编号
         /// </summary>
-        [JsonProperty("daytimeWindPowerID")]
         public String DaytimeWindPowerID
         {
             get { return this._daytimeWindPowerID; }
@@ -146,7 +133,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置白天风力名称
         /// </summary>
-        [JsonProperty("daytimeWindPowerName")]
         public String DaytimeWindPowerName
         {
             get { return this._daytimeWindPowerName; }
@@ -156,7 +142,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上风力编号
         /// </summary>
-        [JsonProperty("nighttimeWindPowerID")]
         public String NighttimeWindPowerID
         {
             get { return this._nighttimeWindPowerID; }
@@ -166,7 +151,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置晚上风力名称
         /// </summary>
-        [JsonProperty("nighttimeWindPowerName")]
         public String NighttimeWindPowerName
         {
             get { return this._nighttimeWindPowerName; }
@@ -176,7 +160,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置日出时间
         /// </summary>
-        [JsonProperty("sunriseTime")]
         public String SunriseTime
         {
             get { return this._sunriseTime; }
@@ -186,7 +169,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置日落时间
         /// </summary>
-        [JsonProperty("sunsetTime")]
         public String SunsetTime
         {
             get { return this._sunsetTime; }

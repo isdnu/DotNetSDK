@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SDNUMobile.SDK.Entity.Weather
 {
     /// <summary>
@@ -22,7 +20,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置区域ID
         /// </summary>
-        [JsonProperty("areaID")]
         public String AreaID
         {
             get { return this._areaID; }
@@ -32,7 +29,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置城市英文名
         /// </summary>
-        [JsonProperty("englishName")]
         public String EnglishName
         {
             get { return this._englishName; }
@@ -42,7 +38,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置城市中文名
         /// </summary>
-        [JsonProperty("chineseName")]
         public String ChineseName
         {
             get { return this._chineseName; }
@@ -52,7 +47,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置经度
         /// </summary>
-        [JsonProperty("longitude")]
         public String Longitude
         {
             get { return this._longitude; }
@@ -62,7 +56,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置纬度
         /// </summary>
-        [JsonProperty("latitude")]
         public String Latitude
         {
             get { return this._latitude; }
@@ -72,7 +65,6 @@ namespace SDNUMobile.SDK.Entity.Weather
         /// <summary>
         /// 获取或设置海拔
         /// </summary>
-        [JsonProperty("elevation")]
         public String Elevation
         {
             get { return this._elevation; }
