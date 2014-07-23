@@ -67,9 +67,9 @@
     <Compile Include="ThirdParty\HashLib\Hash.cs" />
     <Compile Include="ThirdParty\HashLib\HashBuffer.cs" />
     <Compile Include="ThirdParty\HashLib\HashCryptoNotBuildIn.cs" />
-    <Compile Include="ThirdParty\HashLib\HashFactory.cs" />
     <Compile Include="ThirdParty\HashLib\HashResult.cs" />
     <Compile Include="ThirdParty\HashLib\HMACNotBuildInAdapter.cs" />
+    <Compile Include="ThirdParty\HashLib\HMACSHA1.cs" />
     <Compile Include="ThirdParty\HashLib\IHash.cs" />
     <Compile Include="ThirdParty\HashLib\IHashInfo.cs" />
     <Compile Include="Utilities\AuthorizationHeaderBuilder.cs" />

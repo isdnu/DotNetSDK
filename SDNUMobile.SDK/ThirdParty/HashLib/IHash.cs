@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Text;
-using System.IO;
 
 namespace HashLib
 {
     public interface IHash
     {
-        string Name { get; }
-        int BlockSize { get; }
-        int HashSize { get; }
+        String Name { get; }
+        Int32 BlockSize { get; }
+        Int32 HashSize { get; }
 
         void Initialize();
 
-        HashResult ComputeBytes(byte[] a_data);
+        HashResult ComputeBytes(Byte[] a_data);
 
-        void TransformBytes(byte[] a_data);
-        void TransformBytes(byte[] a_data, int a_index);
-        void TransformBytes(byte[] a_data, int a_index, int a_length);
+        void TransformBytes(Byte[] a_data);
+        void TransformBytes(Byte[] a_data, Int32 a_index);
+        void TransformBytes(Byte[] a_data, Int32 a_index, Int32 a_length);
 
         HashResult TransformFinal();
     }

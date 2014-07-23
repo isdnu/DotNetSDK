@@ -4,13 +4,13 @@ namespace HashLib
 {
     public interface IWithKey : IHash
     {
-        byte[] Key
+        Byte[] Key
         {
             get;
             set;
         }
 
-        int? KeyLength
+        Int32? KeyLength
         {
             get;
         }

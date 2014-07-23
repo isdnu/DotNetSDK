@@ -1,30 +1,29 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace HashLib
 {
     internal class HMACNotBuildInAdapter : Hash, IHMACNotBuildIn
     {
-        private byte[] m_opad;
-        private byte[] m_ipad;
+        private Byte[]  m_opad;
+        private Byte[]  m_ipad;
         private IHash m_hash;
-        private byte[] m_key;
+        private Byte[]  m_key;
 
-        public virtual byte[] Key
+        public virtual Byte[]  Key
         {
             get
             {
-                return (byte[])m_key.Clone();
+                return (Byte[] )m_key.Clone();
             }
             set
             {
                 if (value == null)
                 {
-                    m_key = new byte[0];
+                    m_key = new Byte[0];
                 }
                 else
                 {
-                    m_key = (byte[])value.Clone();
+                    m_key = (Byte[] )value.Clone();
                 }
             }
         }
@@ -33,26 +32,26 @@ namespace HashLib
             : base(a_underlyingHash.HashSize, a_underlyingHash.BlockSize)
         {
             m_hash = a_underlyingHash;
-            m_key = new byte[0];
-            m_ipad = new byte[m_hash.BlockSize];
-            m_opad = new byte[m_hash.BlockSize];
+            m_key = new Byte[0];
+            m_ipad = new Byte[m_hash.BlockSize];
+            m_opad = new Byte[m_hash.BlockSize];
         }
 
         private void UpdatePads()
         {
-            byte[] key;
+            Byte[]  key;
             if (Key.Length > m_hash.BlockSize)
                 key = m_hash.ComputeBytes(Key).GetBytes();
             else
                 key = Key;
 
-            for (int i = 0; i < m_hash.BlockSize; i++)
+            for (Int32 i = 0; i < m_hash.BlockSize; i++)
             {
                 m_ipad[i] = 0x36;
                 m_opad[i] = 0x5c;
             }
 
-            for (int i = 0; i < key.Length; i++)
+            for (Int32 i = 0; i < key.Length; i++)
             {
                 m_ipad[i] ^= key[i];
                 m_opad[i] ^= key[i];
@@ -76,16 +75,12 @@ namespace HashLib
             return h;
         }
 
-        public override void TransformBytes(byte[] a_data, int a_index, int a_length)
+        public override void TransformBytes(Byte[]  a_data, Int32 a_index, Int32 a_length)
         {
-            Debug.Assert(a_index >= 0);
-            Debug.Assert(a_length >= 0);
-            Debug.Assert(a_index + a_length <= a_data.Length);
-
             m_hash.TransformBytes(a_data, a_index, a_length);
         }
 
-        public override string Name
+        public override String Name
         {
             get
             {

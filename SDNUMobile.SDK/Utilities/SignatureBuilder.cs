@@ -55,14 +55,16 @@ namespace SDNUMobile.SDK.Utilities
         {
             String key = RFC3986Encoder.Encode(consumerSecret) + "&" + RFC3986Encoder.Encode(tokenSecret);
 
-            IHMAC crypto = HashFactory.HMAC.CreateHMAC(HashFactory.Crypto.CreateSHA1());
+            Byte[] data = null;
+            String hash = String.Empty;
+            
+            HMACSHA1 crypto = new HMACSHA1();
             crypto.Key = Encoding.UTF8.GetBytes(key);
 
-            HashResult result = crypto.ComputeBytes(Encoding.UTF8.GetBytes(signatureBase));
-            Byte[] resultData = result.GetBytes();
-            String encodedResult = Convert.ToBase64String(resultData);
+            data = crypto.ComputeHash(Encoding.UTF8.GetBytes(signatureBase));
+            hash = Convert.ToBase64String(data);
 
-            return encodedResult;
+            return hash;
         }
         #endregion
 

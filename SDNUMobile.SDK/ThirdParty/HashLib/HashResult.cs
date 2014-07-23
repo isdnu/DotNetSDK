@@ -1,39 +1,39 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 
 namespace HashLib
 {
-    [DebuggerDisplay("HashResult, Size: {m_hash.Length}, Hash: {ToString()}")]
     public class HashResult
     {
-        private byte[] m_hash;
+        private Byte[]  m_hash;
 
-        public HashResult(uint a_hash)
+        public HashResult(UInt32 a_hash)
         {
             m_hash = BitConverter.GetBytes(a_hash);
         }
 
-        internal HashResult(int a_hash)
+        internal HashResult(Int32 a_hash)
         {
             m_hash = BitConverter.GetBytes(a_hash);
         }
 
-        public HashResult(ulong a_hash)
+        public HashResult(UInt64 a_hash)
         {
             m_hash = BitConverter.GetBytes(a_hash);
         }
-        public HashResult(byte[] a_hash)
+        public HashResult(Byte[]  a_hash)
         {
             m_hash = a_hash;
         }
 
-        public byte[] GetBytes()
+        public Byte[] GetBytes()
         {
-            return m_hash.ToArray();
+            Byte[] dest = new Byte[m_hash.Length];
+            Buffer.BlockCopy(m_hash, 0, dest, 0, m_hash.Length);
+
+            return dest;
         }
 
-        public uint GetUInt()
+        public UInt32 GetUInt()
         {
             if (m_hash.Length != 4)
                 throw new InvalidOperationException();
@@ -41,7 +41,7 @@ namespace HashLib
             return BitConverter.ToUInt32(m_hash, 0);
         }
 
-        public int GetInt()
+        public Int32 GetInt()
         {
             if (m_hash.Length != 4)
                 throw new InvalidOperationException();
@@ -49,7 +49,7 @@ namespace HashLib
             return BitConverter.ToInt32(m_hash, 0);
         }
 
-        public ulong GetULong()
+        public UInt64 GetULong()
         {
             if (m_hash.Length != 8)
                 throw new InvalidOperationException();
@@ -57,12 +57,12 @@ namespace HashLib
             return BitConverter.ToUInt64(m_hash, 0);
         }
 
-        public override string ToString()
+        public override String ToString()
         {
             return Converters.ConvertBytesToHexString(m_hash);
         }
 
-        public override bool Equals(Object a_obj)
+        public override Boolean Equals(Object a_obj)
         {
             HashResult hash_result = a_obj as HashResult;
             if ((HashResult)hash_result == null)
@@ -71,17 +71,17 @@ namespace HashLib
             return Equals(hash_result);
         }
 
-        public bool Equals(HashResult a_hashResult)
+        public Boolean Equals(HashResult a_hashResult)
         {
             return HashResult.SameArrays(a_hashResult.GetBytes(), m_hash);
         }
 
-        public override int GetHashCode()
+        public override Int32 GetHashCode()
         {
             return Convert.ToBase64String(m_hash).GetHashCode();
         }
 
-        private static bool SameArrays(byte[] a_ar1, byte[] a_ar2)
+        private static Boolean SameArrays(Byte[]  a_ar1, Byte[]  a_ar2)
         {
             if (Object.ReferenceEquals(a_ar1, a_ar2))
                 return true;
@@ -89,7 +89,7 @@ namespace HashLib
             if (a_ar1.Length != a_ar2.Length)
                 return false;
 
-            for (int i = 0; i < a_ar1.Length; i++)
+            for (Int32 i = 0; i < a_ar1.Length; i++)
                 if (a_ar1[i] != a_ar2[i])
                     return false;
 
