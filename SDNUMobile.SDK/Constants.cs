@@ -30,6 +30,6 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 获取OAuth服务请求根地址
         /// </summary>
-        public const String OAuthAccessTokenRootUrl = @"http://i.sdnu.edu.cn/oauth/rest/";
+        public const String RestRootUrl = @"http://i.sdnu.edu.cn/oauth/rest";
     }
 }

@@ -12,6 +12,7 @@ namespace SDNUMobile.SDK
         /// </summary>
         public const String AuthorizationOAuthHeader = "OAuth ";
 
+        #region 参数名
         /// <summary>
         /// 获取应用Key参数名
         /// </summary>
@@ -76,10 +77,23 @@ namespace SDNUMobile.SDK
         /// 获取XAuth认证用户名参数名
         /// </summary>
         public const String AuthUsernameParameter = "x_auth_username";
+        #endregion
+
+        #region 参数内容
+        /// <summary>
+        /// 获取支持的签名方法
+        /// </summary>
+        public const String SupportSignatureMethod = "HMAC-SHA1";
 
         /// <summary>
         /// 获取支持的XAuth认证方式
         /// </summary>
         public const String SupportXAuthMode = "client_auth";
+
+        /// <summary>
+        /// 获取当前使用的OAuth的版本
+        /// </summary>
+        public const String CurrentVersion = "1.0";
+        #endregion
     }
 }

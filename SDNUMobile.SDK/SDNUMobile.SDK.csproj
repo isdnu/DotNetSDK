@@ -41,10 +41,14 @@
     <AssemblyOriginatorKeyFile>SDNUMobile.SDK.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AbstractClient.cs" />
     <Compile Include="AbstractRestMethod.cs" />
     <Compile Include="AccessToken.cs" />
-    <Compile Include="Net\HttpRequest.cs" />
+    <Compile Include="IClient.cs" />
+    <Compile Include="IJsonDeserializer.cs" />
+    <Compile Include="Net\OAuthHttpRequest.cs" />
     <Compile Include="Net\RequestMethod.cs" />
+    <Compile Include="OAuthError.cs" />
     <Compile Include="RequestParameter.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Entity\CampusType.cs" />
@@ -64,6 +68,7 @@
     <Compile Include="Entity\People\PeopleInfo.cs" />
     <Compile Include="Entity\Poi\SchoolPosition.cs" />
     <Compile Include="Entity\User\UserInfo.cs" />
+    <Compile Include="RestResult.cs" />
     <Compile Include="UserType.cs" />
     <Compile Include="Entity\Weather\WeatherCityInfo.cs" />
     <Compile Include="Entity\Weather\WeatherForcast.cs" />
@@ -103,6 +108,7 @@
     <Compile Include="Utilities\HttpUtility.cs" />
     <Compile Include="Utilities\SignatureBuilder.cs" />
     <Compile Include="Utilities\UnixTimeConverter.cs" />
+    <Compile Include="XAuthClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SDNUMobile.SDK.snk" />
