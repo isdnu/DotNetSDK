@@ -5,6 +5,11 @@ DotNet SDK for i.sdnu.edu.cn 智慧山师
 
 示例代码
 
+    using System;
+    using System.Threading;
+    
+    using Newtonsoft.Json;
+    
     using SDNUMobile.SDK.Entity.Poi;
     
     class JsonDeserializer : IJsonDeserializer
