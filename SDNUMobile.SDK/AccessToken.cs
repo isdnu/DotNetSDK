@@ -116,6 +116,19 @@ namespace SDNUMobile.SDK
         }
         #endregion
 
+        #region 内部方法
+        /// <summary>
+        /// 刷新访问令牌
+        /// </summary>
+        /// <param name="expiresIn">令牌超时时间</param>
+        /// <param name="createTime">令牌创建时间</param>
+        internal void RefreshToken(Int32 expiresIn, DateTime createTime)
+        {
+            this._expiresIn = expiresIn;
+            this._createTime = createTime;
+        }
+        #endregion
+
         #region 静态方法
         /// <summary>
         /// 从存储凭证中创建访问令牌
