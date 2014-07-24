@@ -191,7 +191,7 @@ namespace SDNUMobile.SDK
                 throw new NullReferenceException();
             }
 
-            String url = Constants.OAuthRefreshTokenUrl;
+            String url = this.OAuthRefreshTokenUrl;
 
             List<RequestParameter> headers = new List<RequestParameter>();
             headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
@@ -264,7 +264,7 @@ namespace SDNUMobile.SDK
                 throw new ArgumentNullException("restMethod");
             }
 
-            String url = String.Format("{0}/{1}", Constants.RestRootUrl, restMethod.MethodPath);
+            String url = String.Format("{0}/{1}", this.RestRootUrl, restMethod.MethodPath);
 
             List<RequestParameter> headers = new List<RequestParameter>();
             headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));

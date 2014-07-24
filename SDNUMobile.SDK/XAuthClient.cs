@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using SDNUMobile.SDK.Net;
+using SDNUMobile.SDK.Utilities;
 
 namespace SDNUMobile.SDK
 {
     /// <summary>
     /// xAuth认证客户端
     /// </summary>
-    public class XAuthClient : AbstractClient
+    public sealed class XAuthClient : AbstractClient
     {
         #region 构造方法
         /// <summary>
@@ -34,6 +38,82 @@ namespace SDNUMobile.SDK
         /// <param name="voucher">访问令牌存储凭证</param>
         public XAuthClient(IJsonDeserializer jsonDeserializer, String consumerKey, String consumerSecret, String voucher)
             : base(jsonDeserializer, consumerKey, consumerSecret, voucher) { }
+        #endregion
+
+        #region 方法
+        /// <summary>
+        /// 异步获取访问令牌
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="passWord">密码</param>
+        /// <param name="callback">回调函数返回原始数据</param>
+        /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
+        public void RequestAccessTokenAsync(String userName, String passWord, Action<String> callback)
+        {
+            if (String.IsNullOrEmpty(userName))
+            {
+                throw new ArgumentNullException("userName");
+            }
+
+            if (String.IsNullOrEmpty(passWord))
+            {
+                throw new ArgumentNullException("passWord");
+            }
+
+            String url = this.OAuthAccessTokenUrl;
+
+            List<RequestParameter> headers = new List<RequestParameter>();
+            headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
+            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
+            headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
+            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
+            headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
+            headers.Add(new RequestParameter(OAuthConstants.AuthModeParameter, OAuthConstants.SupportXAuthMode));
+            headers.Add(new RequestParameter(OAuthConstants.AuthPasswordParameter, passWord));
+            headers.Add(new RequestParameter(OAuthConstants.AuthUsernameParameter, userName));
+
+            OAuthHttpRequest.GetRemoteContentAsync(url, this._consumerSecret, String.Empty, headers,
+                new Action<String>((String content) =>
+                {
+                    this._accessToken = this.GetAccessTokenFromString(content);
+
+                    if (callback != null)
+                    {
+                        callback(content);
+                    }
+                }));
+        }
+
+        /// <summary>
+        /// 异步获取访问令牌
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="passWord">密码</param>
+        /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
+        public void RequestAccessTokenAsync(String userName, String passWord)
+        {
+            this.RequestAccessTokenAsync(userName, passWord, new Action<String>((String content) => { }));
+        }
+
+        /// <summary>
+        /// 异步获取访问令牌
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="passWord">密码</param>
+        /// <param name="callback">回调函数返回错误实体（如果有）</param>
+        /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
+        public void RequestAccessTokenAsync(String userName, String passWord, Action<OAuthError> callback)
+        {
+            this.RequestAccessTokenAsync(userName, passWord, new Action<String>((String content) =>
+            {
+                if (callback != null)
+                {
+                    OAuthError error = this.GetOAuthErrorFromString(content);
+
+                    callback(error);
+                }
+            }));
+        }
         #endregion
     }
 }
