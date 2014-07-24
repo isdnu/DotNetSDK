@@ -1,16 +1,14 @@
-智慧山师 DotNetSDK
+智慧山师 .NET SDK
 =========
 
-OAuth1.0a授权和服务接口调用示例
----------
+智慧山师官方 .NET SDK，基于MIT开源协议，支持.NET 2.0、4.0以及4.0可移植库三种项目类型，覆盖.NET 2.0/4.0全部的项目以及Windows Phone Silverlight 7及以上、Windows 8（应用商店应用）及以上、Windows 8.1/Windows Phone 8.1以及Silverlight 5.0及以上等不同的应用。.NET SDK支持OAuth1.0a和XAuth两种授权方式，封装了智慧山师全部的接口，可以提供获取服务器返回的原始数据以及反序列化后的实体数据。
+
+若要获取实体数据，首先需要创建自定义反序列化器，智慧山师支持任意Json反序列化工具，例如使用Json.NET可以使用如下的代码
+
     using System;
-    using System.Threading;
-
     using Newtonsoft.Json;
-
     using SDNUMobile.SDK;
-    using SDNUMobile.SDK.Entity.People;
-
+    
     class JsonDeserializer : IJsonDeserializer
     {
         public static JsonDeserializer Instance = new JsonDeserializer();
@@ -21,145 +19,60 @@ OAuth1.0a授权和服务接口调用示例
         }
     }
 
-    class Program
+接下来仅需创建客户端即可使用相关功能
+
+    String consumerKey = "test_consumer_key_00000000000001";
+    String consumerSecret = "test_consumer_secrettest_consumer_secret";
+
+    OAuthClient client = new OAuthClient(JsonDeserializer.Instance, consumerKey, consumerSecret);
+
+对于OAuth1.0a协议，需要按以下步骤执行
+
+1.  获取请求令牌
+2.  使用请求令牌访问授权页面并引导用户登录和授权
+3.  从回调地址中获取令牌验证码
+4.  使用请求令牌和验证码获取访问令牌
+5.  请求服务方法
+
+1.获取请求令牌
+
+    client.RequestRequestTokenAsync(callbackUrl, new Action<TokenResult>((TokenResult result) =>
     {
-        static ManualResetEvent allDone = new ManualResetEvent(false);
-        static RequestToken requestToken;
+        RequestToken requestToken = result.Token as RequestToken;
+    }));
 
-        static void Main(string[] args)
-        {
-            String consumerKey = "test_consumer_key_00000000000001";
-            String consumerSecret = "test_consumer_secrettest_consumer_secret";
+对于客户端类无服务器的应用，可以使用默认回调地址
 
-            OAuthClient client = new OAuthClient(JsonDeserializer.Instance, consumerKey, consumerSecret);
-
-            RequestRequestTokenByOAuth(client);//获取请求令牌
-            allDone.WaitOne();
-            allDone.Reset();
-
-            String authorizeUrl = client.GetAuthorizeUrl(requestToken);//引导用户访问该地址，登录并授权
-            Console.WriteLine(authorizeUrl);
-
-            String callbackUrl = Console.ReadLine();//从回调地址中获取验证码
-            String verifier = client.GetVerifierFromCallbackUrl(callbackUrl);
-
-            RequestAccessTokenByOAuth(client, requestToken, verifier);
-            allDone.WaitOne();
-            allDone.Reset();
-
-            RequestPrivateData(client);//获取个人数据
-            allDone.WaitOne();
-        }
-
-        static void RequestRequestTokenByOAuth(OAuthClient client)
-        {
-            client.RequestRequestTokenAsync(new Action<TokenResult>((TokenResult result) =>
-            {
-                requestToken = result.Token as RequestToken;
-
-                allDone.Set();
-            }));
-        }
-
-        static void RequestAccessTokenByOAuth(OAuthClient client, RequestToken token, String verifier)
-        {
-            client.RequestAccessTokenAsync(token, verifier, new Action<TokenResult>((TokenResult result) =>
-            {
-                if (result.Success)
-                {
-                    Console.WriteLine(String.Format("Token ID:{0}", result.Token.TokenID));
-                }
-
-                allDone.Set();
-            }));
-        }
-
-        static void RequestPrivateData(IClient client)
-        {
-            client.RequestRestMethodAsync(new SDNUMobile.SDK.RestMethod.People.Get(), new Action<RestResult>((RestResult result) =>
-            {
-                if (result.Success)
-                {
-                    PeopleInfo people = result.Result as PeopleInfo;
-                    Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
-                }
-
-                allDone.Set();
-            }));
-        }
-    }
-
-
-XAuth授权和服务接口调用示例
----------
-
-    using System;
-    using System.Threading;
-
-    using Newtonsoft.Json;
-
-    using SDNUMobile.SDK;
-    using SDNUMobile.SDK.Entity.People;
-
-    class JsonDeserializer : IJsonDeserializer
+    client.RequestRequestTokenAsync(new Action<TokenResult>((TokenResult result) =>
     {
-        public static JsonDeserializer Instance = new JsonDeserializer();
+        RequestToken requestToken = result.Token as RequestToken;
+    }));
 
-        public Object DeserializeJson(String json, Type entityType)
-        {
-            return JsonConvert.DeserializeObject(json, entityType);
-        }
-    }
+2.获取授权页面地址，并引导用户登录和授权
 
-    class Program
+    String authorizeUrl = client.GetAuthorizeUrl(requestToken):
+
+3.从回调地址中获取令牌验证码
+
+    String verifier = client.GetVerifierFromCallbackUrl(callbackUrl);
+
+4.使用请求令牌换取访问令牌
+
+    client.RequestAccessTokenAsync(requestToken, verifier, new Action<TokenResult>((TokenResult result) =>
     {
-        static ManualResetEvent allDone = new ManualResetEvent(false);
+        AccessToken accessToken = result.Token as AccessToken;
+    }));
 
-        static void Main(string[] args)
+5.使用访问令牌请求服务方法
+
+    client.RequestRestMethodAsync(new SDNUMobile.SDK.RestMethod.People.Get(), new Action<RestResult>((RestResult result) =>
+    {
+        if (result.Success)
         {
-            String consumerKey = "test_consumer_key_00000000000001";
-            String consumerSecret = "test_consumer_secrettest_consumer_secret";
-
-            String userName = "username";
-            String passWord = "password";
-
-            XAuthClient client = new XAuthClient(JsonDeserializer.Instance, consumerKey, consumerSecret);
-
-            RequestAccessTokenByXAuth(userName, passWord, client);//XAuth登陆
-            allDone.WaitOne();
-            allDone.Reset();
-
-            RequestPrivateData(client);//获取个人数据
-            allDone.WaitOne();
+            PeopleInfo people = result.Result as PeopleInfo;
+            Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
         }
-
-        static void RequestAccessTokenByXAuth(String userName, String passWord, XAuthClient client)
-        {
-            client.RequestAccessTokenAsync(userName, passWord, new Action<TokenResult>((TokenResult result) =>
-            {
-                if (result.Success)
-                {
-                    Console.WriteLine(String.Format("Token ID:{0}", result.Token.TokenID));
-                }
-
-                allDone.Set();
-            }));
-        }
-
-        static void RequestPrivateData(IClient client)
-        {
-            client.RequestRestMethodAsync(new SDNUMobile.SDK.RestMethod.People.Get(), new Action<RestResult>((RestResult result) =>
-            {
-                if (result.Success)
-                {
-                    PeopleInfo people = result.Result as PeopleInfo;
-                    Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
-                }
-
-                allDone.Set();
-            }));
-        }
-    }
+    }));
 
 相关链接
 ---------
