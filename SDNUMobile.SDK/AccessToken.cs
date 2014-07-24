@@ -6,7 +6,7 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// 访问令牌实体
     /// </summary>
-    public class AccessToken
+    public class AccessToken : IToken
     {
         #region 常量
         private const String DateTimeStringFormat = "yyyy-MM-dd HH:mm:ss";

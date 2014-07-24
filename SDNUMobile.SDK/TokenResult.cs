@@ -3,26 +3,17 @@
 namespace SDNUMobile.SDK
 {
     /// <summary>
-    /// 请求结果类
+    /// 令牌请求结果类
     /// </summary>
-    public class RestResult
+    public class TokenResult
     {
         #region 字段
-        private IRestMethod _sourceMethod;
         private Boolean _success;
-        private Object _result;
+        private IToken _token;
         private OAuthError _error;
         #endregion
 
         #region 属性
-        /// <summary>
-        /// 获取来源方法
-        /// </summary>
-        public IRestMethod SourceMethod
-        {
-            get { return this._sourceMethod; }
-        }
-
         /// <summary>
         /// 获取执行是否成功
         /// </summary>
@@ -32,11 +23,11 @@ namespace SDNUMobile.SDK
         }
 
         /// <summary>
-        /// 获取结果实体
+        /// 获取获取到的令牌
         /// </summary>
-        public Object Result
+        public IToken Token
         {
-            get { return this._result; }
+            get { return this._token; }
         }
 
         /// <summary>
@@ -50,28 +41,24 @@ namespace SDNUMobile.SDK
 
         #region 构造方法
         /// <summary>
-        /// 初始化新的请求结果类
+        /// 初始化新的令牌请求结果类
         /// </summary>
-        /// <param name="source">来源方法</param>
-        /// <param name="result">结果实体</param>
-        public RestResult(IRestMethod source, Object result)
+        /// <param name="token">令牌实体</param>
+        public TokenResult(IToken token)
         {
-            this._sourceMethod = source;
             this._success = true;
-            this._result = result;
+            this._token = token;
             this._error = null;
         }
 
         /// <summary>
-        /// 初始化新的请求结果类
+        /// 初始化新的令牌请求结果类
         /// </summary>
-        /// <param name="source">来源方法</param>
         /// <param name="error">错误实体</param>
-        public RestResult(IRestMethod source, OAuthError error)
+        public TokenResult(OAuthError error)
         {
-            this._sourceMethod = source;
             this._success = false;
-            this._result = null;
+            this._token = null;
             this._error = error;
         }
         #endregion

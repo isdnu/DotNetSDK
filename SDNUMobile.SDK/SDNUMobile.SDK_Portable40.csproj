@@ -44,9 +44,11 @@
     <Compile Include="AbstractClient.cs" />
     <Compile Include="AbstractRestMethod.cs" />
     <Compile Include="AccessToken.cs" />
+    <Compile Include="TokenResult.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IJsonDeserializer.cs" />
     <Compile Include="IRestMethod.cs" />
+    <Compile Include="IToken.cs" />
     <Compile Include="Net\OAuthHttpRequest.cs" />
     <Compile Include="Net\RequestMethod.cs" />
     <Compile Include="OAuthClient.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="Entity\People\PeopleInfo.cs" />
     <Compile Include="Entity\Poi\SchoolPosition.cs" />
     <Compile Include="Entity\User\UserInfo.cs" />
+    <Compile Include="RequestToken.cs" />
     <Compile Include="RestResult.cs" />
     <Compile Include="UserType.cs" />
     <Compile Include="Entity\Weather\WeatherCityInfo.cs" />

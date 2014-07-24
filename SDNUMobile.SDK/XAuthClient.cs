@@ -100,17 +100,27 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="passWord">密码</param>
-        /// <param name="callback">回调函数返回错误实体（如果有）</param>
+        /// <param name="callback">回调函数返回实体数据</param>
         /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
-        public void RequestAccessTokenAsync(String userName, String passWord, Action<OAuthError> callback)
+        public void RequestAccessTokenAsync(String userName, String passWord, Action<TokenResult> callback)
         {
             this.RequestAccessTokenAsync(userName, passWord, new Action<String>((String content) =>
             {
                 if (callback != null)
                 {
                     OAuthError error = this.GetOAuthErrorFromString(content);
+                    TokenResult result = null;
 
-                    callback(error);
+                    if (error == null)
+                    {
+                        result = new TokenResult(this._accessToken);
+                    }
+                    else
+                    {
+                        result = new TokenResult(error);
+                    }
+
+                    callback(result);
                 }
             }));
         }

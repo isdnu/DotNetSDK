@@ -68,15 +68,15 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestAccessTokenByXAuth(String userName, String passWord, XAuthClient client)
         {
-            client.RequestAccessTokenAsync(userName, passWord, new Action<OAuthError>((OAuthError error) =>
+            client.RequestAccessTokenAsync(userName, passWord, new Action<TokenResult>((TokenResult result) =>
             {
-                if (error != null)
+                if (result.Error != null)
                 {
-                    Console.WriteLine(error.ErrorDescription);
+                    Console.WriteLine(result.Error.ErrorDescription);
                 }
                 else
                 {
-                    Console.WriteLine(String.Format("Token:{0}, {1}", client.AccessToken.UserID, client.AccessToken.TokenID));
+                    Console.WriteLine(String.Format("Token ID:{0}", result.Token.TokenID));
                 }
 
                 allDone.Set();

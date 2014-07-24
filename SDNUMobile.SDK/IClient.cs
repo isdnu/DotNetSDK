@@ -69,7 +69,7 @@ namespace SDNUMobile.SDK
         /// <param name="callback">回调函数返回错误实体（如果有）</param>
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
-        void RefreshAccessTokenAsync(Action<OAuthError> callback);
+        void RefreshAccessTokenAsync(Action<TokenResult> callback);
 
         /// <summary>
         /// 异步调用服务方法

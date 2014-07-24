@@ -31,5 +31,10 @@ namespace SDNUMobile.SDK
         /// 获取OAuth服务请求根地址
         /// </summary>
         internal const String RestRootUrl = @"http://i.sdnu.edu.cn/oauth/rest";
+
+        /// <summary>
+        /// 获取OAuth默认回调地址
+        /// </summary>
+        internal const String DefaultCallbackUrl = @"http://i.sdnu.edu.cn/oauth/index.html";
     }
 }

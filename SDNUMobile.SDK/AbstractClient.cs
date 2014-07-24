@@ -275,10 +275,10 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 异步刷新访问令牌
         /// </summary>
-        /// <param name="callback">回调函数返回错误实体（如果有）</param>
+        /// <param name="callback">回调函数返回实体数据</param>
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
-        public void RefreshAccessTokenAsync(Action<OAuthError> callback)
+        public void RefreshAccessTokenAsync(Action<TokenResult> callback)
         {
             if (this._jsonDeserializer == null)
             {
@@ -290,8 +290,18 @@ namespace SDNUMobile.SDK
                 if (callback != null)
                 {
                     OAuthError error = this.GetOAuthErrorFromString(content);
+                    TokenResult result = null;
 
-                    callback(error);
+                    if (error == null)
+                    {
+                        result = new TokenResult(this._accessToken);
+                    }
+                    else
+                    {
+                        result = new TokenResult(error);
+                    }
+
+                    callback(result);
                 }
             }));
         }
@@ -484,7 +494,7 @@ namespace SDNUMobile.SDK
                     continue;
                 }
 
-                dict[pair[0]] = pair[1];
+                dict[pair[0]] = HttpUtility.UrlDecode(pair[1]);
             }
 
             return dict;
