@@ -81,7 +81,7 @@ namespace SDNUMobile.SDK.Net
                 request.Headers[HttpRequestHeader.Authorization] = authHeader;
             }
 
-            if (method == RequestMethod.Post && parameters != null)
+            if (method == RequestMethod.Post)
             {
                 Byte[] data = OAuthHttpRequest.GetParameterDataFromList(parameters, boundary, encoding);
 
@@ -244,6 +244,11 @@ namespace SDNUMobile.SDK.Net
         private static Byte[] GetParameterDataFromList(IEnumerable<RequestParameter> parameters, String boundary, Encoding encoding)
         {
             Byte[] data = null;
+
+            if (parameters == null)
+            {
+                return new Byte[0];
+            }
 
             if (OAuthHttpRequest.IsRequestParametersHasBinaryFile(parameters))//multipart/form-data
             {
