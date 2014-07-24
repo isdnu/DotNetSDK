@@ -62,13 +62,13 @@
     <Compile Include="TestRestMethod.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SDNUMobile.SDK\SDNUMobile.SDK.csproj">
-      <Project>{52c7ac1a-ab40-449b-be98-a4e3cd87c0a8}</Project>
-      <Name>SDNUMobile.SDK</Name>
-    </ProjectReference>
+    <None Include="SDNUMobile.SDK.UnitTest.snk" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SDNUMobile.SDK.UnitTest.snk" />
+    <ProjectReference Include="..\SDNUMobile.SDK\SDNUMobile.SDK_Portable40.csproj">
+      <Project>{52c7ac1a-ab40-449b-be98-a4e3cd87c0a8}</Project>
+      <Name>SDNUMobile.SDK_Portable40</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

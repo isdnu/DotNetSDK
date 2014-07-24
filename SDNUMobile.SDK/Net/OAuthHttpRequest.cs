@@ -72,7 +72,7 @@ namespace SDNUMobile.SDK.Net
             String boundary = DateTime.Now.Ticks.ToString("x");
             String actualUrl = (method == RequestMethod.Get ? OAuthHttpRequest.GetActualUrl(url, encoding, parameters) : url);
 
-            HttpWebRequest request = HttpWebRequest.CreateHttp(actualUrl);
+            HttpWebRequest request = HttpWebRequest.Create(actualUrl) as HttpWebRequest;
             request.Headers["Pragma"] = "no-cache";
 
             if (method == RequestMethod.Post)
@@ -202,7 +202,12 @@ namespace SDNUMobile.SDK.Net
                     if (response != null)
                     {
                         data = OAuthHttpRequest.GetBytesFromResponse(response);
+
+#if PORTABLE40
                         response.Dispose();
+#else
+                        response.Close();
+#endif
                     }
                 }
 
