@@ -9,6 +9,31 @@ namespace SDNUMobile.SDK
     {
         #region 属性
         /// <summary>
+        /// 获取或设置OAuth请求令牌请求地址
+        /// </summary>
+        String OAuthRequestTokenUrl { get; set; }
+
+        /// <summary>
+        /// 获取或设置OAuth认证地址
+        /// </summary>
+        String OAuthAuthorizeUrl { get; set; }
+
+        /// <summary>
+        /// 获取或设置OAuth访问令牌请求地址
+        /// </summary>
+        String OAuthAccessTokenUrl { get; set; }
+
+        /// <summary>
+        /// 获取或设置OAuth令牌刷新请求地址
+        /// </summary>
+        String OAuthRefreshTokenUrl { get; set; }
+
+        /// <summary>
+        /// 获取或设置OAuth服务请求根地址
+        /// </summary>
+        String RestRootUrl { get; set; }
+
+        /// <summary>
         /// 获取当前客户端Key
         /// </summary>
         String ConsumerKey { get; }

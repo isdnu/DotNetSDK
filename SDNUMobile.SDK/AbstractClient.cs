@@ -12,13 +12,98 @@ namespace SDNUMobile.SDK
     public abstract class AbstractClient : IClient
     {
         #region 字段
-        private String _consumerKey;
-        private String _consumerSecret;
-        private AccessToken _accessToken;
-        private IJsonDeserializer _jsonDeserializer;
+        /// <summary>
+        /// OAuth请求令牌请求地址
+        /// </summary>
+        private String _oauthRequestTokenUrl;
+
+        /// <summary>
+        /// OAuth认证地址
+        /// </summary>
+        private String _oauthAuthorizeUrl;
+
+        /// <summary>
+        /// OAuth访问令牌请求地址
+        /// </summary>
+        private String _oauthAccessTokenUrl;
+
+        /// <summary>
+        /// OAuth令牌刷新请求地址
+        /// </summary>
+        private String _oauthRefreshTokenUrl;
+
+        /// <summary>
+        /// OAuth服务请求根地址
+        /// </summary>
+        private String _restRootUrl;
+
+        /// <summary>
+        /// 客户端Key
+        /// </summary>
+        protected String _consumerKey;
+
+        /// <summary>
+        /// 客户端密钥
+        /// </summary>
+        protected String _consumerSecret;
+
+        /// <summary>
+        /// 访问令牌实体
+        /// </summary>
+        protected AccessToken _accessToken;
+
+        /// <summary>
+        /// Json反序列化器
+        /// </summary>
+        protected IJsonDeserializer _jsonDeserializer;
         #endregion
 
         #region 属性
+        /// <summary>
+        /// 获取或设置OAuth请求令牌请求地址
+        /// </summary>
+        public String OAuthRequestTokenUrl
+        {
+            get { return this._oauthRequestTokenUrl; }
+            set { this._oauthRequestTokenUrl = value; }
+        }
+
+        /// <summary>
+        /// 获取或设置OAuth认证地址
+        /// </summary>
+        public String OAuthAuthorizeUrl
+        {
+            get { return this._oauthAuthorizeUrl; }
+            set { this._oauthAuthorizeUrl = value; }
+        }
+
+        /// <summary>
+        /// 获取或设置OAuth访问令牌请求地址
+        /// </summary>
+        public String OAuthAccessTokenUrl
+        {
+            get { return this._oauthAccessTokenUrl; }
+            set { this._oauthAccessTokenUrl = value; }
+        }
+
+        /// <summary>
+        /// 获取或设置OAuth令牌刷新请求地址
+        /// </summary>
+        public String OAuthRefreshTokenUrl
+        {
+            get { return this._oauthRefreshTokenUrl; }
+            set { this._oauthRefreshTokenUrl = value; }
+        }
+
+        /// <summary>
+        /// 获取或设置OAuth服务请求根地址
+        /// </summary>
+        public String RestRootUrl
+        {
+            get { return this._restRootUrl; }
+            set { this._restRootUrl = value; }
+        }
+
         /// <summary>
         /// 获取当前客户端Key
         /// </summary>
@@ -80,6 +165,12 @@ namespace SDNUMobile.SDK
         /// <param name="voucher">访问令牌存储凭证</param>
         internal AbstractClient(IJsonDeserializer jsonDeserializer, String consumerKey, String consumerSecret, String voucher)
         {
+            this._oauthRequestTokenUrl = Constants.OAuthRequestTokenUrl;
+            this._oauthAuthorizeUrl = Constants.OAuthAuthorizeUrl;
+            this._oauthAccessTokenUrl = Constants.OAuthAccessTokenUrl;
+            this._oauthRefreshTokenUrl = Constants.OAuthRefreshTokenUrl;
+            this._restRootUrl = Constants.RestRootUrl;
+
             this._jsonDeserializer = jsonDeserializer;
             this._consumerKey = consumerKey;
             this._consumerSecret = consumerSecret;
@@ -229,8 +320,13 @@ namespace SDNUMobile.SDK
         }
         #endregion
 
-        #region 私有方法
-        private AccessToken GetAccessTokenFromString(String content)
+        #region 保护方法
+        /// <summary>
+        /// 从字符串中获取访问令牌实体
+        /// </summary>
+        /// <param name="content">字符串内容</param>
+        /// <returns>访问令牌实体</returns>
+        protected AccessToken GetAccessTokenFromString(String content)
         {
             if (String.IsNullOrEmpty(content) || !content.StartsWith("oauth_token=", StringComparison.OrdinalIgnoreCase))
             {
@@ -266,7 +362,12 @@ namespace SDNUMobile.SDK
             return accessToken;
         }
 
-        private OAuthError GetOAuthErrorFromString(String content)
+        /// <summary>
+        /// 从字符串中获取OAuth错误实体
+        /// </summary>
+        /// <param name="content">字符串内容</param>
+        /// <returns>OAuth错误实体</returns>
+        protected OAuthError GetOAuthErrorFromString(String content)
         {
             if (String.IsNullOrEmpty(content) || !content.StartsWith("error_code=", StringComparison.OrdinalIgnoreCase))
             {
@@ -294,7 +395,14 @@ namespace SDNUMobile.SDK
             return error;
         }
 
-        private RestResult GetRestResultFromJson(AbstractRestMethod method, String content, Type type)
+        /// <summary>
+        /// 从Json中获取服务结果
+        /// </summary>
+        /// <param name="method">服务方法</param>
+        /// <param name="content">Json内容</param>
+        /// <param name="type">实体类型</param>
+        /// <returns>服务结果</returns>
+        protected RestResult GetRestResultFromJson(AbstractRestMethod method, String content, Type type)
         {
             if (String.IsNullOrEmpty(content))
             {
@@ -311,7 +419,12 @@ namespace SDNUMobile.SDK
             return new RestResult(method, entity);
         }
 
-        private Dictionary<String, String> GetDictionaryFromString(String content)
+        /// <summary>
+        /// 从字符串中获取字典
+        /// </summary>
+        /// <param name="content">字符串内容</param>
+        /// <returns>获取到的字典</returns>
+        protected Dictionary<String, String> GetDictionaryFromString(String content)
         {
             Dictionary<String, String> dict = new Dictionary<String, String>();
 
