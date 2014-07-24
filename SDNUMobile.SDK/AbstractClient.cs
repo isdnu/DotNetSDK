@@ -223,7 +223,7 @@ namespace SDNUMobile.SDK
         }
         #endregion
 
-        #region 方法
+        #region 刷新访问令牌
         /// <summary>
         /// 异步刷新访问令牌
         /// </summary>
@@ -305,7 +305,9 @@ namespace SDNUMobile.SDK
                 }
             }));
         }
+        #endregion
 
+        #region 调用服务方法
         /// <summary>
         /// 异步调用服务方法
         /// </summary>

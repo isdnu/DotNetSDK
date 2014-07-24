@@ -40,7 +40,7 @@ namespace SDNUMobile.SDK
             : base(jsonDeserializer, consumerKey, consumerSecret, voucher) { }
         #endregion
 
-        #region 方法
+        #region 获取访问令牌
         /// <summary>
         /// 异步获取访问令牌
         /// </summary>

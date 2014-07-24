@@ -40,7 +40,7 @@ namespace SDNUMobile.SDK
             : base(jsonDeserializer, consumerKey, consumerSecret, voucher) { }
         #endregion
 
-        #region 方法
+        #region 获取请求令牌
         /// <summary>
         /// 异步获取请求令牌
         /// </summary>
@@ -112,7 +112,9 @@ namespace SDNUMobile.SDK
         {
             this.RequestRequestTokenAsync(String.Empty, callback);
         }
+        #endregion
 
+        #region 获取访问令牌
         /// <summary>
         /// 异步获取访问令牌
         /// </summary>
