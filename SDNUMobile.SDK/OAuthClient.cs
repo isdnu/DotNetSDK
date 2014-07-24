@@ -114,6 +114,67 @@ namespace SDNUMobile.SDK
         }
         #endregion
 
+        #region 授权地址相关
+        /// <summary>
+        /// 获取授权地址
+        /// </summary>
+        /// <param name="requestToken">请求令牌</param>
+        /// <param name="forceLogin">是否强制登陆</param>
+        /// <exception cref="ArgumentNullException">请求令牌和令牌验证码不能为空</exception>
+        public String GetAuthorizeUrl(RequestToken requestToken, Boolean forceLogin)
+        {
+            if (requestToken == null)
+            {
+                throw new ArgumentNullException("requestToken");
+            }
+
+            String url = String.Format("{0}?{1}={2}", this.OAuthAuthorizeUrl, OAuthConstants.TokenParameter, requestToken.TokenID);
+
+            if (forceLogin)
+            {
+                url = String.Format("{0}&forcelogin=true", url);
+            }
+
+            return url;
+        }
+
+        /// <summary>
+        /// 获取授权地址
+        /// </summary>
+        /// <param name="requestToken">请求令牌</param>
+        /// <exception cref="ArgumentNullException">请求令牌和令牌验证码不能为空</exception>
+        public String GetAuthorizeUrl(RequestToken requestToken)
+        {
+            return this.GetAuthorizeUrl(requestToken, false);
+        }
+
+        /// <summary>
+        /// 从回调地址中获取令牌验证码
+        /// </summary>
+        /// <param name="callbackUrl">回调地址</param>
+        /// <returns>令牌验证码</returns>
+        public String GetVerifierFromCallbackUrl(String callbackUrl)
+        {
+            if (String.IsNullOrEmpty(callbackUrl))
+            {
+                return String.Empty;
+            }
+
+            Int32 index = callbackUrl.IndexOf('#') + 1;
+
+            if (index <= 0 || index >= callbackUrl.Length)
+            {
+                return String.Empty;
+            }
+
+            String result = callbackUrl.Substring(index);
+            Dictionary<String, String> dict = this.GetDictionaryFromString(result);
+            String verifier = String.Empty;
+
+            return dict.TryGetValue(OAuthConstants.VerifierParameter, out verifier) ? verifier : String.Empty;
+        }
+        #endregion
+
         #region 获取访问令牌
         /// <summary>
         /// 异步获取访问令牌
@@ -207,21 +268,23 @@ namespace SDNUMobile.SDK
         /// <returns>请求令牌实体</returns>
         private RequestToken GetRequestTokenFromString(String content)
         {
-            if (String.IsNullOrEmpty(content) || !content.StartsWith("oauth_token=", StringComparison.OrdinalIgnoreCase))
+            if (String.IsNullOrEmpty(content) || !content.StartsWith(OAuthConstants.TokenParameter, StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
             Dictionary<String, String> dict = this.GetDictionaryFromString(content);
 
-            if (!dict.ContainsKey("oauth_token") || !dict.ContainsKey("oauth_token_secret") || !dict.ContainsKey("oauth_callback_confirmed") ||
-                !String.Equals(dict["oauth_callback_confirmed"], "true", StringComparison.OrdinalIgnoreCase))
+            if (!dict.ContainsKey(OAuthConstants.TokenParameter) || 
+                !dict.ContainsKey(OAuthConstants.TokenSecretParameter) ||
+                !dict.ContainsKey(OAuthConstants.TokenCallbackConfirmed) ||
+                !String.Equals(dict[OAuthConstants.TokenCallbackConfirmed], "true", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
-            String tokenID = dict["oauth_token"];
-            String tokenSecret = dict["oauth_token_secret"];
+            String tokenID = dict[OAuthConstants.TokenParameter];
+            String tokenSecret = dict[OAuthConstants.TokenSecretParameter];
 
             RequestToken requestToken = new RequestToken(tokenID, tokenSecret);
 

@@ -385,21 +385,24 @@ namespace SDNUMobile.SDK
         /// <returns>访问令牌实体</returns>
         protected AccessToken GetAccessTokenFromString(String content)
         {
-            if (String.IsNullOrEmpty(content) || !content.StartsWith("oauth_token=", StringComparison.OrdinalIgnoreCase))
+            if (String.IsNullOrEmpty(content) || !content.StartsWith(OAuthConstants.TokenParameter, StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
             Dictionary<String, String> dict = this.GetDictionaryFromString(content);
 
-            if (!dict.ContainsKey("oauth_token") || !dict.ContainsKey("oauth_token_secret") ||
-                !dict.ContainsKey("user_id") || !dict.ContainsKey("user_type") || !dict.ContainsKey("expires_in"))
+            if (!dict.ContainsKey(OAuthConstants.TokenParameter) ||
+                !dict.ContainsKey(OAuthConstants.TokenSecretParameter) ||
+                !dict.ContainsKey("user_id") || 
+                !dict.ContainsKey("user_type") ||
+                !dict.ContainsKey("expires_in"))
             {
                 return null;
             }
 
-            String tokenID = dict["oauth_token"];
-            String tokenSecret = dict["oauth_token_secret"];
+            String tokenID = dict[OAuthConstants.TokenParameter];
+            String tokenSecret = dict[OAuthConstants.TokenSecretParameter];
             String userID = dict["user_id"];
             Byte userType;
             Int32 expiresIn;

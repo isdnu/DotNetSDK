@@ -64,6 +64,11 @@ namespace SDNUMobile.SDK
         internal const String TokenSecretParameter = "oauth_token_secret";
 
         /// <summary>
+        /// 获取令牌回调地址验证状态参数名
+        /// </summary>
+        internal const String TokenCallbackConfirmed = "oauth_callback_confirmed";
+
+        /// <summary>
         /// 获取XAuth认证方式参数名
         /// </summary>
         internal const String AuthModeParameter = "x_auth_mode";
