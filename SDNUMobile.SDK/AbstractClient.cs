@@ -62,46 +62,91 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 获取或设置OAuth请求令牌请求地址
         /// </summary>
+        /// <exception cref="ArgumentNullException">OAuth请求令牌请求地址不能为空</exception>
         public String OAuthRequestTokenUrl
         {
             get { return this._oauthRequestTokenUrl; }
-            set { this._oauthRequestTokenUrl = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this._oauthRequestTokenUrl = value; 
+            }
         }
 
         /// <summary>
         /// 获取或设置OAuth认证地址
         /// </summary>
+        /// <exception cref="ArgumentNullException">OAuth认证地址地址不能为空</exception>
         public String OAuthAuthorizeUrl
         {
             get { return this._oauthAuthorizeUrl; }
-            set { this._oauthAuthorizeUrl = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this._oauthAuthorizeUrl = value;
+            }
         }
 
         /// <summary>
         /// 获取或设置OAuth访问令牌请求地址
         /// </summary>
+        /// <exception cref="ArgumentNullException">OAuth访问令牌请求地址不能为空</exception>
         public String OAuthAccessTokenUrl
         {
             get { return this._oauthAccessTokenUrl; }
-            set { this._oauthAccessTokenUrl = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this._oauthAccessTokenUrl = value;
+            }
         }
 
         /// <summary>
         /// 获取或设置OAuth令牌刷新请求地址
         /// </summary>
+        /// <exception cref="ArgumentNullException">OAuth令牌刷新请求地址不能为空</exception>
         public String OAuthRefreshTokenUrl
         {
             get { return this._oauthRefreshTokenUrl; }
-            set { this._oauthRefreshTokenUrl = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this._oauthRefreshTokenUrl = value;
+            }
         }
 
         /// <summary>
         /// 获取或设置OAuth服务请求根地址
         /// </summary>
+        /// <exception cref="ArgumentNullException">OAuth服务请求根地址不能为空</exception>
         public String RestRootUrl
         {
             get { return this._restRootUrl; }
-            set { this._restRootUrl = value; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this._restRootUrl = value;
+            }
         }
 
         /// <summary>
