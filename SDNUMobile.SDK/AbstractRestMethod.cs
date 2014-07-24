@@ -6,7 +6,7 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// 抽象调用方法
     /// </summary>
-    public abstract class AbstractRestMethod
+    public abstract class AbstractRestMethod : IRestMethod
     {
         #region 字段
         private Dictionary<String, RequestParameter> _parameters;

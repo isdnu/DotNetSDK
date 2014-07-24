@@ -8,7 +8,7 @@ namespace SDNUMobile.SDK
     public class RestResult
     {
         #region 字段
-        private AbstractRestMethod _sourceMethod;
+        private IRestMethod _sourceMethod;
         private Object _result;
         private OAuthError _error;
         #endregion
@@ -17,7 +17,7 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 获取来源方法
         /// </summary>
-        public AbstractRestMethod SourceMethod
+        public IRestMethod SourceMethod
         {
             get { return this._sourceMethod; }
         }
@@ -45,7 +45,7 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="source">来源方法</param>
         /// <param name="result">结果实体</param>
-        public RestResult(AbstractRestMethod source, Object result)
+        public RestResult(IRestMethod source, Object result)
         {
             this._sourceMethod = source;
             this._result = result;
@@ -57,7 +57,7 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="source">来源方法</param>
         /// <param name="error">错误实体</param>
-        public RestResult(AbstractRestMethod source, OAuthError error)
+        public RestResult(IRestMethod source, OAuthError error)
         {
             this._sourceMethod = source;
             this._result = null;

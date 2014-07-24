@@ -46,8 +46,10 @@
     <Compile Include="AccessToken.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IJsonDeserializer.cs" />
+    <Compile Include="IRestMethod.cs" />
     <Compile Include="Net\OAuthHttpRequest.cs" />
     <Compile Include="Net\RequestMethod.cs" />
+    <Compile Include="OAuthClient.cs" />
     <Compile Include="OAuthError.cs" />
     <Compile Include="RequestParameter.cs" />
     <Compile Include="Constants.cs" />
