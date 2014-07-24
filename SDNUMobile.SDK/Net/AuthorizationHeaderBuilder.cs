@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SDNUMobile.SDK.Utilities
+using SDNUMobile.SDK.Utilities;
+
+namespace SDNUMobile.SDK.Net
 {
     /// <summary>
     /// OAuth请求头部生成器
