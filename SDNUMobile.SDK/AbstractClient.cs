@@ -89,6 +89,78 @@ namespace SDNUMobile.SDK
 
         #region 方法
         /// <summary>
+        /// 异步刷新访问令牌
+        /// </summary>
+        /// <param name="callback">回调函数返回原始数据</param>
+        /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
+        public void RefreshAccessTokenAsync(Action<String> callback)
+        {
+            if (this._accessToken == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            String url = Constants.OAuthRefreshTokenUrl;
+
+            List<RequestParameter> headers = new List<RequestParameter>();
+            headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
+            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
+            headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
+            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
+            headers.Add(new RequestParameter(OAuthConstants.TokenParameter, this._accessToken.TokenID));
+            headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
+
+            OAuthHttpRequest.GetRemoteContentAsync(url, this._consumerSecret, this._accessToken.TokenSecret, headers, 
+                new Action<String>((String content) =>
+                {
+                    AccessToken refreshedToken = this.GetAccessTokenFromString(content);
+                    
+                    if (refreshedToken != null)
+                    {
+                        this._accessToken.RefreshToken(refreshedToken.ExpiresIn, refreshedToken.CreateTime);
+                    }
+
+                    if (callback != null)
+                    {
+                        callback(content);
+                    }
+                }));
+        }
+
+        /// <summary>
+        /// 异步刷新访问令牌
+        /// </summary>
+        /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
+        public void RefreshAccessTokenAsync()
+        {
+            this.RefreshAccessTokenAsync(new Action<String>((String content) => { }));
+        }
+
+        /// <summary>
+        /// 异步刷新访问令牌
+        /// </summary>
+        /// <param name="callback">回调函数返回错误实体（如果有）</param>
+        /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
+        /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
+        public void RefreshAccessTokenAsync(Action<OAuthError> callback)
+        {
+            if (this._jsonDeserializer == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            this.RefreshAccessTokenAsync(new Action<String>((String content) =>
+            {
+                if (callback != null)
+                {
+                    OAuthError error = this.GetOAuthErrorFromString(content);
+
+                    callback(error);
+                }
+            }));
+        }
+
+        /// <summary>
         /// 异步调用服务方法
         /// </summary>
         /// <param name="restMethod">服务方法</param>
@@ -108,12 +180,27 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
             headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
             headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
-            headers.Add(new RequestParameter(OAuthConstants.TokenParameter, (this._accessToken != null ? this._accessToken.TokenID : String.Empty)));
+
+            if (this._accessToken != null)
+            {
+                headers.Add(new RequestParameter(OAuthConstants.TokenParameter, this._accessToken.TokenID));
+            }
+            
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
             OAuthHttpRequest.PostRemoteContentAsync(url, 
                 this._consumerSecret, (this._accessToken != null ? this._accessToken.TokenSecret : String.Empty),
                 headers, restMethod.Parameters, callback);
+        }
+
+        /// <summary>
+        /// 异步调用服务方法
+        /// </summary>
+        /// <param name="restMethod">服务方法</param>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        public void RequestRestMethodAsync(AbstractRestMethod restMethod)
+        {
+            this.RequestRestMethodAsync(restMethod, new Action<String>((String content) => { }));
         }
 
         /// <summary>
@@ -134,7 +221,7 @@ namespace SDNUMobile.SDK
             {
                 if (callback != null)
                 {
-                    RestResult result = this.GetRestResult(restMethod, content, restMethod.ResultEntityType);
+                    RestResult result = this.GetRestResultFromJson(restMethod, content, restMethod.ResultEntityType);
 
                     callback(result);
                 }
@@ -143,7 +230,71 @@ namespace SDNUMobile.SDK
         #endregion
 
         #region 私有方法
-        private RestResult GetRestResult(AbstractRestMethod method, String content, Type type)
+        private AccessToken GetAccessTokenFromString(String content)
+        {
+            if (String.IsNullOrEmpty(content) || !content.StartsWith("oauth_token=", StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            Dictionary<String, String> dict = this.GetDictionaryFromString(content);
+
+            if (!dict.ContainsKey("oauth_token") || !dict.ContainsKey("oauth_token_secret") ||
+                !dict.ContainsKey("user_id") || !dict.ContainsKey("user_type") || !dict.ContainsKey("expires_in"))
+            {
+                return null;
+            }
+
+            String tokenID = dict["oauth_token"];
+            String tokenSecret = dict["oauth_token_secret"];
+            String userID = dict["user_id"];
+            Byte userType;
+            Int32 expiresIn;
+
+            if (!Byte.TryParse(dict["user_type"], out userType))
+            {
+                return null;
+            }
+
+            if (!Int32.TryParse(dict["expires_in"], out expiresIn))
+            {
+                return null;
+            }
+
+            AccessToken accessToken = new AccessToken(tokenID, tokenSecret, userID, userType, expiresIn);
+
+            return accessToken;
+        }
+
+        private OAuthError GetOAuthErrorFromString(String content)
+        {
+            if (String.IsNullOrEmpty(content) || !content.StartsWith("error_code=", StringComparison.OrdinalIgnoreCase))
+            {
+                return null;
+            }
+
+            Dictionary<String, String> dict = this.GetDictionaryFromString(content);
+
+            if (!dict.ContainsKey("error_code") || !dict.ContainsKey("error_type") || !dict.ContainsKey("error_description"))
+            {
+                return null;
+            }
+            
+            Int32 errorCode;
+            String errorType = dict["error_type"];
+            String errorDescription = dict["error_description"];
+
+            if (!Int32.TryParse(dict["error_code"], out errorCode))
+            {
+                return null;
+            }
+
+            OAuthError error = new OAuthError(errorCode, errorType, errorDescription);
+
+            return error;
+        }
+
+        private RestResult GetRestResultFromJson(AbstractRestMethod method, String content, Type type)
         {
             if (String.IsNullOrEmpty(content))
             {
@@ -158,6 +309,27 @@ namespace SDNUMobile.SDK
 
             Object entity = this._jsonDeserializer.DeserializeJson(content, type);
             return new RestResult(method, entity);
+        }
+
+        private Dictionary<String, String> GetDictionaryFromString(String content)
+        {
+            Dictionary<String, String> dict = new Dictionary<String, String>();
+
+            String[] items = content.Split('&');
+
+            for (Int32 i = 0; i < items.Length; i++)
+            {
+                String[] pair = items[i].Split('=');
+
+                if (pair.Length != 2)
+                {
+                    continue;
+                }
+
+                dict[pair[0]] = pair[1];
+            }
+
+            return dict;
         }
         #endregion
     }
