@@ -51,15 +51,15 @@ namespace SDNUMobile.SDK.Demo
                 if (result.Error != null)
                 {
                     Console.WriteLine(result.Error.ErrorDescription);
-                    allDone.Set();
-                    return;
                 }
-
-                SchoolPosition[] positions = result.Result as SchoolPosition[];
-
-                foreach (SchoolPosition pos in positions)
+                else
                 {
-                    Console.WriteLine(String.Format("{0}:{1},{2}", pos.PositionName, pos.Longitude, pos.Latitude));
+                    SchoolPosition[] positions = result.Result as SchoolPosition[];
+
+                    foreach (SchoolPosition pos in positions)
+                    {
+                        Console.WriteLine(String.Format("{0}:{1},{2}", pos.PositionName, pos.Longitude, pos.Latitude));
+                    }
                 }
 
                 allDone.Set();
@@ -73,11 +73,11 @@ namespace SDNUMobile.SDK.Demo
                 if (error != null)
                 {
                     Console.WriteLine(error.ErrorDescription);
-                    allDone.Set();
-                    return;
                 }
-
-                Console.WriteLine(String.Format("Token:{0}, {1}", client.AccessToken.UserID, client.AccessToken.TokenID));
+                else
+                {
+                    Console.WriteLine(String.Format("Token:{0}, {1}", client.AccessToken.UserID, client.AccessToken.TokenID));
+                }
 
                 allDone.Set();
             }));
@@ -90,12 +90,12 @@ namespace SDNUMobile.SDK.Demo
                 if (result.Error != null)
                 {
                     Console.WriteLine(result.Error.ErrorDescription);
-                    allDone.Set();
-                    return;
                 }
-
-                PeopleInfo people = result.Result as PeopleInfo;
-                Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
+                else
+                {
+                    PeopleInfo people = result.Result as PeopleInfo;
+                    Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
+                }
 
                 allDone.Set();
             }));
