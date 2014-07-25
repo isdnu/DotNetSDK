@@ -143,9 +143,14 @@ namespace SDNUMobile.SDK
         UsernameOrPasswordWrong = 12103,
 
         /// <summary>
+        /// 服务方法无效
+        /// </summary>
+        RestMethodInvalid = 20001,
+
+        /// <summary>
         /// 服务特定错误（请参考错误描述）
         /// </summary>
-        RestMethodInvalid = 20001
+        RestMethodError = 29999
     }
 
     /// <summary>
