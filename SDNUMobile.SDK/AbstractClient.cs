@@ -223,6 +223,25 @@ namespace SDNUMobile.SDK
         }
         #endregion
 
+        #region 访问令牌相关
+        /// <summary>
+        /// 从存储凭证中加载访问令牌
+        /// </summary>
+        /// <param name="voucher">存储凭证</param>
+        public void LoadAccessTokenFromVoucher(String voucher)
+        {
+            this._accessToken = AccessToken.CreateFromStorageVoucher(voucher);
+        }
+
+        /// <summary>
+        /// 清除访问令牌
+        /// </summary>
+        public void ClearAccessToken()
+        {
+            this._accessToken = null;
+        }
+        #endregion
+
         #region 刷新访问令牌
         /// <summary>
         /// 异步刷新访问令牌

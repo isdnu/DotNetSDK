@@ -51,6 +51,17 @@ namespace SDNUMobile.SDK
 
         #region 方法
         /// <summary>
+        /// 从存储凭证中加载访问令牌
+        /// </summary>
+        /// <param name="voucher">存储凭证</param>
+        void LoadAccessTokenFromVoucher(String voucher);
+
+        /// <summary>
+        /// 清除访问令牌
+        /// </summary>
+        void ClearAccessToken();
+
+        /// <summary>
         /// 异步刷新访问令牌
         /// </summary>
         /// <param name="callback">回调函数返回原始数据</param>
