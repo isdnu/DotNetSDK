@@ -62,5 +62,23 @@ namespace SDNUMobile.SDK.RestMethod.Library
             set { this.SetParameter("index", value.Value); }
         }
         #endregion
+
+        #region 构造方法
+        /// <summary>
+        /// 初始化新的图书馆借阅信息获取方法
+        /// </summary>
+        public GetBorrowList() { }
+
+        /// <summary>
+        /// 初始化新的图书馆借阅信息获取方法
+        /// </summary>
+        /// <param name="pageSize">获取数量</param>
+        /// <param name="pageIndex">页面索引</param>
+        public GetBorrowList(Int32 pageSize, Int32 pageIndex)
+        {
+            this.Count = pageSize;
+            this.Index = pageIndex;
+        }
+        #endregion
     }
 }

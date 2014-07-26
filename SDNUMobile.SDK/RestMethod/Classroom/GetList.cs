@@ -44,5 +44,23 @@ namespace SDNUMobile.SDK.RestMethod.Classroom
             set { this.SetParameter("building", value); }
         }
         #endregion
+
+        #region 构造方法
+        /// <summary>
+        /// 初始化新的空闲教室信息获取方法
+        /// </summary>
+        public GetList() { }
+
+        /// <summary>
+        /// 初始化新的空闲教室信息获取方法
+        /// </summary>
+        /// <param name="startTime">开始日期时间</param>
+        /// <param name="building">查询教学楼</param>
+        public GetList(DateTime startTime, String building)
+        {
+            this.StartTime = startTime;
+            this.Building = building;
+        }
+        #endregion
     }
 }

@@ -81,6 +81,19 @@ namespace SDNUMobile.SDK.RestMethod.Card
         {
             this.CardID = cardID;
         }
+
+        /// <summary>
+        /// 初始化新的一卡通流水信息获取方法
+        /// </summary>
+        /// <param name="cardID">一卡通号</param>
+        /// <param name="pageSize">获取数量</param>
+        /// <param name="pageIndex">页面索引</param>
+        public GetJournalList(String cardID, Int32 pageSize, Int32 pageIndex)
+        {
+            this.CardID = cardID;
+            this.Count = pageSize;
+            this.Index = pageIndex;
+        }
         #endregion
 
         #region 方法

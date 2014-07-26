@@ -35,5 +35,21 @@ namespace SDNUMobile.SDK.RestMethod.Bathroom
             set { this.SetParameter("day", value.Value); }
         }
         #endregion
+
+        #region 构造方法
+        /// <summary>
+        /// 初始化新的浴室使用状态获取方法
+        /// </summary>
+        public GetStatus() { }
+
+        /// <summary>
+        /// 初始化新的浴室使用状态获取方法
+        /// </summary>
+        /// <param name="day">与当日相差天数</param>
+        public GetStatus(Int32 day)
+        {
+            this.Day = day;
+        }
+        #endregion
     }
 }
