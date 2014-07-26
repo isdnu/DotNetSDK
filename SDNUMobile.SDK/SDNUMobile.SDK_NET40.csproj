@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SDNUMobile.SDK</RootNamespace>
-    <AssemblyName>SDNUMobile.SDK_NET40</AssemblyName>
+    <AssemblyName>SDNUMobile.SDK</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
