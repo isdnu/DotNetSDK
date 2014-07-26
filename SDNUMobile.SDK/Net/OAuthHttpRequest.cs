@@ -73,17 +73,19 @@ namespace SDNUMobile.SDK.Net
             String actualUrl = (method == RequestMethod.Get ? OAuthHttpRequest.GetActualUrl(url, encoding, parameters) : url);
 
             HttpWebRequest request = HttpWebRequest.Create(actualUrl) as HttpWebRequest;
-            request.Headers["Pragma"] = "no-cache";
-
+            
             if (method == RequestMethod.Post)
             {
                 request.Method = "POST";
+                request.Headers[HttpRequestHeader.Pragma] = "no-cache";
+                request.Headers[HttpRequestHeader.CacheControl] = "no-cache";
                 request.ContentType = OAuthHttpRequest.IsRequestParametersHasBinaryFile(parameters) ?
                     "multipart/form-data; boundary=" + boundary : "application/x-www-form-urlencoded";
             }
             else if (method == RequestMethod.Get)
             {
                 request.Method = "GET";
+                request.Headers[HttpRequestHeader.IfModifiedSince] = DateTime.Now.ToString();
             }
 
             if (headers != null)
