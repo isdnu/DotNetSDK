@@ -197,7 +197,7 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 初始化OAuth错误信息
         /// </summary>
-        internal OAuthError() { }
+        public OAuthError() { }
         
         /// <summary>
         /// 初始化OAuth错误信息
