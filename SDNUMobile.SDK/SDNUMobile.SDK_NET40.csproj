@@ -43,6 +43,7 @@
     <Compile Include="AbstractClient.cs" />
     <Compile Include="AbstractRestMethod.cs" />
     <Compile Include="AccessToken.cs" />
+    <Compile Include="Entity\Poi\PositionType.cs" />
     <Compile Include="TokenResult.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IJsonDeserializer.cs" />

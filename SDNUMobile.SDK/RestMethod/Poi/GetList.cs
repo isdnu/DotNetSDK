@@ -25,6 +25,31 @@ namespace SDNUMobile.SDK.RestMethod.Poi
         {
             get { return typeof(SchoolPosition[]); }
         }
+
+        /// <summary>
+        /// 获取或设置地理坐标类型
+        /// </summary>
+        public PositionType Type
+        {
+            get { return (PositionType)(Byte)this.GetParameterInt32Value("type"); }
+            set { this.SetParameter("type", (Byte)value); }
+        }
+        #endregion
+
+        #region 构造方法
+        /// <summary>
+        /// 初始化新的学校地理位置信息获取方法
+        /// </summary>
+        public GetList() { }
+
+        /// <summary>
+        /// 初始化新的学校地理位置信息获取方法
+        /// </summary>
+        /// <param name="type">地理坐标类型</param>
+        public GetList(PositionType type)
+        {
+            this.Type = type;
+        }
         #endregion
     }
 }
