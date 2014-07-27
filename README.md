@@ -1,7 +1,7 @@
 智慧山师 .NET SDK
 =========
 
-智慧山师官方 .NET SDK，基于MIT开源协议，支持.NET 2.0、4.0以及4.0可移植库三种项目类型，覆盖.NET 2.0/4.0全部的项目以及Windows Phone Silverlight 7及以上、Windows 8（应用商店应用）及以上、Windows 8.1/Windows Phone 8.1以及Silverlight 5.0及以上等不同的应用。.NET SDK支持OAuth1.0a和XAuth两种授权方式，封装了智慧山师全部的接口，可以提供获取服务器返回的原始数据以及反序列化后的实体数据。
+智慧山师官方 .NET SDK，基于MIT开源协议，支持.NET 2.0、4.0以及4.0、4.5可移植库四种项目类型，覆盖.NET 2.0/4.0全部的项目以及Windows Phone Silverlight 7及以上、Windows 8（应用商店应用）及以上、Windows 8.1/Windows Phone 8.1以及Silverlight 4.0及以上等不同的应用。.NET SDK支持OAuth1.0a和XAuth两种授权方式，封装了智慧山师全部的接口，可以提供获取服务器返回的原始数据以及反序列化后的实体数据。
 
 若要获取实体数据，首先需要创建自定义反序列化器，智慧山师支持任意Json反序列化工具，例如使用Json.NET可以使用如下的代码
 
