@@ -205,7 +205,7 @@ namespace SDNUMobile.SDK.Net
                     {
                         data = OAuthHttpRequest.GetBytesFromResponse(response);
 
-#if PORTABLE40
+#if PORTABLE40 || PORTABLE45
                         response.Dispose();
 #else
                         response.Close();
