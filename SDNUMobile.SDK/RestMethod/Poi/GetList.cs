@@ -31,8 +31,8 @@ namespace SDNUMobile.SDK.RestMethod.Poi
         /// </summary>
         public PositionType Type
         {
-            get { return (PositionType)(Byte)this.GetParameterInt32Value("type"); }
-            set { this.SetParameter("type", (Byte)value); }
+            get { return (String.Equals(this.GetParameterStringValue("type"), "gcj") ? PositionType.GCJ_02 : PositionType.BD_09); }
+            set { this.SetParameter("type", (value == PositionType.GCJ_02 ? "gcj" : "bd")); }
         }
         #endregion
 
