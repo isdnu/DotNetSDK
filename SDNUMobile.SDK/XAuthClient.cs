@@ -72,7 +72,7 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.AuthPasswordParameter, passWord));
             headers.Add(new RequestParameter(OAuthConstants.AuthUsernameParameter, userName));
 
-            OAuthHttpRequest.GetRemoteContentAsync(url, this._consumerSecret, String.Empty, headers,
+            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, String.Empty, headers,
                 new Action<String>((String content) =>
                 {
                     this._accessToken = this.GetAccessTokenFromString(content);

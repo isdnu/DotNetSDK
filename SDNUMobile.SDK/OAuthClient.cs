@@ -63,7 +63,7 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.GetRemoteContentAsync(url, this._consumerSecret, String.Empty, headers, callback);
+            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, String.Empty, headers, callback);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.VerifierParameter, verifier));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.GetRemoteContentAsync(url, this._consumerSecret, requestToken.TokenSecret, headers,
+            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, requestToken.TokenSecret, headers,
                 new Action<String>((String content) =>
                 {
                     this._accessToken = this.GetAccessTokenFromString(content);

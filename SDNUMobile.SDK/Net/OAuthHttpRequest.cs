@@ -15,20 +15,7 @@ namespace SDNUMobile.SDK.Net
     {
         #region 方法
         /// <summary>
-        /// 异步从指定URL Get获取内容
-        /// </summary>
-        /// <param name="url">指定URL</param>
-        /// <param name="consumerSecret">客户端密钥</param>
-        /// <param name="tokenSecret">令牌密钥</param>
-        /// <param name="headers">请求头参数列表</param>
-        /// <param name="callback">回调方法</param>
-        public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, Action<String> callback)
-        {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, null, callback);
-        }
-
-        /// <summary>
-        /// 异步从指定URL Get获取内容
+        /// 异步从指定URL Post获取内容
         /// </summary>
         /// <param name="url">指定URL</param>
         /// <param name="consumerSecret">客户端密钥</param>
@@ -36,9 +23,9 @@ namespace SDNUMobile.SDK.Net
         /// <param name="headers">请求头参数列表</param>
         /// <param name="parameters">请求参数列表</param>
         /// <param name="callback">回调方法</param>
-        public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+        public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, parameters, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, null, callback);
         }
 
         /// <summary>
@@ -85,7 +72,6 @@ namespace SDNUMobile.SDK.Net
             else if (method == RequestMethod.Get)
             {
                 request.Method = "GET";
-                request.Headers[HttpRequestHeader.IfModifiedSince] = DateTime.Now.ToString();
             }
 
             if (headers != null)
