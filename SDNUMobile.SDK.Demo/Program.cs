@@ -93,7 +93,7 @@ namespace SDNUMobile.SDK.Demo
                 }
                 else
                 {
-                    PeopleInfo people = result.Result as PeopleInfo;
+                    PeopleInfo people = result.Result;
                     Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
                 }
 
