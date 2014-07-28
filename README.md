@@ -13,9 +13,9 @@
     {
         public static JsonDeserializer Instance = new JsonDeserializer();
 
-        public Object DeserializeJson(String json, Type entityType)
+        public T DeserializeJson<T>(String json)
         {
-            return JsonConvert.DeserializeObject(json, entityType);
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 
@@ -32,10 +32,11 @@
 2.  使用请求令牌访问授权页面并引导用户登录和授权
 3.  从回调地址中获取令牌验证码
 4.  使用请求令牌和验证码获取访问令牌
-5.  请求服务方法
+5.  使用访问令牌请求服务方法
 
 1.获取请求令牌
 
+    String callbackUrl = "http://fakeurl.com/callback";
     client.RequestRequestTokenAsync(callbackUrl, new Action<TokenResult>((TokenResult result) =>
     {
         RequestToken requestToken = result.Token as RequestToken;
@@ -54,7 +55,8 @@
 
 3.从回调地址中获取令牌验证码
 
-    String verifier = client.GetVerifierFromCallbackUrl(callbackUrl);
+    String callback = "http://fakeurl.com/callback#oauth_token=REQTOKEN&oauth_verifier=VERIFIER";
+    String verifier = client.GetVerifierFromCallbackUrl(callback);
 
 4.使用请求令牌换取访问令牌
 
@@ -64,15 +66,22 @@
     }));
 
 5.使用访问令牌请求服务方法
-
-    client.RequestRestMethodAsync(new SDNUMobile.SDK.RestMethod.People.Get(), new Action<RestResult>((RestResult result) =>
+    client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>((RestResult<PeopleInfo> result) =>
     {
         if (result.Success)
         {
-            PeopleInfo people = result.Result as PeopleInfo;
+            PeopleInfo people = result.Result;
             Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
         }
     }));
+
+对于用户状态的记录，可以使用存储凭证的方式
+
+    String voucher = client.AccessToken.ToStorageVoucher();
+
+存储凭证是明文存储，可以根据需要进行加密存储。用户再次使用时即可使用存储凭证初始化访问令牌。
+
+    client.LoadAccessTokenFromVoucher(voucher);
 
 相关链接
 ---------
