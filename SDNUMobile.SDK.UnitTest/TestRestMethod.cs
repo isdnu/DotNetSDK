@@ -2,7 +2,7 @@
 
 namespace SDNUMobile.SDK.UnitTest
 {
-    internal class TestRestMethod : AbstractRestMethod
+    internal class TestRestMethod : AbstractRestMethod<String>
     {
         #region 属性
         /// <summary>
@@ -11,14 +11,6 @@ namespace SDNUMobile.SDK.UnitTest
         public override String MethodPath
         {
             get { return "test"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(String); }
         }
         #endregion
 

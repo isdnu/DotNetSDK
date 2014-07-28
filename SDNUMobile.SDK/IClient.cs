@@ -85,26 +85,29 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 异步调用服务方法
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync(IRestMethod restMethod, Action<String> callback);
+        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<String> callback);
 
         /// <summary>
         /// 异步调用服务方法
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync(IRestMethod restMethod);
+        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod);
 
         /// <summary>
         /// 异步调用服务方法
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回实体数据</param>
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync(IRestMethod restMethod, Action<RestResult> callback);
+        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<RestResult<T>> callback);
         #endregion
     }
 }

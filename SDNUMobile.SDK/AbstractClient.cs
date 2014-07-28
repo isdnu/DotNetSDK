@@ -330,10 +330,11 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 异步调用服务方法
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync(IRestMethod restMethod, Action<String> callback)
+        public void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<String> callback)
         {
             if (restMethod == null)
             {
@@ -363,9 +364,10 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 异步调用服务方法
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync(IRestMethod restMethod)
+        public void RequestRestMethodAsync<T>(IRestMethod<T> restMethod)
         {
             this.RequestRestMethodAsync(restMethod, new Action<String>((String content) => { }));
         }
@@ -373,11 +375,12 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 异步调用服务方法
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回实体数据</param>
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync(IRestMethod restMethod, Action<RestResult> callback)
+        public void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<RestResult<T>> callback)
         {
             if (this._jsonDeserializer == null)
             {
@@ -388,7 +391,7 @@ namespace SDNUMobile.SDK
             {
                 if (callback != null)
                 {
-                    RestResult result = this.GetRestResultFromJson(restMethod, content, restMethod.ResultEntityType);
+                    RestResult<T> result = this.GetRestResultFromJson(restMethod, content);
 
                     callback(result);
                 }
@@ -477,25 +480,25 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 从Json中获取服务结果
         /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="method">服务方法</param>
         /// <param name="content">Json内容</param>
-        /// <param name="type">实体类型</param>
         /// <returns>服务结果</returns>
-        protected RestResult GetRestResultFromJson(IRestMethod method, String content, Type type)
+        protected RestResult<T> GetRestResultFromJson<T>(IRestMethod<T> method, String content)
         {
             if (String.IsNullOrEmpty(content))
             {
-                return new RestResult(method, null);
+                return new RestResult<T>(method, null);
             }
 
             if (content.IndexOf("errorCode") >= 0)
             {
-                OAuthError error = this._jsonDeserializer.DeserializeJson(content, typeof(OAuthError)) as OAuthError;
-                return new RestResult(method, error);
+                OAuthError error = this._jsonDeserializer.DeserializeJson<OAuthError>(content);
+                return new RestResult<T>(method, error);
             }
 
-            Object entity = this._jsonDeserializer.DeserializeJson(content, type);
-            return new RestResult(method, entity);
+            T entity = this._jsonDeserializer.DeserializeJson<T>(content);
+            return new RestResult<T>(method, entity);
         }
 
         /// <summary>

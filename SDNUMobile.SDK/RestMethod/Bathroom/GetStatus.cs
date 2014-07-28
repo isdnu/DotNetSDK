@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Bathroom
     /// <summary>
     /// 浴室使用状态获取方法
     /// </summary>
-    public class GetStatus : AbstractRestMethod
+    public class GetStatus : AbstractRestMethod<BathroomUsageAmounts>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Bathroom
         public override String MethodPath
         {
             get { return "bathroom/getstatus"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(BathroomUsageAmounts); }
         }
 
         /// <summary>

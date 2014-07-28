@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.People
     /// <summary>
     /// 人员信息获取方法
     /// </summary>
-    public class Get : AbstractRestMethod
+    public class Get : AbstractRestMethod<PeopleInfo>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.People
         public override String MethodPath
         {
             get { return "people/get"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(PeopleInfo); }
         }
         #endregion
     }

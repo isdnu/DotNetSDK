@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Library
     /// <summary>
     /// 图书馆借阅信息获取方法
     /// </summary>
-    public class GetBorrowList : AbstractRestMethod
+    public class GetBorrowList : AbstractRestMethod<LibraryBorrowInfo[]>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Library
         public override String MethodPath
         {
             get { return "library/getborrowlist"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(LibraryBorrowInfo[]); }
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// 抽象调用方法
     /// </summary>
-    public abstract class AbstractRestMethod : IRestMethod
+    public abstract class AbstractRestMethod<T> : IRestMethod<T>
     {
         #region 字段
         private Dictionary<String, RequestParameter> _parameters;
@@ -20,11 +20,6 @@ namespace SDNUMobile.SDK
         /// 例如用户信息获取路径为：user/get
         /// </remarks>
         public abstract String MethodPath { get; }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public abstract Type ResultEntityType { get; }
 
         /// <summary>
         /// 获取所有参数集合
@@ -196,15 +191,16 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 设置请求参数
         /// </summary>
+        /// <typeparam name="TP">参数类型</typeparam>
         /// <param name="name">参数名</param>
         /// <param name="value">参数内容</param>
-        protected void SetParameter<T>(String name, T value) where T : IFormattable
+        protected void SetParameter<TP>(String name, TP value) where TP : IFormattable
         {
             RequestParameter param = null;
 
             if (this._parameters.TryGetValue(name, out param))
             {
-                param.SetParameterValue<T>(value);
+                param.SetParameterValue<TP>(value);
             }
             else
             {

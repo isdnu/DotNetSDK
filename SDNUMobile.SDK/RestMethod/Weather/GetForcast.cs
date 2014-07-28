@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Weather
     /// <summary>
     /// 未来三天天气预报获取方法
     /// </summary>
-    public class GetForcast : AbstractRestMethod
+    public class GetForcast : AbstractRestMethod<WeatherForcasts>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Weather
         public override String MethodPath
         {
             get { return "weather/getforcast"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(WeatherForcasts); }
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Library
     /// <summary>
     /// 图书馆违章信息获取方法
     /// </summary>
-    public class GetIllegalList : AbstractRestMethod
+    public class GetIllegalList : AbstractRestMethod<LibraryIllegalInfo[]>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Library
         public override String MethodPath
         {
             get { return "library/getillegallist"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(LibraryIllegalInfo[]); }
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Weather
     /// <summary>
     /// 天气指数信息获取方法
     /// </summary>
-    public class GetIndexList : AbstractRestMethod
+    public class GetIndexList : AbstractRestMethod<WeatherIndex[]>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Weather
         public override String MethodPath
         {
             get { return "weather/getindexlist"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(WeatherIndex[]); }
         }
 
         /// <summary>

@@ -5,12 +5,13 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// 请求结果类
     /// </summary>
-    public class RestResult
+    /// <typeparam name="T">实体类型</typeparam>
+    public class RestResult<T>
     {
         #region 字段
-        private IRestMethod _sourceMethod;
+        private IRestMethod<T> _sourceMethod;
         private Boolean _success;
-        private Object _result;
+        private T _result;
         private OAuthError _error;
         #endregion
 
@@ -18,7 +19,7 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 获取来源方法
         /// </summary>
-        public IRestMethod SourceMethod
+        public IRestMethod<T> SourceMethod
         {
             get { return this._sourceMethod; }
         }
@@ -34,7 +35,7 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 获取结果实体
         /// </summary>
-        public Object Result
+        public T Result
         {
             get { return this._result; }
         }
@@ -54,7 +55,7 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="source">来源方法</param>
         /// <param name="result">结果实体</param>
-        public RestResult(IRestMethod source, Object result)
+        public RestResult(IRestMethod<T> source, T result)
         {
             this._sourceMethod = source;
             this._success = true;
@@ -67,11 +68,11 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="source">来源方法</param>
         /// <param name="error">错误实体</param>
-        public RestResult(IRestMethod source, OAuthError error)
+        public RestResult(IRestMethod<T> source, OAuthError error)
         {
             this._sourceMethod = source;
             this._success = false;
-            this._result = null;
+            this._result = default(T);
             this._error = error;
         }
         #endregion

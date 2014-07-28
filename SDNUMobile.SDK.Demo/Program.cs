@@ -12,9 +12,9 @@ namespace SDNUMobile.SDK.Demo
     {
         public static JsonDeserializer Instance = new JsonDeserializer();
 
-        public Object DeserializeJson(String json, Type entityType)
+        public T DeserializeJson<T>(String json)
         {
-            return JsonConvert.DeserializeObject(json, entityType);
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 
@@ -46,7 +46,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPublicData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), new Action<RestResult>((RestResult result) =>
+            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), new Action<RestResult<SchoolPosition[]>>((RestResult<SchoolPosition[]> result) =>
             {
                 if (result.Error != null)
                 {
@@ -54,7 +54,7 @@ namespace SDNUMobile.SDK.Demo
                 }
                 else
                 {
-                    SchoolPosition[] positions = result.Result as SchoolPosition[];
+                    SchoolPosition[] positions = result.Result;
 
                     foreach (SchoolPosition pos in positions)
                     {
@@ -85,7 +85,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPrivateData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult>((RestResult result) =>
+            client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>((RestResult<PeopleInfo> result) =>
             {
                 if (result.Error != null)
                 {

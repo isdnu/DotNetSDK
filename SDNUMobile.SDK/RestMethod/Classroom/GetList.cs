@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Classroom
     /// <summary>
     /// 空闲教室信息获取方法
     /// </summary>
-    public class GetList : AbstractRestMethod
+    public class GetList : AbstractRestMethod<ClassroomAvailable[]>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Classroom
         public override String MethodPath
         {
             get { return "classroom/getlist"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(ClassroomAvailable[]); }
         }
 
         /// <summary>

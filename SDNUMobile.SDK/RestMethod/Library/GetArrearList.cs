@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Library
     /// <summary>
     /// 图书馆欠费信息获取方法
     /// </summary>
-    public class GetArrearList : AbstractRestMethod
+    public class GetArrearList : AbstractRestMethod<LibraryArrearInfo[]>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Library
         public override String MethodPath
         {
             get { return "library/getarrearlist"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(LibraryArrearInfo[]); }
         }
 
         /// <summary>

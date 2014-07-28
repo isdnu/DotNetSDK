@@ -7,7 +7,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
     /// <summary>
     /// 一卡通流水信息获取方法
     /// </summary>
-    public class GetJournalList : AbstractRestMethod
+    public class GetJournalList : AbstractRestMethod<CardJournalInfo[]>
     {
         #region 属性
         /// <summary>
@@ -16,14 +16,6 @@ namespace SDNUMobile.SDK.RestMethod.Card
         public override String MethodPath
         {
             get { return "card/getjournallist"; }
-        }
-
-        /// <summary>
-        /// 获取返回实体类型
-        /// </summary>
-        public override Type ResultEntityType
-        {
-            get { return typeof(CardJournalInfo[]); }
         }
 
         /// <summary>
