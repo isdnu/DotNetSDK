@@ -66,6 +66,7 @@
     }));
 
 5.使用访问令牌请求服务方法
+
     client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>((RestResult<PeopleInfo> result) =>
     {
         if (result.Success)
