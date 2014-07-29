@@ -85,7 +85,7 @@ namespace SDNUMobile.SDK.Net
             {
                 Byte[] data = OAuthHttpRequest.GetParameterDataFromList(parameters, boundary, encoding);
 
-                request.BeginGetRequestStream(new AsyncCallback((IAsyncResult ar) =>
+                request.BeginGetRequestStream(ar =>
                 {
                     using (Stream stream = request.EndGetRequestStream(ar))
                     {
@@ -94,7 +94,7 @@ namespace SDNUMobile.SDK.Net
                     }
 
                     OAuthHttpRequest.GetContentFromHttpWebRequest(request, encoding, callback);
-                }), null);
+                }, null);
             }
             else
             {
@@ -166,7 +166,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         private static void GetContentFromHttpWebRequest(HttpWebRequest request, Encoding encoding, Action<String> callback)
         {
-            request.BeginGetResponse(new AsyncCallback((IAsyncResult ar) =>
+            request.BeginGetResponse(ar =>
             {
                 HttpWebResponse response = null;
                 Byte[] data = null;
@@ -207,7 +207,7 @@ namespace SDNUMobile.SDK.Net
                 {
                     callback(content);
                 }
-            }), null);
+            }, null);
         }
 
         /// <summary>

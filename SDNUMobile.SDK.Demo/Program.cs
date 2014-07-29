@@ -46,7 +46,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPublicData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), new Action<RestResult<SchoolPosition[]>>(result =>
+            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), result =>
             {
                 if (result.Error != null)
                 {
@@ -58,17 +58,18 @@ namespace SDNUMobile.SDK.Demo
 
                     foreach (SchoolPosition pos in positions)
                     {
-                        Console.WriteLine(String.Format("{0}:{1},{2}", pos.PositionName, pos.Longitude, pos.Latitude));
+                        Console.WriteLine(String.Format("{0}:{1},{2}", 
+                            pos.PositionName, pos.Longitude, pos.Latitude));
                     }
                 }
 
                 allDone.Set();
-            }));
+            });
         }
 
         static void RequestAccessTokenByXAuth(String userName, String passWord, XAuthClient client)
         {
-            client.RequestAccessTokenAsync(userName, passWord, new Action<TokenResult>(result =>
+            client.RequestAccessTokenAsync(userName, passWord, result =>
             {
                 if (result.Error != null)
                 {
@@ -80,12 +81,12 @@ namespace SDNUMobile.SDK.Demo
                 }
 
                 allDone.Set();
-            }));
+            });
         }
 
         static void RequestPrivateData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>(result =>
+            client.RequestRestMethodAsync(new RestMethod.People.Get(), result =>
             {
                 if (result.Error != null)
                 {
@@ -94,11 +95,12 @@ namespace SDNUMobile.SDK.Demo
                 else
                 {
                     PeopleInfo people = result.Result;
-                    Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
+                    Console.WriteLine(String.Format("{0}({1}):{2}", 
+                        people.Name, people.IdentityNumber, people.OrganizationName));
                 }
 
                 allDone.Set();
-            }));
+            });
         }
     }
 }

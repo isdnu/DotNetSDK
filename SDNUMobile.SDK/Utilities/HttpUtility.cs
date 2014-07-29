@@ -59,19 +59,18 @@ namespace SDNUMobile.SDK.Utilities
                 return String.Empty;
             }
 
-            return HttpUtility.RFC3986EscapeSequence.Replace(input,
-                (Match match) =>
+            return HttpUtility.RFC3986EscapeSequence.Replace(input, match =>
+            {
+                if (match.Success)
                 {
-                    if (match.Success)
-                    {
-                        Group hexgrp = match.Groups[1];
+                    Group hexgrp = match.Groups[1];
 
-                        return String.Format(CultureInfo.InvariantCulture, "{0}",
-                            (Char)Int32.Parse(hexgrp.Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture));
-                    }
+                    return String.Format(CultureInfo.InvariantCulture, "{0}",
+                        (Char)Int32.Parse(hexgrp.Value, NumberStyles.HexNumber, CultureInfo.InvariantCulture));
+                }
 
-                    throw new FormatException();
-                });
+                throw new FormatException();
+            });
         }
         #endregion
 

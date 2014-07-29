@@ -72,16 +72,15 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.AuthPasswordParameter, passWord));
             headers.Add(new RequestParameter(OAuthConstants.AuthUsernameParameter, userName));
 
-            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, String.Empty, headers,
-                new Action<String>(content =>
-                {
-                    this._accessToken = this.GetAccessTokenFromString(content);
+            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, String.Empty, headers, content =>
+            {
+                this._accessToken = this.GetAccessTokenFromString(content);
 
-                    if (callback != null)
-                    {
-                        callback(content);
-                    }
-                }));
+                if (callback != null)
+                {
+                    callback(content);
+                }
+            });
         }
 
         /// <summary>
@@ -92,7 +91,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
         public void RequestAccessTokenAsync(String userName, String passWord)
         {
-            this.RequestAccessTokenAsync(userName, passWord, new Action<String>(content => { }));
+            this.RequestAccessTokenAsync(userName, passWord, (String content) => { });
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
         public void RequestAccessTokenAsync(String userName, String passWord, Action<TokenResult> callback)
         {
-            this.RequestAccessTokenAsync(userName, passWord, new Action<String>(content =>
+            this.RequestAccessTokenAsync(userName, passWord, content =>
             {
                 if (callback != null)
                 {
@@ -122,7 +121,7 @@ namespace SDNUMobile.SDK
 
                     callback(result);
                 }
-            }));
+            });
         }
         #endregion
     }

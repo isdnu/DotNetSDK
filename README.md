@@ -37,17 +37,17 @@
 1.获取请求令牌
 
     String callbackUrl = "http://fakeurl.com/callback";
-    client.RequestRequestTokenAsync(callbackUrl, new Action<TokenResult>(result =>
+    client.RequestRequestTokenAsync(callbackUrl, result =>
     {
         RequestToken requestToken = result.Token as RequestToken;
-    }));
+    });
 
 对于客户端类无服务器的应用，可以使用默认回调地址
 
-    client.RequestRequestTokenAsync(new Action<TokenResult>(result =>
+    client.RequestRequestTokenAsync(result =>
     {
         RequestToken requestToken = result.Token as RequestToken;
-    }));
+    });
 
 2.获取授权页面地址，并引导用户登录和授权
 
@@ -60,21 +60,21 @@
 
 4.使用请求令牌换取访问令牌
 
-    client.RequestAccessTokenAsync(requestToken, verifier, new Action<TokenResult>(result =>
+    client.RequestAccessTokenAsync(requestToken, verifier, result =>
     {
         AccessToken accessToken = result.Token as AccessToken;
-    }));
+    });
 
 5.使用访问令牌请求服务方法
 
-    client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>(result =>
+    client.RequestRestMethodAsync(new RestMethod.People.Get(), result =>
     {
         if (result.Success)
         {
             PeopleInfo people = result.Result;
             Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
         }
-    }));
+    });
 
 对于用户状态的记录，可以使用存储凭证的方式
 

@@ -265,21 +265,20 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.TokenParameter, this._accessToken.TokenID));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, this._accessToken.TokenSecret, headers, 
-                new Action<String>(content =>
-                {
-                    AccessToken refreshedToken = this.GetAccessTokenFromString(content);
+            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, this._accessToken.TokenSecret, headers, content =>
+            {
+                AccessToken refreshedToken = this.GetAccessTokenFromString(content);
                     
-                    if (refreshedToken != null)
-                    {
-                        this._accessToken.RefreshToken(refreshedToken.ExpiresIn, refreshedToken.CreateTime);
-                    }
+                if (refreshedToken != null)
+                {
+                    this._accessToken.RefreshToken(refreshedToken.ExpiresIn, refreshedToken.CreateTime);
+                }
 
-                    if (callback != null)
-                    {
-                        callback(content);
-                    }
-                }));
+                if (callback != null)
+                {
+                    callback(content);
+                }
+            });
         }
 
         /// <summary>
@@ -288,7 +287,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
         public void RefreshAccessTokenAsync()
         {
-            this.RefreshAccessTokenAsync(new Action<String>(content => { }));
+            this.RefreshAccessTokenAsync((String content) => { });
         }
 
         /// <summary>
@@ -304,7 +303,7 @@ namespace SDNUMobile.SDK
                 throw new NullReferenceException();
             }
 
-            this.RefreshAccessTokenAsync(new Action<String>(content =>
+            this.RefreshAccessTokenAsync(content =>
             {
                 if (callback != null)
                 {
@@ -322,7 +321,7 @@ namespace SDNUMobile.SDK
 
                     callback(result);
                 }
-            }));
+            });
         }
         #endregion
 
@@ -369,7 +368,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
         public void RequestRestMethodAsync<T>(IRestMethod<T> restMethod)
         {
-            this.RequestRestMethodAsync(restMethod, new Action<String>(content => { }));
+            this.RequestRestMethodAsync(restMethod, (String content) => { });
         }
 
         /// <summary>
@@ -387,7 +386,7 @@ namespace SDNUMobile.SDK
                 throw new NullReferenceException();
             }
 
-            this.RequestRestMethodAsync(restMethod, new Action<String>(content => 
+            this.RequestRestMethodAsync(restMethod, content => 
             {
                 if (callback != null)
                 {
@@ -395,7 +394,7 @@ namespace SDNUMobile.SDK
 
                     callback(result);
                 }
-            }));
+            });
         }
         #endregion
 
