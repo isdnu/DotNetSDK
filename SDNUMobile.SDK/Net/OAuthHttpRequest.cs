@@ -45,11 +45,11 @@ namespace SDNUMobile.SDK.Net
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
-        /// <param name="parameters">请求参数列表</param>
+        /// <param name="queryParamerters">请求参数列表</param>
         /// <param name="callback">回调方法</param>
-        public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+        public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, parameters, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, queryParamerters, callback);
         }
 
         /// <summary>
@@ -72,11 +72,11 @@ namespace SDNUMobile.SDK.Net
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
-        /// <param name="parameters">请求参数列表</param>
+        /// <param name="queryParamerters">请求参数列表</param>
         /// <param name="callback">回调方法</param>
-        public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+        public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, parameters, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, queryParamerters, callback);
         }
 
         /// <summary>
@@ -87,12 +87,12 @@ namespace SDNUMobile.SDK.Net
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
-        /// <param name="parameters">请求参数列表</param>
+        /// <param name="queryParamerters">请求参数列表</param>
         /// <param name="callback">回调方法</param>
         public static void RequestRemoteContentAsync(RequestMethod method, String url, String consumerSecret, String tokenSecret,
-            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(method, url, Encoding.UTF8, true, consumerSecret, tokenSecret, headers, parameters, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(method, url, Encoding.UTF8, true, consumerSecret, tokenSecret, headers, queryParamerters, callback);
         }
 
         /// <summary>
@@ -105,11 +105,31 @@ namespace SDNUMobile.SDK.Net
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
-        /// <param name="parameters">请求参数列表</param>
+        /// <param name="queryParamerters">请求参数列表</param>
         /// <param name="callback">回调方法</param>
         public static void RequestRemoteContentAsync(RequestMethod method, String url, Encoding encoding, Boolean nocache, String consumerSecret, String tokenSecret,
-            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
+            IEnumerable<RequestParameter> parameters = null;
+
+            if (method == RequestMethod.Get && nocache)
+            {
+                List<RequestParameter> list = new List<RequestParameter>();
+
+                if (queryParamerters != null)
+                {
+                    list.AddRange(queryParamerters);
+                }
+                
+                list.Add(new RequestParameter("nocache", _rand.NextDouble().ToString()));
+
+                parameters = list;
+            }
+            else
+            {
+                parameters = queryParamerters;
+            }
+
             String boundary = DateTime.Now.Ticks.ToString("x");
             String actualUrl = (method == RequestMethod.Get ? OAuthHttpRequest.GetActualUrl(url, encoding, parameters, nocache) : url);
 
@@ -179,12 +199,6 @@ namespace SDNUMobile.SDK.Net
             }
             
             String queryString = OAuthHttpRequest.GetParameterStringFromList(parameters, encoding);
-
-            if (nocache)
-            {
-                queryString += String.Format("{0}nocache={1}", (String.IsNullOrEmpty(queryString) ? "" : "&"), _rand.NextDouble().ToString());
-            }
-
             String actualUrl = String.Format("{0}{1}{2}", rawUrl, (rawUrl.LastIndexOf('?') >= 0 ? "&" : "?"), queryString);
 
             return actualUrl;
