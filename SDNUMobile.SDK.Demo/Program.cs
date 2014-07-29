@@ -46,7 +46,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPublicData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), new Action<RestResult<SchoolPosition[]>>((RestResult<SchoolPosition[]> result) =>
+            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), new Action<RestResult<SchoolPosition[]>>(result =>
             {
                 if (result.Error != null)
                 {
@@ -68,7 +68,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestAccessTokenByXAuth(String userName, String passWord, XAuthClient client)
         {
-            client.RequestAccessTokenAsync(userName, passWord, new Action<TokenResult>((TokenResult result) =>
+            client.RequestAccessTokenAsync(userName, passWord, new Action<TokenResult>(result =>
             {
                 if (result.Error != null)
                 {
@@ -85,7 +85,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPrivateData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>((RestResult<PeopleInfo> result) =>
+            client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>(result =>
             {
                 if (result.Error != null)
                 {

@@ -37,14 +37,14 @@
 1.获取请求令牌
 
     String callbackUrl = "http://fakeurl.com/callback";
-    client.RequestRequestTokenAsync(callbackUrl, new Action<TokenResult>((TokenResult result) =>
+    client.RequestRequestTokenAsync(callbackUrl, new Action<TokenResult>(result =>
     {
         RequestToken requestToken = result.Token as RequestToken;
     }));
 
 对于客户端类无服务器的应用，可以使用默认回调地址
 
-    client.RequestRequestTokenAsync(new Action<TokenResult>((TokenResult result) =>
+    client.RequestRequestTokenAsync(new Action<TokenResult>(result =>
     {
         RequestToken requestToken = result.Token as RequestToken;
     }));
@@ -60,14 +60,14 @@
 
 4.使用请求令牌换取访问令牌
 
-    client.RequestAccessTokenAsync(requestToken, verifier, new Action<TokenResult>((TokenResult result) =>
+    client.RequestAccessTokenAsync(requestToken, verifier, new Action<TokenResult>(result =>
     {
         AccessToken accessToken = result.Token as AccessToken;
     }));
 
 5.使用访问令牌请求服务方法
 
-    client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>((RestResult<PeopleInfo> result) =>
+    client.RequestRestMethodAsync(new RestMethod.People.Get(), new Action<RestResult<PeopleInfo>>(result =>
     {
         if (result.Success)
         {
