@@ -6,7 +6,7 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// 抽象调用方法
     /// </summary>
-    public abstract class AbstractRestMethod<T> : IRestMethod<T>
+    public abstract class AbstractRestMethod<T> : IRestMethod<T>, IRestMethod
     {
         #region 字段
         private Dictionary<String, RequestParameter> _parameters;
@@ -20,6 +20,11 @@ namespace SDNUMobile.SDK
         /// 例如用户信息获取路径为：user/get
         /// </remarks>
         public abstract String MethodPath { get; }
+
+        /// <summary>
+        /// 获取返回实体类型
+        /// </summary>
+        Type IRestMethod.ResultEntityType { get { return typeof(T); } }
 
         /// <summary>
         /// 获取所有参数集合

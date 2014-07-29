@@ -6,8 +6,7 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// 调用方法接口
     /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    public interface IRestMethod<T>
+    public interface IRestMethod
     {
         #region 属性
         /// <summary>
@@ -17,6 +16,11 @@ namespace SDNUMobile.SDK
         /// 例如用户信息获取路径为：user/get
         /// </remarks>
         String MethodPath { get; }
+
+        /// <summary>
+        /// 获取返回实体类型
+        /// </summary>
+        Type ResultEntityType { get; }
 
         /// <summary>
         /// 获取所有参数集合
@@ -42,4 +46,10 @@ namespace SDNUMobile.SDK
         Boolean TryValidateParameters(out String error);
         #endregion
     }
+
+    /// <summary>
+    /// 泛型调用方法接口
+    /// </summary>
+    /// <typeparam name="T">实体类型</typeparam>
+    public interface IRestMethod<T> : IRestMethod { }
 }
