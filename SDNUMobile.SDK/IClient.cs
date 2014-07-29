@@ -1,5 +1,7 @@
 ﻿using System;
 
+using SDNUMobile.SDK.Net;
+
 namespace SDNUMobile.SDK
 {
     /// <summary>
@@ -49,7 +51,7 @@ namespace SDNUMobile.SDK
         AccessToken AccessToken { get; }
         #endregion
 
-        #region 方法
+        #region 访问令牌相关
         /// <summary>
         /// 从存储凭证中加载访问令牌
         /// </summary>
@@ -60,7 +62,9 @@ namespace SDNUMobile.SDK
         /// 清除访问令牌
         /// </summary>
         void ClearAccessToken();
+        #endregion
 
+        #region 刷新访问令牌
         /// <summary>
         /// 异步刷新访问令牌
         /// </summary>
@@ -81,33 +85,92 @@ namespace SDNUMobile.SDK
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="NullReferenceException">访问令牌不能为空</exception>
         void RefreshAccessTokenAsync(Action<TokenResult> callback);
+        #endregion
+
+        #region 调用服务方法
+        /// <summary>
+        /// 异步调用服务方法
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="restMethod">服务方法</param>
+        /// <param name="method">请求方式</param>
+        /// <param name="callback">回调函数返回原始数据</param>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, RequestMethod method, Action<String> callback);
 
         /// <summary>
         /// 异步调用服务方法
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="restMethod">服务方法</param>
+        /// <param name="method">请求方式</param>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, RequestMethod method);
+
+        /// <summary>
+        /// 异步调用服务方法
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="restMethod">服务方法</param>
+        /// <param name="method">请求方式</param>
+        /// <param name="callback">回调函数返回实体数据</param>
+        /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, RequestMethod method, Action<RestResult<T>> callback);
+
+        /// <summary>
+        /// 异步Get调用服务方法
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<String> callback);
+        void GetRestMethodAsync<T>(IRestMethod<T> restMethod, Action<String> callback);
 
         /// <summary>
-        /// 异步调用服务方法
+        /// 异步Get调用服务方法
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod);
+        void GetRestMethodAsync<T>(IRestMethod<T> restMethod);
 
         /// <summary>
-        /// 异步调用服务方法
+        /// 异步Get调用服务方法
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回实体数据</param>
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<RestResult<T>> callback);
+        void GetRestMethodAsync<T>(IRestMethod<T> restMethod, Action<RestResult<T>> callback);
+
+        /// <summary>
+        /// 异步Post调用服务方法
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="restMethod">服务方法</param>
+        /// <param name="callback">回调函数返回原始数据</param>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        void PostRestMethodAsync<T>(IRestMethod<T> restMethod, Action<String> callback);
+
+        /// <summary>
+        /// 异步Post调用服务方法
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="restMethod">服务方法</param>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        void PostRestMethodAsync<T>(IRestMethod<T> restMethod);
+
+        /// <summary>
+        /// 异步Post调用服务方法
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="restMethod">服务方法</param>
+        /// <param name="callback">回调函数返回实体数据</param>
+        /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
+        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
+        void PostRestMethodAsync<T>(IRestMethod<T> restMethod, Action<RestResult<T>> callback);
         #endregion
     }
 }

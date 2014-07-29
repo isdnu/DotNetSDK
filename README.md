@@ -67,12 +67,13 @@
 
 5.使用访问令牌请求服务方法
 
-    client.RequestRestMethodAsync(new RestMethod.People.Get(), result =>
+    client.GetRestMethodAsync(new RestMethod.People.Get(), result =>
     {
         if (result.Success)
         {
             PeopleInfo people = result.Result;
-            Console.WriteLine(String.Format("{0}({1}):{2}", people.Name, people.IdentityNumber, people.OrganizationName));
+            Console.WriteLine(String.Format("{0}({1}):{2}", 
+                people.Name, people.IdentityNumber, people.OrganizationName));
         }
     });
 

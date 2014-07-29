@@ -46,7 +46,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPublicData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), result =>
+            client.GetRestMethodAsync(new RestMethod.Poi.GetList(), result =>
             {
                 if (result.Error != null)
                 {
@@ -86,7 +86,7 @@ namespace SDNUMobile.SDK.Demo
 
         static void RequestPrivateData(IClient client)
         {
-            client.RequestRestMethodAsync(new RestMethod.People.Get(), result =>
+            client.GetRestMethodAsync(new RestMethod.People.Get(), result =>
             {
                 if (result.Error != null)
                 {

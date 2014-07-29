@@ -46,6 +46,22 @@ namespace SDNUMobile.SDK.Net
         /// </summary>
         /// <param name="method">请求方式</param>
         /// <param name="url">指定URL</param>
+        /// <param name="consumerSecret">客户端密钥</param>
+        /// <param name="tokenSecret">令牌密钥</param>
+        /// <param name="headers">请求头参数列表</param>
+        /// <param name="parameters">请求参数列表</param>
+        /// <param name="callback">回调方法</param>
+        public static void RequestRemoteContentAsync(RequestMethod method, String url, String consumerSecret, String tokenSecret,
+            IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+        {
+            OAuthHttpRequest.RequestRemoteContentAsync(method, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, parameters, callback);
+        }
+
+        /// <summary>
+        /// 异步从指定URL获取内容
+        /// </summary>
+        /// <param name="method">请求方式</param>
+        /// <param name="url">指定URL</param>
         /// <param name="encoding">字符编码</param>
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
