@@ -13,7 +13,45 @@ namespace SDNUMobile.SDK.Net
     /// </summary>
     public static class OAuthHttpRequest
     {
+        #region 字段
+        private static Random _rand;
+        #endregion
+
+        #region 构造方法
+        static OAuthHttpRequest()
+        {
+            _rand = new Random();
+        }
+        #endregion
+
         #region 方法
+        /// <summary>
+        /// 异步从指定URL Get获取内容
+        /// </summary>
+        /// <param name="url">指定URL</param>
+        /// <param name="consumerSecret">客户端密钥</param>
+        /// <param name="tokenSecret">令牌密钥</param>
+        /// <param name="headers">请求头参数列表</param>
+        /// <param name="callback">回调方法</param>
+        public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, Action<String> callback)
+        {
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, null, callback);
+        }
+
+        /// <summary>
+        /// 异步从指定URL Get获取内容
+        /// </summary>
+        /// <param name="url">指定URL</param>
+        /// <param name="consumerSecret">客户端密钥</param>
+        /// <param name="tokenSecret">令牌密钥</param>
+        /// <param name="headers">请求头参数列表</param>
+        /// <param name="parameters">请求参数列表</param>
+        /// <param name="callback">回调方法</param>
+        public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
+        {
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, parameters, callback);
+        }
+
         /// <summary>
         /// 异步从指定URL Post获取内容
         /// </summary>
@@ -24,7 +62,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, null, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, null, callback);
         }
 
         /// <summary>
@@ -38,7 +76,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, parameters, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, parameters, callback);
         }
 
         /// <summary>
@@ -54,7 +92,7 @@ namespace SDNUMobile.SDK.Net
         public static void RequestRemoteContentAsync(RequestMethod method, String url, String consumerSecret, String tokenSecret,
             IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(method, url, Encoding.UTF8, consumerSecret, tokenSecret, headers, parameters, callback);
+            OAuthHttpRequest.RequestRemoteContentAsync(method, url, Encoding.UTF8, true, consumerSecret, tokenSecret, headers, parameters, callback);
         }
 
         /// <summary>
@@ -63,26 +101,31 @@ namespace SDNUMobile.SDK.Net
         /// <param name="method">请求方式</param>
         /// <param name="url">指定URL</param>
         /// <param name="encoding">字符编码</param>
+        /// <param name="nocache">是否禁用缓存</param>
         /// <param name="consumerSecret">客户端密钥</param>
         /// <param name="tokenSecret">令牌密钥</param>
         /// <param name="headers">请求头参数列表</param>
         /// <param name="parameters">请求参数列表</param>
         /// <param name="callback">回调方法</param>
-        public static void RequestRemoteContentAsync(RequestMethod method, String url, Encoding encoding, String consumerSecret, String tokenSecret,
+        public static void RequestRemoteContentAsync(RequestMethod method, String url, Encoding encoding, Boolean nocache, String consumerSecret, String tokenSecret,
             IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> parameters, Action<String> callback)
         {
             String boundary = DateTime.Now.Ticks.ToString("x");
-            String actualUrl = (method == RequestMethod.Get ? OAuthHttpRequest.GetActualUrl(url, encoding, parameters) : url);
+            String actualUrl = (method == RequestMethod.Get ? OAuthHttpRequest.GetActualUrl(url, encoding, parameters, nocache) : url);
 
             HttpWebRequest request = HttpWebRequest.Create(actualUrl) as HttpWebRequest;
             
             if (method == RequestMethod.Post)
             {
                 request.Method = "POST";
-                request.Headers[HttpRequestHeader.Pragma] = "no-cache";
-                request.Headers[HttpRequestHeader.CacheControl] = "no-cache";
                 request.ContentType = OAuthHttpRequest.IsRequestParametersHasBinaryFile(parameters) ?
                     "multipart/form-data; boundary=" + boundary : "application/x-www-form-urlencoded";
+
+                if (nocache)
+                {
+                    request.Headers[HttpRequestHeader.Pragma] = "no-cache";
+                    request.Headers[HttpRequestHeader.CacheControl] = "no-cache";
+                }
             }
             else if (method == RequestMethod.Get)
             {
@@ -126,24 +169,25 @@ namespace SDNUMobile.SDK.Net
         /// <param name="rawUrl">原始Url</param>
         /// <param name="encoding">文字编码</param>
         /// <param name="parameters">参数集合</param>
+        /// <param name="nocache">是否添加禁用缓存参数</param>
         /// <returns>实际Url</returns>
-        private static String GetActualUrl(String rawUrl, Encoding encoding, IEnumerable<RequestParameter> parameters)
+        private static String GetActualUrl(String rawUrl, Encoding encoding, IEnumerable<RequestParameter> parameters, Boolean nocache)
         {
             if (parameters == null)
             {
                 return rawUrl;
             }
-
+            
             String queryString = OAuthHttpRequest.GetParameterStringFromList(parameters, encoding);
 
-            if (rawUrl.LastIndexOf('?') >= 0)
+            if (nocache)
             {
-                return String.Format("{0}&{1}", rawUrl, queryString);
+                queryString += String.Format("{0}nocache={1}", (String.IsNullOrEmpty(queryString) ? "" : "&"), _rand.NextDouble().ToString());
             }
-            else
-            {
-                return String.Format("{0}?{1}", rawUrl, queryString);
-            }
+
+            String actualUrl = String.Format("{0}{1}{2}", rawUrl, (rawUrl.LastIndexOf('?') >= 0 ? "&" : "?"), queryString);
+
+            return actualUrl;
         }
 
         /// <summary>
