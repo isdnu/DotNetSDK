@@ -97,7 +97,7 @@ namespace SDNUMobile.SDK
             this._tokenID = tokenID;
             this._tokenSecret = tokenSecret;
             this._userID = userID;
-            this._userType = (UserType)UserType;
+            this._userType = (UserType)userType;
             this._expiresIn = expiresIn;
             this._createTime = createTime;
         }
