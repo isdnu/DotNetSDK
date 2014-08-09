@@ -556,7 +556,7 @@ namespace SDNUMobile.SDK
         {
             if (String.IsNullOrEmpty(content))
             {
-                return new RestResult<T>(method, null);
+                return new RestResult<T>(method, default(T));
             }
 
             if (content.IndexOf("errorCode") >= 0)
