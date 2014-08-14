@@ -330,10 +330,9 @@ namespace SDNUMobile.SDK
         /// 异步调用服务方法
         /// </summary>
         /// <param name="restMethod">服务方法</param>
-        /// <param name="method">请求方式</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync(IRestMethod restMethod, RequestMethod method, Action<String> callback)
+        public void RequestRestMethodAsync(IRestMethod restMethod, Action<String> callback)
         {
             if (restMethod == null)
             {
@@ -355,7 +354,7 @@ namespace SDNUMobile.SDK
             
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.RequestRemoteContentAsync(method, url, 
+            OAuthHttpRequest.RequestRemoteContentAsync(restMethod.RequestMethod, url, 
                 this._consumerSecret, (this._accessToken != null ? this._accessToken.TokenSecret : String.Empty),
                 headers, restMethod.Parameters, callback);
         }
@@ -364,11 +363,10 @@ namespace SDNUMobile.SDK
         /// 异步调用服务方法
         /// </summary>
         /// <param name="restMethod">服务方法</param>
-        /// <param name="method">请求方式</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync(IRestMethod restMethod, RequestMethod method)
+        public void RequestRestMethodAsync(IRestMethod restMethod)
         {
-            this.RequestRestMethodAsync(restMethod, method, null);
+            this.RequestRestMethodAsync(restMethod, null);
         }
 
         /// <summary>
@@ -376,18 +374,17 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="restMethod">服务方法</param>
-        /// <param name="method">请求方式</param>
         /// <param name="callback">回调函数返回实体数据</param>
         /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, RequestMethod method, Action<IRestResult<T>> callback)
+        public void RequestRestMethodAsync<T>(IRestMethod<T> restMethod, Action<IRestResult<T>> callback)
         {
             if (this._jsonDeserializer == null)
             {
                 throw new NullReferenceException();
             }
 
-            this.RequestRestMethodAsync(restMethod, method, content => 
+            this.RequestRestMethodAsync(restMethod, content => 
             {
                 if (callback != null)
                 {
@@ -396,74 +393,6 @@ namespace SDNUMobile.SDK
                     callback(result);
                 }
             });
-        }
-
-        /// <summary>
-        /// 异步Get调用服务方法
-        /// </summary>
-        /// <param name="restMethod">服务方法</param>
-        /// <param name="callback">回调函数返回原始数据</param>
-        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void GetRestMethodAsync(IRestMethod restMethod, Action<String> callback)
-        {
-            this.RequestRestMethodAsync(restMethod, RequestMethod.Get, callback);
-        }
-
-        /// <summary>
-        /// 异步Get调用服务方法
-        /// </summary>
-        /// <param name="restMethod">服务方法</param>
-        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void GetRestMethodAsync(IRestMethod restMethod)
-        {
-            this.RequestRestMethodAsync(restMethod, RequestMethod.Get);
-        }
-
-        /// <summary>
-        /// 异步Get调用服务方法
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="restMethod">服务方法</param>
-        /// <param name="callback">回调函数返回实体数据</param>
-        /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
-        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void GetRestMethodAsync<T>(IRestMethod<T> restMethod, Action<IRestResult<T>> callback)
-        {
-            this.RequestRestMethodAsync<T>(restMethod, RequestMethod.Get, callback);
-        }
-
-        /// <summary>
-        /// 异步Post调用服务方法
-        /// </summary>
-        /// <param name="restMethod">服务方法</param>
-        /// <param name="callback">回调函数返回原始数据</param>
-        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void PostRestMethodAsync(IRestMethod restMethod, Action<String> callback)
-        {
-            this.RequestRestMethodAsync(restMethod, RequestMethod.Post, callback);
-        }
-
-        /// <summary>
-        /// 异步Post调用服务方法
-        /// </summary>
-        /// <param name="restMethod">服务方法</param>
-        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void PostRestMethodAsync(IRestMethod restMethod)
-        {
-            this.RequestRestMethodAsync(restMethod, RequestMethod.Post);
-        }
-
-        /// <summary>
-        /// 异步Post调用服务方法
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="restMethod">服务方法</param>
-        /// <param name="callback">回调函数返回实体数据</param>
-        /// <exception cref="NullReferenceException">Json反序列化器不能为空</exception>
-        /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        public void PostRestMethodAsync<T>(IRestMethod<T> restMethod, Action<IRestResult<T>> callback)
-        {
-            this.RequestRestMethodAsync<T>(restMethod, RequestMethod.Post, callback);
         }
         #endregion
 

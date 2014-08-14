@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using SDNUMobile.SDK.Entity.Bus;
+using SDNUMobile.SDK.Net;
 
 namespace SDNUMobile.SDK.RestMethod.Bus
 {
@@ -17,6 +18,14 @@ namespace SDNUMobile.SDK.RestMethod.Bus
         public override String MethodPath
         {
             get { return "bus/getlist"; }
+        }
+
+        /// <summary>
+        /// 获取方法请求类型
+        /// </summary>
+        public override RequestMethod RequestMethod
+        {
+            get { return RequestMethod.Get; }
         }
         #endregion
     }

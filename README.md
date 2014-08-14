@@ -67,7 +67,7 @@
 
 5.使用访问令牌请求服务方法
 
-    client.GetRestMethodAsync(new RestMethod.People.Get(), result =>
+    client.RequestRestMethodAsync(new RestMethod.People.Get(), result =>
     {
         if (result.Success)
         {

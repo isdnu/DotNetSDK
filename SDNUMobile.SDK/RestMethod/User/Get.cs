@@ -1,6 +1,7 @@
 ﻿using System;
 
 using SDNUMobile.SDK.Entity.User;
+using SDNUMobile.SDK.Net;
 
 namespace SDNUMobile.SDK.RestMethod.User
 {
@@ -16,6 +17,14 @@ namespace SDNUMobile.SDK.RestMethod.User
         public override String MethodPath
         {
             get { return "user/get"; }
+        }
+
+        /// <summary>
+        /// 获取方法请求类型
+        /// </summary>
+        public override RequestMethod RequestMethod
+        {
+            get { return RequestMethod.Get; }
         }
         #endregion
     }

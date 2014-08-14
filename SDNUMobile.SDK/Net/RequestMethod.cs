@@ -15,6 +15,16 @@ namespace SDNUMobile.SDK.Net
         /// <summary>
         /// Post方法
         /// </summary>
-        Post = 1
+        Post = 1,
+
+        /// <summary>
+        /// Put方法
+        /// </summary>
+        Put = 2,
+
+        /// <summary>
+        /// Delete方法
+        /// </summary>
+        Delete = 3
     }
 }

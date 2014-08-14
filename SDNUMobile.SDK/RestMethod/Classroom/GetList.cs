@@ -1,6 +1,7 @@
 ﻿using System;
 
 using SDNUMobile.SDK.Entity.Classroom;
+using SDNUMobile.SDK.Net;
 
 namespace SDNUMobile.SDK.RestMethod.Classroom
 {
@@ -16,6 +17,14 @@ namespace SDNUMobile.SDK.RestMethod.Classroom
         public override String MethodPath
         {
             get { return "classroom/getlist"; }
+        }
+
+        /// <summary>
+        /// 获取方法请求类型
+        /// </summary>
+        public override RequestMethod RequestMethod
+        {
+            get { return RequestMethod.Get; }
         }
 
         /// <summary>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using SDNUMobile.SDK.Net;
+
 namespace SDNUMobile.SDK
 {
     /// <summary>
@@ -20,6 +22,11 @@ namespace SDNUMobile.SDK
         /// 例如用户信息获取路径为：user/get
         /// </remarks>
         public abstract String MethodPath { get; }
+
+        /// <summary>
+        /// 获取方法请求类型
+        /// </summary>
+        public abstract RequestMethod RequestMethod { get; }
 
         /// <summary>
         /// 获取返回实体类型

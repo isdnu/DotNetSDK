@@ -1,5 +1,7 @@
 ﻿using System;
 
+using SDNUMobile.SDK.Net;
+
 namespace SDNUMobile.SDK.UnitTest
 {
     internal class TestRestMethod : AbstractRestMethod<String>
@@ -11,6 +13,14 @@ namespace SDNUMobile.SDK.UnitTest
         public override String MethodPath
         {
             get { return "test"; }
+        }
+
+        /// <summary>
+        /// 获取方法请求类型
+        /// </summary>
+        public override RequestMethod RequestMethod
+        {
+            get { return RequestMethod.Get; }
         }
         #endregion
 

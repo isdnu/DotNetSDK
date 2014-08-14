@@ -1,6 +1,7 @@
 ﻿using System;
 
 using SDNUMobile.SDK.Entity.Bathroom;
+using SDNUMobile.SDK.Net;
 
 namespace SDNUMobile.SDK.RestMethod.Bathroom
 {
@@ -16,6 +17,14 @@ namespace SDNUMobile.SDK.RestMethod.Bathroom
         public override String MethodPath
         {
             get { return "bathroom/getstatus"; }
+        }
+
+        /// <summary>
+        /// 获取方法请求类型
+        /// </summary>
+        public override RequestMethod RequestMethod
+        {
+            get { return RequestMethod.Get; }
         }
 
         /// <summary>
