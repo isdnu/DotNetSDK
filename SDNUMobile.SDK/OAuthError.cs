@@ -43,6 +43,11 @@ namespace SDNUMobile.SDK
         CallbackUrlEmpty = 10007,
 
         /// <summary>
+        /// Http方法错误
+        /// </summary>
+        HttpMethodInvalid = 10008,
+
+        /// <summary>
         /// 应用Key无效
         /// </summary>
         ConsumerKeyInvalid = 10101,
