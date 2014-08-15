@@ -110,35 +110,15 @@ namespace SDNUMobile.SDK.Net
         public static void RequestRemoteContentAsync(RequestMethod method, String url, Encoding encoding, Boolean nocache, String consumerSecret, String tokenSecret,
             IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            IEnumerable<RequestParameter> parameters = null;
-
-            if (method == RequestMethod.Get && nocache)
-            {
-                List<RequestParameter> list = new List<RequestParameter>();
-
-                if (queryParamerters != null)
-                {
-                    list.AddRange(queryParamerters);
-                }
-                
-                list.Add(new RequestParameter("nocache", _rand.NextDouble().ToString()));
-
-                parameters = list;
-            }
-            else
-            {
-                parameters = queryParamerters;
-            }
-
             String boundary = DateTime.Now.Ticks.ToString("x");
-            String actualUrl = (method == RequestMethod.Get ? OAuthHttpClient.GetActualUrl(url, encoding, parameters, nocache) : url);
+            String actualUrl = (method == RequestMethod.Get ? OAuthHttpClient.GetActualUrl(url, encoding, queryParamerters, nocache) : url);
 
             HttpWebRequest request = HttpWebRequest.Create(actualUrl) as HttpWebRequest;
-            
+            request.Method = method.ToString().ToUpperInvariant();
+
             if (method == RequestMethod.Post)
             {
-                request.Method = "POST";
-                request.ContentType = OAuthHttpClient.IsRequestParametersHasBinaryFile(parameters) ?
+                request.ContentType = OAuthHttpClient.IsRequestParametersHasBinaryFile(queryParamerters) ?
                     "multipart/form-data; boundary=" + boundary : "application/x-www-form-urlencoded";
 
                 if (nocache)
@@ -149,20 +129,23 @@ namespace SDNUMobile.SDK.Net
             }
             else if (method == RequestMethod.Get)
             {
-                request.Method = "GET";
+                if (nocache)
+                {
+                    request.Headers[HttpRequestHeader.IfNoneMatch] = Guid.NewGuid().ToString();
+                }
             }
 
             if (headers != null)
             {
                 String authHeader = AuthorizationHeaderBuilder.CreateHttpAuthorizationHeader(
-                    request.Method, new Uri(actualUrl), consumerSecret, tokenSecret, headers, parameters);
+                    request.Method, new Uri(actualUrl), consumerSecret, tokenSecret, headers, queryParamerters);
 
                 request.Headers[HttpRequestHeader.Authorization] = authHeader;
             }
 
             if (method == RequestMethod.Post)
             {
-                Byte[] data = OAuthHttpClient.GetParameterDataFromList(parameters, boundary, encoding);
+                Byte[] data = OAuthHttpClient.GetParameterDataFromList(queryParamerters, boundary, encoding);
 
                 request.BeginGetRequestStream(ar =>
                 {
@@ -197,7 +180,7 @@ namespace SDNUMobile.SDK.Net
             {
                 return rawUrl;
             }
-            
+
             String queryString = OAuthHttpClient.GetParameterStringFromList(parameters, encoding);
             String actualUrl = String.Format("{0}{1}{2}", rawUrl, (rawUrl.LastIndexOf('?') >= 0 ? "&" : "?"), queryString);
 
