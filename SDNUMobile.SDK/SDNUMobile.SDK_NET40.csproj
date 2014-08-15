@@ -50,7 +50,7 @@
     <Compile Include="IJsonDeserializer.cs" />
     <Compile Include="IRestMethod.cs" />
     <Compile Include="IToken.cs" />
-    <Compile Include="Net\OAuthHttpRequest.cs" />
+    <Compile Include="Net\OAuthHttpClient.cs" />
     <Compile Include="Net\RequestMethod.cs" />
     <Compile Include="OAuthClient.cs" />
     <Compile Include="OAuthError.cs" />

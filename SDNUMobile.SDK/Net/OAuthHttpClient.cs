@@ -11,14 +11,14 @@ namespace SDNUMobile.SDK.Net
     /// <summary>
     /// OAuth Http请求类
     /// </summary>
-    public static class OAuthHttpRequest
+    public static class OAuthHttpClient
     {
         #region 字段
         private static Random _rand;
         #endregion
 
         #region 构造方法
-        static OAuthHttpRequest()
+        static OAuthHttpClient()
         {
             _rand = new Random();
         }
@@ -35,7 +35,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, null, callback);
+            OAuthHttpClient.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, null, callback);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         public static void GetRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, queryParamerters, callback);
+            OAuthHttpClient.RequestRemoteContentAsync(RequestMethod.Get, url, consumerSecret, tokenSecret, headers, queryParamerters, callback);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, null, callback);
+            OAuthHttpClient.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, null, callback);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace SDNUMobile.SDK.Net
         /// <param name="callback">回调方法</param>
         public static void PostRemoteContentAsync(String url, String consumerSecret, String tokenSecret, IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, queryParamerters, callback);
+            OAuthHttpClient.RequestRemoteContentAsync(RequestMethod.Post, url, consumerSecret, tokenSecret, headers, queryParamerters, callback);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace SDNUMobile.SDK.Net
         public static void RequestRemoteContentAsync(RequestMethod method, String url, String consumerSecret, String tokenSecret,
             IEnumerable<RequestParameter> headers, IEnumerable<RequestParameter> queryParamerters, Action<String> callback)
         {
-            OAuthHttpRequest.RequestRemoteContentAsync(method, url, Encoding.UTF8, true, consumerSecret, tokenSecret, headers, queryParamerters, callback);
+            OAuthHttpClient.RequestRemoteContentAsync(method, url, Encoding.UTF8, true, consumerSecret, tokenSecret, headers, queryParamerters, callback);
         }
 
         /// <summary>
@@ -131,14 +131,14 @@ namespace SDNUMobile.SDK.Net
             }
 
             String boundary = DateTime.Now.Ticks.ToString("x");
-            String actualUrl = (method == RequestMethod.Get ? OAuthHttpRequest.GetActualUrl(url, encoding, parameters, nocache) : url);
+            String actualUrl = (method == RequestMethod.Get ? OAuthHttpClient.GetActualUrl(url, encoding, parameters, nocache) : url);
 
             HttpWebRequest request = HttpWebRequest.Create(actualUrl) as HttpWebRequest;
             
             if (method == RequestMethod.Post)
             {
                 request.Method = "POST";
-                request.ContentType = OAuthHttpRequest.IsRequestParametersHasBinaryFile(parameters) ?
+                request.ContentType = OAuthHttpClient.IsRequestParametersHasBinaryFile(parameters) ?
                     "multipart/form-data; boundary=" + boundary : "application/x-www-form-urlencoded";
 
                 if (nocache)
@@ -162,7 +162,7 @@ namespace SDNUMobile.SDK.Net
 
             if (method == RequestMethod.Post)
             {
-                Byte[] data = OAuthHttpRequest.GetParameterDataFromList(parameters, boundary, encoding);
+                Byte[] data = OAuthHttpClient.GetParameterDataFromList(parameters, boundary, encoding);
 
                 request.BeginGetRequestStream(ar =>
                 {
@@ -172,12 +172,12 @@ namespace SDNUMobile.SDK.Net
                         stream.Flush();
                     }
 
-                    OAuthHttpRequest.GetContentFromHttpWebRequest(request, encoding, callback);
+                    OAuthHttpClient.GetContentFromHttpWebRequest(request, encoding, callback);
                 }, null);
             }
             else
             {
-                OAuthHttpRequest.GetContentFromHttpWebRequest(request, encoding, callback);
+                OAuthHttpClient.GetContentFromHttpWebRequest(request, encoding, callback);
             }
         }
         #endregion
@@ -198,7 +198,7 @@ namespace SDNUMobile.SDK.Net
                 return rawUrl;
             }
             
-            String queryString = OAuthHttpRequest.GetParameterStringFromList(parameters, encoding);
+            String queryString = OAuthHttpClient.GetParameterStringFromList(parameters, encoding);
             String actualUrl = String.Format("{0}{1}{2}", rawUrl, (rawUrl.LastIndexOf('?') >= 0 ? "&" : "?"), queryString);
 
             return actualUrl;
@@ -262,7 +262,7 @@ namespace SDNUMobile.SDK.Net
                 {
                     if (response != null)
                     {
-                        data = OAuthHttpRequest.GetBytesFromResponse(response);
+                        data = OAuthHttpClient.GetBytesFromResponse(response);
 
 #if PORTABLE40 || PORTABLE45
                         response.Dispose();
@@ -329,7 +329,7 @@ namespace SDNUMobile.SDK.Net
                 return new Byte[0];
             }
 
-            if (OAuthHttpRequest.IsRequestParametersHasBinaryFile(parameters))//multipart/form-data
+            if (OAuthHttpClient.IsRequestParametersHasBinaryFile(parameters))//multipart/form-data
             {
                 String boundaryLine = "\r\n--" + boundary;
                 String stringTemplate = boundaryLine + "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
@@ -372,7 +372,7 @@ namespace SDNUMobile.SDK.Net
             }
             else//application/x-www-form-urlencoded
             {
-                String parameterString = OAuthHttpRequest.GetParameterStringFromList(parameters, encoding);
+                String parameterString = OAuthHttpClient.GetParameterStringFromList(parameters, encoding);
                 data = encoding.GetBytes(parameterString);
             }
 

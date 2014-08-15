@@ -265,7 +265,7 @@ namespace SDNUMobile.SDK
             headers.Add(new RequestParameter(OAuthConstants.TokenParameter, this._accessToken.TokenID));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.PostRemoteContentAsync(url, this._consumerSecret, this._accessToken.TokenSecret, headers, content =>
+            OAuthHttpClient.PostRemoteContentAsync(url, this._consumerSecret, this._accessToken.TokenSecret, headers, content =>
             {
                 AccessToken refreshedToken = this.GetAccessTokenFromString(content);
                     
@@ -354,7 +354,7 @@ namespace SDNUMobile.SDK
             
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
-            OAuthHttpRequest.RequestRemoteContentAsync(restMethod.RequestMethod, url, 
+            OAuthHttpClient.RequestRemoteContentAsync(restMethod.RequestMethod, url, 
                 this._consumerSecret, (this._accessToken != null ? this._accessToken.TokenSecret : String.Empty),
                 headers, restMethod.Parameters, callback);
         }
