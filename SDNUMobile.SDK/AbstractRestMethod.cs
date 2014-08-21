@@ -88,6 +88,7 @@ namespace SDNUMobile.SDK
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是字符串类型</exception>
         /// <returns>参数内容</returns>
         protected String GetParameterStringValue(String name)
         {
@@ -112,6 +113,7 @@ namespace SDNUMobile.SDK
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是整型类型</exception>
         /// <returns>参数内容</returns>
         protected Int32? GetParameterInt32Value(String name)
         {
@@ -136,6 +138,32 @@ namespace SDNUMobile.SDK
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是字节类型</exception>
+        /// <returns>参数内容</returns>
+        protected Byte? GetParameterByteValue(String name)
+        {
+            RequestParameter param = null;
+
+            if (!this._parameters.TryGetValue(name, out param))
+            {
+                return null;
+            }
+
+            if (param.ContentType == ParameterContentType.String)
+            {
+                return Convert.ToByte(param.Value);
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是日期类型</exception>
         /// <returns>参数内容</returns>
         protected DateTime? GetParameterDateTimeValue(String name)
         {
@@ -160,6 +188,7 @@ namespace SDNUMobile.SDK
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是二进制字节数组类型</exception>
         /// <returns>参数内容</returns>
         protected Byte[] GetParameterBinaryValue(String name)
         {
