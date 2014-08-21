@@ -94,6 +94,14 @@ namespace SDNUMobile.SDK
         /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数内容</param>
+        public RequestParameter(String name, Boolean value)
+            : this(name, value.ToString().ToLowerInvariant()) { }
+
+        /// <summary>
+        /// 初始化新的请求参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数内容</param>
         public RequestParameter(String name, DateTime value)
             : this(name, value.ToString(DateTimeStringFormat)) { }
 
@@ -130,6 +138,15 @@ namespace SDNUMobile.SDK
         public void SetParameterValue<T>(T value) where T : IFormattable
         {
             this.SetParameterValue(value.ToString());
+        }
+
+        /// <summary>
+        /// 设置参数内容
+        /// </summary>
+        /// <param name="value">参数内容</param>
+        public void SetParameterValue(Boolean value)
+        {
+            this.SetParameterValue(value.ToString().ToLowerInvariant());
         }
 
         /// <summary>

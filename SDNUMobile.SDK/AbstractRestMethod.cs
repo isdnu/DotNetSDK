@@ -163,6 +163,31 @@ namespace SDNUMobile.SDK
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是布尔类型</exception>
+        /// <returns>参数内容</returns>
+        protected Boolean? GetParameterBooleanValue(String name)
+        {
+            RequestParameter param = null;
+
+            if (!this._parameters.TryGetValue(name, out param))
+            {
+                return null;
+            }
+
+            if (param.ContentType == ParameterContentType.String)
+            {
+                return Convert.ToBoolean(param.Value);
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="name">参数名</param>
         /// <exception cref="InvalidCastException">参数内容不是日期类型</exception>
         /// <returns>参数内容</returns>
         protected DateTime? GetParameterDateTimeValue(String name)
@@ -268,6 +293,43 @@ namespace SDNUMobile.SDK
             if (value.HasValue)
             {
                 this.SetParameter<TP>(name, value.Value);
+            }
+            else
+            {
+                this._parameters.Remove(name);
+            }
+        }
+
+        /// <summary>
+        /// 设置请求参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数内容</param>
+        protected void SetParameter(String name, Boolean value)
+        {
+            RequestParameter param = null;
+
+            if (this._parameters.TryGetValue(name, out param))
+            {
+                param.SetParameterValue(value);
+            }
+            else
+            {
+                param = new RequestParameter(name, value);
+                this._parameters[name] = param;
+            }
+        }
+
+        /// <summary>
+        /// 设置请求参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数内容</param>
+        protected void SetParameter(String name, Boolean? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetParameter(name, value.Value);
             }
             else
             {
