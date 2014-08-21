@@ -13,6 +13,11 @@ namespace SDNUMobile.SDK
     {
         #region 字段
         /// <summary>
+        /// OAuth根Url
+        /// </summary>
+        private String _oauthBaseUrl;
+
+        /// <summary>
         /// OAuth请求令牌请求地址
         /// </summary>
         private String _oauthRequestTokenUrl;
@@ -38,6 +43,11 @@ namespace SDNUMobile.SDK
         private String _restRootUrl;
 
         /// <summary>
+        /// OAuth服务请求根地址
+        /// </summary>
+        private String _defaultCallbackUrl;
+
+        /// <summary>
         /// 客户端Key
         /// </summary>
         protected String _consumerKey;
@@ -60,93 +70,68 @@ namespace SDNUMobile.SDK
 
         #region 属性
         /// <summary>
-        /// 获取或设置OAuth请求令牌请求地址
+        /// 获取或设置OAuth根Url
         /// </summary>
-        /// <exception cref="ArgumentNullException">OAuth请求令牌请求地址不能为空</exception>
+        public String OAuthBaseUrl
+        {
+            get { return this._oauthBaseUrl; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException();
+                }
+
+                this.SetBaseUrl(value);
+            }
+        }
+
+        /// <summary>
+        /// 获取OAuth请求令牌请求地址
+        /// </summary>
         public String OAuthRequestTokenUrl
         {
             get { return this._oauthRequestTokenUrl; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException();
-                }
-
-                this._oauthRequestTokenUrl = value; 
-            }
         }
 
         /// <summary>
-        /// 获取或设置OAuth认证地址
+        /// 获取OAuth认证地址
         /// </summary>
-        /// <exception cref="ArgumentNullException">OAuth认证地址地址不能为空</exception>
         public String OAuthAuthorizeUrl
         {
             get { return this._oauthAuthorizeUrl; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException();
-                }
-
-                this._oauthAuthorizeUrl = value;
-            }
         }
 
         /// <summary>
-        /// 获取或设置OAuth访问令牌请求地址
+        /// 获取OAuth访问令牌请求地址
         /// </summary>
-        /// <exception cref="ArgumentNullException">OAuth访问令牌请求地址不能为空</exception>
         public String OAuthAccessTokenUrl
         {
             get { return this._oauthAccessTokenUrl; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException();
-                }
-
-                this._oauthAccessTokenUrl = value;
-            }
         }
 
         /// <summary>
-        /// 获取或设置OAuth令牌刷新请求地址
+        /// 获取OAuth令牌刷新请求地址
         /// </summary>
-        /// <exception cref="ArgumentNullException">OAuth令牌刷新请求地址不能为空</exception>
         public String OAuthRefreshTokenUrl
         {
             get { return this._oauthRefreshTokenUrl; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException();
-                }
-
-                this._oauthRefreshTokenUrl = value;
-            }
         }
 
         /// <summary>
-        /// 获取或设置OAuth服务请求根地址
+        /// 获取OAuth服务请求根地址
         /// </summary>
-        /// <exception cref="ArgumentNullException">OAuth服务请求根地址不能为空</exception>
         public String RestRootUrl
         {
             get { return this._restRootUrl; }
-            set
-            {
-                if (String.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentNullException();
-                }
+        }
 
-                this._restRootUrl = value;
-            }
+        /// <summary>
+        /// 获取OAuth默认回调地址
+        /// </summary>
+        public String DefaultCallbackUrl
+        {
+            get { return this._defaultCallbackUrl; }
         }
 
         /// <summary>
@@ -210,11 +195,7 @@ namespace SDNUMobile.SDK
         /// <param name="voucher">访问令牌存储凭证</param>
         internal AbstractClient(IJsonDeserializer jsonDeserializer, String consumerKey, String consumerSecret, String voucher)
         {
-            this._oauthRequestTokenUrl = Constants.OAuthRequestTokenUrl;
-            this._oauthAuthorizeUrl = Constants.OAuthAuthorizeUrl;
-            this._oauthAccessTokenUrl = Constants.OAuthAccessTokenUrl;
-            this._oauthRefreshTokenUrl = Constants.OAuthRefreshTokenUrl;
-            this._restRootUrl = Constants.RestRootUrl;
+            this.SetBaseUrl(Constants.DefaultBaseUrl);
 
             this._jsonDeserializer = jsonDeserializer;
             this._consumerKey = consumerKey;
@@ -522,6 +503,24 @@ namespace SDNUMobile.SDK
             }
 
             return dict;
+        }
+        #endregion
+
+        #region 私有方法
+        private void SetBaseUrl(String baseUrl)
+        {
+            if (baseUrl[baseUrl.Length - 1] != '/')
+            {
+                baseUrl = baseUrl + '/';
+            }
+
+            this._oauthBaseUrl = baseUrl;
+            this._oauthRequestTokenUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthRequestTokenUri);
+            this._oauthAuthorizeUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthAuthorizeUri);
+            this._oauthAccessTokenUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthAccessTokenUri);
+            this._oauthRefreshTokenUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthRefreshTokenUri);
+            this._restRootUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.RestRootUri);
+            this._defaultCallbackUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.DefaultCallbackUri);
         }
         #endregion
     }

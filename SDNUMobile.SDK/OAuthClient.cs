@@ -52,7 +52,7 @@ namespace SDNUMobile.SDK
 
             if (String.IsNullOrEmpty(callbackUrl))
             {
-                callbackUrl = Constants.DefaultCallbackUrl;
+                callbackUrl = this.DefaultCallbackUrl;
             }
 
             List<RequestParameter> headers = new List<RequestParameter>();
