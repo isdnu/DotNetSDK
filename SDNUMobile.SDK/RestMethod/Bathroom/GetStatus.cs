@@ -33,7 +33,7 @@ namespace SDNUMobile.SDK.RestMethod.Bathroom
         public Int32? Day
         {
             get { return this.GetParameterInt32Value("day"); }
-            set { this.SetParameter("day", value.Value); }
+            set { this.SetParameter("day", value); }
         }
         #endregion
 

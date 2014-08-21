@@ -218,14 +218,21 @@ namespace SDNUMobile.SDK
         {
             RequestParameter param = null;
 
-            if (this._parameters.TryGetValue(name, out param))
+            if (!String.IsNullOrEmpty(value))
             {
-                param.SetParameterValue(value);
+                if (this._parameters.TryGetValue(name, out param))
+                {
+                    param.SetParameterValue(value);
+                }
+                else
+                {
+                    param = new RequestParameter(name, value);
+                    this._parameters[name] = param;
+                }
             }
             else
             {
-                param = new RequestParameter(name, value);
-                this._parameters[name] = param;
+                this._parameters.Remove(name);
             }
         }
 
@@ -253,6 +260,24 @@ namespace SDNUMobile.SDK
         /// <summary>
         /// 设置请求参数
         /// </summary>
+        /// <typeparam name="TP">参数类型</typeparam>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数内容</param>
+        protected void SetParameter<TP>(String name, TP? value) where TP : struct, IFormattable
+        {
+            if (value.HasValue)
+            {
+                this.SetParameter<TP>(name, value.Value);
+            }
+            else
+            {
+                this._parameters.Remove(name);
+            }
+        }
+
+        /// <summary>
+        /// 设置请求参数
+        /// </summary>
         /// <param name="name">参数名</param>
         /// <param name="value">参数内容</param>
         protected void SetParameter(String name, DateTime value)
@@ -274,20 +299,44 @@ namespace SDNUMobile.SDK
         /// 设置请求参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <param name="value">参数内容</param>
+        protected void SetParameter(String name, DateTime? value)
+        {
+            if (value.HasValue)
+            {
+                this.SetParameter(name, value.Value);
+            }
+            else
+            {
+                this._parameters.Remove(name);
+            }
+        }
+
+        /// <summary>
+        /// 设置请求参数
+        /// </summary>
+        /// <param name="name">参数名</param>
         /// <param name="fileName">上传文件名</param>
         /// <param name="value">参数内容</param>
         protected void SetParameter(String name, String fileName, Byte[] value)
         {
             RequestParameter param = null;
 
-            if (this._parameters.TryGetValue(name, out param))
+            if (value != null)
             {
-                param.SetParameterValue(fileName, value);
+                if (this._parameters.TryGetValue(name, out param))
+                {
+                    param.SetParameterValue(fileName, value);
+                }
+                else
+                {
+                    param = new RequestParameter(name, fileName, value);
+                    this._parameters[name] = param;
+                }
             }
             else
             {
-                param = new RequestParameter(name, fileName, value);
-                this._parameters[name] = param;
+                this._parameters.Remove(name);
             }
         }
         #endregion

@@ -33,7 +33,7 @@ namespace SDNUMobile.SDK.RestMethod.Classroom
         public DateTime? StartTime
         {
             get { return this.GetParameterDateTimeValue("start"); }
-            set { this.SetParameter("start", value.Value); }
+            set { this.SetParameter("start", value); }
         }
 
         /// <summary>

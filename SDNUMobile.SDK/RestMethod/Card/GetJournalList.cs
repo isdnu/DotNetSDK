@@ -42,7 +42,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
         public DateTime? StartTime
         {
             get { return this.GetParameterDateTimeValue("start"); }
-            set { this.SetParameter("start", value.Value); }
+            set { this.SetParameter("start", value); }
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
         public DateTime? EndTime
         {
             get { return this.GetParameterDateTimeValue("end"); }
-            set { this.SetParameter("end", value.Value); }
+            set { this.SetParameter("end", value); }
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
         public Int32? Count
         {
             get { return this.GetParameterInt32Value("count"); }
-            set { this.SetParameter("count", value.Value); }
+            set { this.SetParameter("count", value); }
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace SDNUMobile.SDK.RestMethod.Card
         public Int32? Index
         {
             get { return this.GetParameterInt32Value("index"); }
-            set { this.SetParameter("index", value.Value); }
+            set { this.SetParameter("index", value); }
         }
         #endregion
 
