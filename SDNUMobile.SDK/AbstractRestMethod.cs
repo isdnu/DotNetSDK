@@ -70,19 +70,6 @@ namespace SDNUMobile.SDK
         }
         #endregion
 
-        #region 方法
-        /// <summary>
-        /// 尝试验证方法内参数
-        /// </summary>
-        /// <param name="error">错误信息（如果存在）</param>
-        /// <returns>参数验证是否通过</returns>
-        public virtual Boolean TryValidateParameters(out String error)
-        {
-            error = String.Empty;
-            return true;
-        }
-        #endregion
-
         #region 保护方法
         /// <summary>
         /// 获取参数

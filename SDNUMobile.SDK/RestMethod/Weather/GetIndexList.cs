@@ -47,24 +47,5 @@ namespace SDNUMobile.SDK.RestMethod.Weather
             this.AreaID = areaID;
         }
         #endregion
-
-        #region 方法
-        /// <summary>
-        /// 尝试验证方法内参数
-        /// </summary>
-        /// <param name="error">错误信息（如果存在）</param>
-        /// <returns>参数验证是否通过</returns>
-        public override Boolean TryValidateParameters(out String error)
-        {
-            if (String.IsNullOrEmpty(this.AreaID))
-            {
-                error = "区域ID不能为空！";
-                return false;
-            }
-
-            error = String.Empty;
-            return true;
-        }
-        #endregion
     }
 }

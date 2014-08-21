@@ -43,15 +43,6 @@ namespace SDNUMobile.SDK
         /// <returns>请求参数</returns>
         RequestParameter this[String name] { get; set; }
         #endregion
-
-        #region 方法
-        /// <summary>
-        /// 尝试验证方法内参数
-        /// </summary>
-        /// <param name="error">错误信息（如果存在）</param>
-        /// <returns>参数验证是否通过</returns>
-        Boolean TryValidateParameters(out String error);
-        #endregion
     }
 
     /// <summary>
