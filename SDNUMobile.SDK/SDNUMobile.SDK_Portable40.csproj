@@ -48,11 +48,13 @@
     <Compile Include="Entity\Found\FoundObjectType.cs" />
     <Compile Include="Entity\Found\FoundSummary.cs" />
     <Compile Include="Entity\Poi\PositionType.cs" />
+    <Compile Include="Entity\Power\PowerSummary.cs" />
     <Compile Include="IRestResult.cs" />
     <Compile Include="RestMethod\Found\AddCardFound.cs" />
     <Compile Include="RestMethod\Found\Get.cs" />
     <Compile Include="RestMethod\Found\GetList.cs" />
     <Compile Include="RestMethod\Found\GetUserList.cs" />
+    <Compile Include="RestMethod\Power\Get.cs" />
     <Compile Include="TokenResult.cs" />
     <Compile Include="IClient.cs" />
     <Compile Include="IJsonDeserializer.cs" />
