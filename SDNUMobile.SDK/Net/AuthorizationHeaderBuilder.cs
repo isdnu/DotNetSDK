@@ -99,8 +99,8 @@ namespace SDNUMobile.SDK.Net
 
             allParams.Sort(RequestParameterComparer.Default);
 
-            String signatureBase = SignatureBuilder.CreateSignatureBaseString(httpMethod, requestUrl, allParams);
-            String signature = SignatureBuilder.CreateSignature(consumerSecret, tokenSecret, signatureBase);
+            String signatureBase = SignatureBaseBuilder.CreateSignatureBaseString(httpMethod, requestUrl, allParams);
+            String signature = HMACSHA1Signer.CreateSignature(consumerSecret, tokenSecret, signatureBase);
 
             return signature;
         }
