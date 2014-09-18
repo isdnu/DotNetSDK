@@ -103,7 +103,7 @@ namespace SDNUMobile.SDK.Utilities
                 }
                 else
                 {
-                    sb.Append(@"%" + Convert.ToString(bytes[i], 16));
+                    sb.Append(@"%" + bytes[i].ToString("x2"));
                 }
             }
 
