@@ -46,6 +46,11 @@
     <Compile Include="Entity\Found\FoundDetail.cs" />
     <Compile Include="Entity\Found\FoundObjectType.cs" />
     <Compile Include="Entity\Found\FoundSummary.cs" />
+    <Compile Include="Entity\News\NewsDetail.cs" />
+    <Compile Include="Entity\News\NewsFile.cs" />
+    <Compile Include="Entity\News\NewsSiteCategorySummary.cs" />
+    <Compile Include="Entity\News\NewsSiteSummary.cs" />
+    <Compile Include="Entity\News\NewsSummary.cs" />
     <Compile Include="Entity\Poi\PositionType.cs" />
     <Compile Include="Entity\Power\PowerSummary.cs" />
     <Compile Include="IRestResult.cs" />
@@ -53,6 +58,9 @@
     <Compile Include="RestMethod\Found\Get.cs" />
     <Compile Include="RestMethod\Found\GetList.cs" />
     <Compile Include="RestMethod\Found\GetUserList.cs" />
+    <Compile Include="RestMethod\News\Get.cs" />
+    <Compile Include="RestMethod\News\GetList.cs" />
+    <Compile Include="RestMethod\News\GetSiteList.cs" />
     <Compile Include="RestMethod\Power\Get.cs" />
     <Compile Include="TokenResult.cs" />
     <Compile Include="IClient.cs" />
