@@ -100,6 +100,31 @@ namespace SDNUMobile.SDK
         /// 获取参数
         /// </summary>
         /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是短整型类型</exception>
+        /// <returns>参数内容</returns>
+        protected Int16? GetParameterInt16Value(String name)
+        {
+            RequestParameter param = null;
+
+            if (!this._parameters.TryGetValue(name, out param))
+            {
+                return null;
+            }
+
+            if (param.ContentType == ParameterContentType.String)
+            {
+                return Convert.ToInt16(param.Value);
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="name">参数名</param>
         /// <exception cref="InvalidCastException">参数内容不是整型类型</exception>
         /// <returns>参数内容</returns>
         protected Int32? GetParameterInt32Value(String name)
@@ -114,6 +139,31 @@ namespace SDNUMobile.SDK
             if (param.ContentType == ParameterContentType.String)
             {
                 return Convert.ToInt32(param.Value);
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
+        }
+
+        /// <summary>
+        /// 获取参数
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <exception cref="InvalidCastException">参数内容不是长整型类型</exception>
+        /// <returns>参数内容</returns>
+        protected Int64? GetParameterInt64Value(String name)
+        {
+            RequestParameter param = null;
+
+            if (!this._parameters.TryGetValue(name, out param))
+            {
+                return null;
+            }
+
+            if (param.ContentType == ParameterContentType.String)
+            {
+                return Convert.ToInt64(param.Value);
             }
             else
             {
