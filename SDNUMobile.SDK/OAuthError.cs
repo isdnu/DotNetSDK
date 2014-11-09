@@ -148,6 +148,11 @@ namespace SDNUMobile.SDK
         UsernameOrPasswordWrong = 12103,
 
         /// <summary>
+        /// 用户未绑定邮箱
+        /// </summary>
+        UserNotSetEmail = 12104,
+
+        /// <summary>
         /// 服务方法无效
         /// </summary>
         RestMethodInvalid = 20001,
