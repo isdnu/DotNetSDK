@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using SDNUMobile.SDK.Entity.People;
 using SDNUMobile.SDK.Entity.Poi;
 
-namespace SDNUMobile.SDK.Demo
+namespace SDNUMobile.SDK.XAuthDemo
 {
     class JsonDeserializer : IJsonDeserializer
     {
