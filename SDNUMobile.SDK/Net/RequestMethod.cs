@@ -17,14 +17,14 @@ namespace SDNUMobile.SDK.Net
         /// </summary>
         Post = 1,
 
-        /// <summary>
-        /// Put方法
-        /// </summary>
-        Put = 2,
+        ///// <summary>
+        ///// Put方法
+        ///// </summary>
+        //Put = 2,
 
-        /// <summary>
-        /// Delete方法
-        /// </summary>
-        Delete = 3
+        ///// <summary>
+        ///// Delete方法
+        ///// </summary>
+        //Delete = 3
     }
 }
