@@ -61,7 +61,7 @@ namespace SDNUMobile.SDK.Utilities
                     sb.Append('&');
                 }
 
-                sb.Append(param.Name).Append('=').Append(param.Value as String);
+                sb.Append(HttpUtility.RFC3986Encode(param.Name)).Append('=').Append(HttpUtility.RFC3986Encode(param.Value as String));
             }
 
             return sb.ToString();

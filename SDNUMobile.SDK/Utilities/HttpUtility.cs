@@ -28,19 +28,20 @@ namespace SDNUMobile.SDK.Utilities
             }
 
             StringBuilder sb = new StringBuilder();
+            Byte[] data = Encoding.UTF8.GetBytes(input);
 
-            for (Int32 i = 0; i < input.Length; i++)
+            for (Int32 i = 0; i < data.Length; i++)
             {
-                Char c = input[i];
+                Char c = (Char)data[i];
 
-                if (HttpUtility.IsReverseCharInRFC3986(c))
+                if (data[i] < 0x80 && !HttpUtility.IsReverseCharInRFC3986(c))
                 {
-                    sb.Append("%");
-                    sb.Append(((Byte)c).ToString("X2"));
+                    sb.Append(c);
                 }
                 else
                 {
-                    sb.Append(c);
+                    sb.Append('%');
+                    sb.Append(String.Format("{0:X2}", (Int32)c));
                 }
             }
 
