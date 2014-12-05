@@ -48,6 +48,11 @@ namespace SDNUMobile.SDK
         HttpMethodInvalid = 10008,
 
         /// <summary>
+        /// 参数重复
+        /// </summary>
+        DuplicatedParameter = 10009,
+
+        /// <summary>
         /// 应用Key无效
         /// </summary>
         ConsumerKeyInvalid = 10101,
