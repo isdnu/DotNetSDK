@@ -27,25 +27,42 @@ namespace SDNUMobile.SDK.Utilities
                 return String.Empty;
             }
 
-            StringBuilder sb = new StringBuilder();
             Byte[] data = Encoding.UTF8.GetBytes(input);
+            Int32 unsafeChars = 0;
 
             for (Int32 i = 0; i < data.Length; i++)
             {
-                Char c = (Char)data[i];
-
-                if (data[i] < 0x80 && !HttpUtility.IsReverseCharInRFC3986(c))
+                if (IsReverseCharInRFC3986((Char)data[i]))
                 {
-                    sb.Append(c);
-                }
-                else
-                {
-                    sb.Append('%');
-                    sb.Append(String.Format("{0:X2}", (Int32)c));
+                    unsafeChars++;
                 }
             }
 
-            return sb.ToString();
+            if (unsafeChars == 0)
+            {
+                return input;
+            }
+
+            Byte[] buff = new Byte[data.Length + (unsafeChars * 2)];
+            Int32 pos = 0;
+
+            for (Int32 i = 0; i < data.Length; i++)
+            {
+                Byte b = data[i];
+
+                if (IsReverseCharInRFC3986((Char)b))
+                {
+                    buff[pos++] = (Byte)'%';
+                    buff[pos++] = (Byte)IntToHex((b >> 4) & 0xF);
+                    buff[pos++] = (Byte)IntToHex(b & 0x0F);
+                }
+                else
+                {
+                    buff[pos++] = b;
+                }
+            }
+
+            return Encoding.UTF8.GetString(buff, 0, buff.Length);
         }
 
         /// <summary>
@@ -204,6 +221,23 @@ namespace SDNUMobile.SDK.Utilities
             //unreserved     = alpha | digit | safe | extra
             return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
                     c == '(' || c == ')' || c == '*' || c == '-' || c == '.' || c == '_' || c == '!');
+        }
+
+        private static Char IntToHex(Int32 n)
+        {
+            if (n < 0 || n >= 16)
+            {
+                throw new ArgumentOutOfRangeException("n");
+            }
+
+            if (n <= 9)
+            {
+                return (Char)(n + (Int32)'0');
+            }
+            else
+            {
+                return (Char)(n - 10 + (Int32)'A');
+            }
         }
         #endregion
     }
