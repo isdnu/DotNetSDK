@@ -58,9 +58,9 @@ namespace SDNUMobile.SDK
             List<RequestParameter> headers = new List<RequestParameter>();
             headers.Add(new RequestParameter(OAuthConstants.CallbackParameter, callbackUrl));
             headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
-            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
+            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, this.GenerateNonce()));
             headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
-            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
+            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, this.GetCurrentTimestamp()));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
             OAuthHttpClient.PostRemoteContentAsync(url, this._consumerSecret, String.Empty, headers, callback);
@@ -199,9 +199,9 @@ namespace SDNUMobile.SDK
 
             List<RequestParameter> headers = new List<RequestParameter>();
             headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
-            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
+            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, this.GenerateNonce()));
             headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
-            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
+            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, this.GetCurrentTimestamp()));
             headers.Add(new RequestParameter(OAuthConstants.TokenParameter, requestToken.TokenID));
             headers.Add(new RequestParameter(OAuthConstants.VerifierParameter, verifier));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));

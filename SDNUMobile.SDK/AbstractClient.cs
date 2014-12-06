@@ -240,9 +240,9 @@ namespace SDNUMobile.SDK
 
             List<RequestParameter> headers = new List<RequestParameter>();
             headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
-            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
+            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, this.GenerateNonce()));
             headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
-            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
+            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, this.GetCurrentTimestamp()));
             headers.Add(new RequestParameter(OAuthConstants.TokenParameter, this._accessToken.TokenID));
             headers.Add(new RequestParameter(OAuthConstants.VersionParameter, OAuthConstants.CurrentVersion));
 
@@ -324,9 +324,9 @@ namespace SDNUMobile.SDK
 
             List<RequestParameter> headers = new List<RequestParameter>();
             headers.Add(new RequestParameter(OAuthConstants.ConsumerKeyParameter, this._consumerKey));
-            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, Guid.NewGuid().ToString("N")));
+            headers.Add(new RequestParameter(OAuthConstants.NonceParameter, this.GenerateNonce()));
             headers.Add(new RequestParameter(OAuthConstants.SignatureMethodParameter, OAuthConstants.SupportSignatureMethod));
-            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, UnixTimeConverter.ToUnixTime(DateTime.Now).ToString()));
+            headers.Add(new RequestParameter(OAuthConstants.TimestampParameter, this.GetCurrentTimestamp()));
 
             if (this._accessToken != null)
             {
@@ -378,6 +378,24 @@ namespace SDNUMobile.SDK
         #endregion
 
         #region 保护方法
+        /// <summary>
+        /// 获取一个唯一值
+        /// </summary>
+        /// <returns>唯一值内容</returns>
+        protected String GenerateNonce()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
+
+        /// <summary>
+        /// 获取当前时间戳
+        /// </summary>
+        /// <returns>当前时间戳内容</returns>
+        protected String GetCurrentTimestamp()
+        {
+            return UnixTimeConverter.ToUnixTime(DateTime.Now).ToString();
+        }
+
         /// <summary>
         /// 从字符串中获取访问令牌实体
         /// </summary>
