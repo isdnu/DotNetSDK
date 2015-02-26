@@ -24,7 +24,7 @@ namespace SDNUMobile.SDK
         Object ResultObject { get; }
 
         /// <summary>
-        /// 获取错误实体（如果存在）
+        /// 获取错误实体（执行失败时）
         /// </summary>
         OAuthError Error { get; }
         #endregion

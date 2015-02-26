@@ -48,19 +48,19 @@ namespace SDNUMobile.SDK.XAuthDemo
         {
             client.RequestRestMethodAsync(new RestMethod.Poi.GetList(), result =>
             {
-                if (result.Error != null)
-                {
-                    Console.WriteLine(result.Error.ErrorDescription);
-                }
-                else
+                if (result.Success)
                 {
                     SchoolPosition[] positions = result.Result;
 
                     foreach (SchoolPosition pos in positions)
                     {
-                        Console.WriteLine(String.Format("{0}:{1},{2}", 
+                        Console.WriteLine(String.Format("{0}:{1},{2}",
                             pos.PositionName, pos.Longitude, pos.Latitude));
                     }
+                }
+                else
+                {
+                    Console.WriteLine(result.Error.ErrorDescription);
                 }
 
                 allDone.Set();
@@ -71,13 +71,13 @@ namespace SDNUMobile.SDK.XAuthDemo
         {
             client.RequestAccessTokenAsync(userName, passWord, result =>
             {
-                if (result.Error != null)
+                if (result.Success)
                 {
-                    Console.WriteLine(result.Error.ErrorDescription);
+                    Console.WriteLine(String.Format("Token ID:{0}", result.Token.TokenID));
                 }
                 else
                 {
-                    Console.WriteLine(String.Format("Token ID:{0}", result.Token.TokenID));
+                    Console.WriteLine(result.Error.ErrorDescription);
                 }
 
                 allDone.Set();
@@ -88,15 +88,15 @@ namespace SDNUMobile.SDK.XAuthDemo
         {
             client.RequestRestMethodAsync(new RestMethod.People.Get(), result =>
             {
-                if (result.Error != null)
+                if (result.Success)
                 {
-                    Console.WriteLine(result.Error.ErrorDescription);
+                    PeopleInfo people = result.Result;
+                    Console.WriteLine(String.Format("{0}({1}):{2}",
+                        people.Name, people.IdentityNumber, people.OrganizationName));
                 }
                 else
                 {
-                    PeopleInfo people = result.Result;
-                    Console.WriteLine(String.Format("{0}({1}):{2}", 
-                        people.Name, people.IdentityNumber, people.OrganizationName));
+                    Console.WriteLine(result.Error.ErrorDescription);
                 }
 
                 allDone.Set();

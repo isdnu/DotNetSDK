@@ -5,8 +5,13 @@ namespace SDNUMobile.SDK
     /// <summary>
     /// OAuth错误代码
     /// </summary>
-    public enum OAuthErrorCode
+    public enum OAuthErrorCode : int
     {
+        /// <summary>
+        /// 未知错误
+        /// </summary>
+        Unknown = -1,
+
         /// <summary>
         /// 协议版本不支持
         /// </summary>
@@ -225,6 +230,17 @@ namespace SDNUMobile.SDK
             this._errorCode = (OAuthErrorCode)code;
             this._errorType = type;
             this._errorDescription = description;
+        }
+        #endregion
+
+        #region 静态方法
+        /// <summary>
+        /// 获取未知错误
+        /// </summary>
+        /// <returns>未知错误</returns>
+        internal static OAuthError GetUnknownError()
+        {
+            return new OAuthError((Int32)OAuthErrorCode.Unknown, OAuthErrorCode.Unknown.ToString(), OAuthErrorCode.Unknown.ToString());
         }
         #endregion
     }

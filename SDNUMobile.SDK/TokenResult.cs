@@ -31,7 +31,7 @@ namespace SDNUMobile.SDK
         }
 
         /// <summary>
-        /// 获取错误实体（如果存在）
+        /// 获取错误实体（执行失败时）
         /// </summary>
         public OAuthError Error
         {

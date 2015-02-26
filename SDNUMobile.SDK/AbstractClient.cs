@@ -353,14 +353,14 @@ namespace SDNUMobile.SDK
         {
             if (String.IsNullOrEmpty(content) || !content.StartsWith("error_code=", StringComparison.OrdinalIgnoreCase))
             {
-                return null;
+                return OAuthError.GetUnknownError();
             }
 
             Dictionary<String, String> dict = this.GetDictionaryFromString(content);
 
             if (!dict.ContainsKey("error_code") || !dict.ContainsKey("error_type") || !dict.ContainsKey("error_description"))
             {
-                return null;
+                return OAuthError.GetUnknownError();
             }
             
             Int32 errorCode;
@@ -369,7 +369,7 @@ namespace SDNUMobile.SDK
 
             if (!Int32.TryParse(dict["error_code"], out errorCode))
             {
-                return null;
+                return OAuthError.GetUnknownError();
             }
 
             OAuthError error = new OAuthError(errorCode, errorType, errorDescription);
