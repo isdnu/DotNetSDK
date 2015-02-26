@@ -101,7 +101,7 @@ namespace SDNUMobile.SDK
         /// <param name="callback">回调函数返回原始数据</param>
         public void RequestRequestTokenAsync(Action<String> callback)
         {
-            this.RequestRequestTokenAsync(callback);
+            this.RequestRequestTokenAsync(String.Empty, callback);
         }
 
         /// <summary>
