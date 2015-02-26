@@ -31,11 +31,6 @@ namespace SDNUMobile.SDK
         String OAuthAccessTokenUrl { get; }
 
         /// <summary>
-        /// 获取或设置OAuth令牌刷新请求地址
-        /// </summary>
-        String OAuthRefreshTokenUrl { get; }
-
-        /// <summary>
         /// 获取或设置OAuth服务请求根地址
         /// </summary>
         String RestRootUrl { get; }

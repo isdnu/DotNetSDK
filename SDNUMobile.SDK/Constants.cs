@@ -28,11 +28,6 @@ namespace SDNUMobile.SDK
         internal const String OAuthAccessTokenUri = "access_token";
 
         /// <summary>
-        /// 获取OAuth令牌刷新请求地址
-        /// </summary>
-        internal const String OAuthRefreshTokenUri = "refresh_token";
-
-        /// <summary>
         /// 获取OAuth服务请求根地址
         /// </summary>
         internal const String RestRootUri = "rest";

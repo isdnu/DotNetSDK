@@ -33,11 +33,6 @@ namespace SDNUMobile.SDK
         private String _oauthAccessTokenUrl;
 
         /// <summary>
-        /// OAuth令牌刷新请求地址
-        /// </summary>
-        private String _oauthRefreshTokenUrl;
-
-        /// <summary>
         /// OAuth服务请求根地址
         /// </summary>
         private String _restRootUrl;
@@ -108,14 +103,6 @@ namespace SDNUMobile.SDK
         public String OAuthAccessTokenUrl
         {
             get { return this._oauthAccessTokenUrl; }
-        }
-
-        /// <summary>
-        /// 获取OAuth令牌刷新请求地址
-        /// </summary>
-        public String OAuthRefreshTokenUrl
-        {
-            get { return this._oauthRefreshTokenUrl; }
         }
 
         /// <summary>
@@ -453,7 +440,6 @@ namespace SDNUMobile.SDK
             this._oauthRequestTokenUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthRequestTokenUri);
             this._oauthAuthorizeUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthAuthorizeUri);
             this._oauthAccessTokenUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthAccessTokenUri);
-            this._oauthRefreshTokenUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.OAuthRefreshTokenUri);
             this._restRootUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.RestRootUri);
             this._defaultCallbackUrl = String.Format("{0}{1}", this._oauthBaseUrl, Constants.DefaultCallbackUri);
         }
