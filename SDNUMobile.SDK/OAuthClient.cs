@@ -241,15 +241,16 @@ namespace SDNUMobile.SDK
             {
                 if (callback != null)
                 {
-                    OAuthError error = this.GetOAuthErrorFromString(content);
+                    AccessToken accessToken = this._accessToken;
                     TokenResult result = null;
 
-                    if (error == null)
+                    if (accessToken != null)
                     {
-                        result = new TokenResult(this._accessToken);
+                        result = new TokenResult(accessToken);
                     }
                     else
                     {
+                        OAuthError error = this.GetOAuthErrorFromString(content);
                         result = new TokenResult(error);
                     }
 
