@@ -71,12 +71,12 @@ namespace SDNUMobile.SDK
 
         #region 调用服务方法
         /// <summary>
-        /// 异步调用服务方法
+        /// 异步调用服务方法（返回原始数据）
         /// </summary>
         /// <param name="restMethod">服务方法</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">服务方法不能为空</exception>
-        void RequestRestMethodAsync(IRestMethod restMethod, Action<String> callback);
+        void RequestRestMethodRawResultAsync(IRestMethod restMethod, Action<String> callback);
 
         /// <summary>
         /// 异步调用服务方法

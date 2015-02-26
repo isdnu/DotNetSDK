@@ -42,13 +42,13 @@ namespace SDNUMobile.SDK
 
         #region 获取访问令牌
         /// <summary>
-        /// 异步获取访问令牌
+        /// 异步获取访问令牌（返回原始数据）
         /// </summary>
         /// <param name="userName">用户名</param>
         /// <param name="passWord">密码</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
-        public void RequestAccessTokenAsync(String userName, String passWord, Action<String> callback)
+        public void RequestAccessTokenRawResultAsync(String userName, String passWord, Action<String> callback)
         {
             if (String.IsNullOrEmpty(userName))
             {
@@ -91,7 +91,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
         public void RequestAccessTokenAsync(String userName, String passWord)
         {
-            this.RequestAccessTokenAsync(userName, passWord, (String content) => { });
+            this.RequestAccessTokenRawResultAsync(userName, passWord, null);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">用户名密码不能为空</exception>
         public void RequestAccessTokenAsync(String userName, String passWord, Action<TokenResult> callback)
         {
-            this.RequestAccessTokenAsync(userName, passWord, content =>
+            this.RequestAccessTokenRawResultAsync(userName, passWord, content =>
             {
                 if (callback != null)
                 {

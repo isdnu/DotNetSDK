@@ -42,11 +42,11 @@ namespace SDNUMobile.SDK
 
         #region 获取请求令牌
         /// <summary>
-        /// 异步获取请求令牌
+        /// 异步获取请求令牌（返回原始数据）
         /// </summary>
         /// <param name="callbackUrl">回调地址</param>
         /// <param name="callback">回调函数返回原始数据</param>
-        public void RequestRequestTokenAsync(String callbackUrl, Action<String> callback)
+        public void RequestRequestTokenRawResultAsync(String callbackUrl, Action<String> callback)
         {
             String url = this.OAuthRequestTokenUrl;
 
@@ -73,7 +73,7 @@ namespace SDNUMobile.SDK
         /// <param name="callback">回调函数返回错误实体（如果有）</param>
         public void RequestRequestTokenAsync(String callbackUrl, Action<TokenResult> callback)
         {
-            this.RequestRequestTokenAsync(callbackUrl, content =>
+            this.RequestRequestTokenRawResultAsync(callbackUrl, content =>
             {
                 if (callback != null)
                 {
@@ -96,12 +96,12 @@ namespace SDNUMobile.SDK
         }
         
         /// <summary>
-        /// 异步获取请求令牌
+        /// 异步获取请求令牌（返回原始数据）
         /// </summary>
         /// <param name="callback">回调函数返回原始数据</param>
-        public void RequestRequestTokenAsync(Action<String> callback)
+        public void RequestRequestTokenRawResultAsync(Action<String> callback)
         {
-            this.RequestRequestTokenAsync(String.Empty, callback);
+            this.RequestRequestTokenRawResultAsync(String.Empty, callback);
         }
 
         /// <summary>
@@ -177,13 +177,13 @@ namespace SDNUMobile.SDK
 
         #region 获取访问令牌
         /// <summary>
-        /// 异步获取访问令牌
+        /// 异步获取访问令牌（返回原始数据）
         /// </summary>
         /// <param name="requestToken">请求令牌</param>
         /// <param name="verifier">令牌验证码</param>
         /// <param name="callback">回调函数返回原始数据</param>
         /// <exception cref="ArgumentNullException">请求令牌和令牌验证码不能为空</exception>
-        public void RequestAccessTokenAsync(RequestToken requestToken, String verifier, Action<String> callback)
+        public void RequestAccessTokenRawResultAsync(RequestToken requestToken, String verifier, Action<String> callback)
         {
             if (requestToken == null)
             {
@@ -225,7 +225,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">请求令牌和令牌验证码不能为空</exception>
         public void RequestAccessTokenAsync(RequestToken requestToken, String verifier)
         {
-            this.RequestAccessTokenAsync(requestToken, verifier, (String content) => { });
+            this.RequestAccessTokenRawResultAsync(requestToken, verifier, null);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace SDNUMobile.SDK
         /// <exception cref="ArgumentNullException">请求令牌和令牌验证码不能为空</exception>
         public void RequestAccessTokenAsync(RequestToken requestToken, String verifier, Action<TokenResult> callback)
         {
-            this.RequestAccessTokenAsync(requestToken, verifier, content =>
+            this.RequestAccessTokenRawResultAsync(requestToken, verifier, content =>
             {
                 if (callback != null)
                 {
